@@ -1,0 +1,18 @@
+
+
+.main-app{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: 
+    "aside main";
+}
+
+.app-header{
+    grid-area: aside;
+    position: fixed;
+}
+
+.container{
+    grid-area: main;
+    padding: 15px;
+}
