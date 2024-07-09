@@ -11,13 +11,20 @@ export function ProfilePage(){
     const user = useSelector(userState => userState.userModule.watchedUser)
 
     const params = useParams()
-    const [profile , setProfile] = useState(user)
+    const [profile , setProfile] = useState()
 
     useEffect(()=>{
-        console.log(user)
-        console.log(params)
-        loadUser(params.userId)
-    },[profile])
+        Init()
+        // console.log(user)
+        // console.log(params)
+        // loadUser(params.userId)
+        // setProfile(user)
+    },[user])
+
+    async function Init(){
+        await loadUser(params.userId)
+        setProfile(user)
+    }
 
     // async function loadProfile(){
     //     const profile = await userService.getById(params.userId)

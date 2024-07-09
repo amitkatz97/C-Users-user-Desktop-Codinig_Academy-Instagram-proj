@@ -21,15 +21,15 @@ export function storyReducer(state = initialState, action) {
             newState = { ...state, story: action.story }
             break
         case REMOVE_STORY:
-            const lastRemovedStory = state.stories.find(story => story.id === action.storyId)
-            stories = state.stories.filter(story => story.id !== action.storyId)
+            const lastRemovedStory = state.stories.find(story => story._id === action.storyId)
+            stories = state.stories.filter(story => story._id !== action.storyId)
             newState = { ...state, stories, lastRemovedStory }
             break
         case ADD_STORY:
             newState = { ...state, stories: [...state.stories, action.story] }
             break
         case UPDATE_STORY:
-            stories = state.stories.map(story => (story.id === action.story.id) ? action.story : story)
+            stories = state.stories.map(story => (story._id === action.story._id) ? action.story : story)
             newState = { ...state, stories }
             break
         case ADD_STORY_MSG:

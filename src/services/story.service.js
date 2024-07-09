@@ -46,9 +46,9 @@ async function remove(storyId) {
 
 async function save(story) {
     var savedStory
-    if (story.id) {
+    if (story._id) {
         const storyToSave = {...story,
-            id : story.id,
+            _id : story._id,
         }
         savedStory = await storageService.put(STORAGE_KEY, storyToSave)
     } else {
@@ -64,6 +64,8 @@ async function save(story) {
     }
     return savedStory
 }
+
+
 
 async function addCarMsg(carId, txt) {
     // Later, this is all done by the backend
@@ -93,8 +95,8 @@ async function _createStories(){
 
 function _createStory(user) {
     const story = {
-        id: utilService.makeId(),
-        txt: "Somthing to write on the post",
+        _id: utilService.makeId(),
+        txt: "Something to write on the post",
         imgUrl: `src/imgs/img${utilService.getRandomIntInclusive(1,7)}.jpg`, 
         by: {
             _id: user._id,
@@ -123,6 +125,15 @@ function _createStory(user) {
             }
             ]
          },
+         {
+            id: "c1004",
+            by: {
+                _id: "u106",
+                fullname: "Ron",
+                imgUrl: "http://some-img"
+            },
+            txt: "Very Nice!",
+         }
         ],
         likedBy: [
             {
@@ -141,30 +152,7 @@ function _createStory(user) {
     return story
 }
 
-function _createUser(){
-    const user = {
-    _id: "u101",
-    username: "Muko",
-    password: "mukmuk",
-    fullname: "Muki Muka",
-    imgUrl: "http://some-img",
-    following: [
-        {
-        _id: "u106",
-        fullname: "Dob",
-        imgUrl: "http://some-img"
-        }
-    ],
-    followers: [
-        {
-        _id: "u105",
-        fullname: "Bob",
-        imgUrl: "http://some-img"
-        }
-      ],
-     }
-        return user 
-}
+
 
 
 

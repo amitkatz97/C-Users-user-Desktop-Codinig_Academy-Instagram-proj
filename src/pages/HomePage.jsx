@@ -3,7 +3,8 @@ import { loadStories , addStory ,removeStory , updateStory} from "../store/story
 import { store } from "../store/store"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link ,Outlet } from "react-router-dom"
+import { StoryPreview } from "../cmps/StoryPreview"
 
 
 export function HomePage() {
@@ -24,25 +25,17 @@ export function HomePage() {
     return (
         <section>
             <h1>Home sweet Home</h1>
-            <ul>
+            <ul className="home">
                 {stories.map(story =>
-                    <li key={story.id} onClick={() => {test(story)}}>
-                        <Link to={`/${story.by._id}`}>
-                        <article>{story.by.fullname} 
-                        {story.likedBy.map(user => 
-                        <span> {user.fullname}</span>
-                        )}
-                        </article>
-                        </Link>
-                        <article>{story.id}</article>
-                        <img src= {story.imgUrl}/>
-                        <button onClick={()=> {removeStory(story.id)}}>Remove</button>
-                        <button onClick={()=> {updateStory(story5)}}>Edit</button>
-                       
+                    <li key={story._id} onClick={() => {test(story)}}>
+                        <StoryPreview story = {story} />
                     </li>
                 )}
             </ul>
             <button onClick={() => {addStory(story4)}}> Add Story</button>
+            <div className="story-detailes">
+                <Outlet/>
+            </div>
         </section >
     )
 }

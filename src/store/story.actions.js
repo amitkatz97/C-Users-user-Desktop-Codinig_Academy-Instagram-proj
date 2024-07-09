@@ -13,13 +13,13 @@ export async function loadStories() {
     }
 }
 
-export async function loadCar(storyId) {
+export async function loadStory(storyId) {
     try {
-        const car = await storyService.getById(storyId)
-        console.log('Car from DB:', car)
-        store.dispatch(getCmdSetCar(car))
+        const story = await storyService.getById(storyId)
+        console.log('Story from DB:', story)
+        store.dispatch(getCmdSetStory(story))
     } catch (err) {
-        console.log('Cannot load car', err)
+        console.log('Cannot load story', err)
         throw err
     }
 }
@@ -78,10 +78,10 @@ function getCmdSetStories(stories) {
         stories
     }
 }
-function getCmdSetCar(car) {
+function getCmdSetStory(story) {
     return {
-        type: SET_CAR,
-        car
+        type: SET_STORY,
+        story
     }
 }
 function getCmdRemoveStory(storyId) {

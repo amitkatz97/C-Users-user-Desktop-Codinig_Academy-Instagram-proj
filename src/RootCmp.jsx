@@ -6,6 +6,7 @@ import { ProfilePage } from './pages/ProfilePage'
 import { MessagePage } from "./pages/MessagePage"
 import { ConverstaionPage}  from "./pages/ConverstaionPage"
 import { ExplorePage } from "./pages/ExplorePage"
+import { StoryDetails } from './cmps/StoryDetails'
 
 
 
@@ -19,7 +20,9 @@ export function RootCmp() {
                 <AppHeader />
                     <main className='container'>
                         <Routes>
-                            <Route path='/' element ={<HomePage/>}/>
+                            <Route path='/' element ={<HomePage/>}>
+                                <Route path='/p/:storyId' element = {<StoryDetails/>}/>
+                            </Route>
                             <Route path='/:userId' element = {<ProfilePage/>}/>
                             <Route path='/direct' element ={<MessagePage/>}>
                                 <Route path='/direct/:convid' element ={<ConverstaionPage/>}/>

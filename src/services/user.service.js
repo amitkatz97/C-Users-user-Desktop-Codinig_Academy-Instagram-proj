@@ -20,7 +20,9 @@ export const userService = {
 
 window.userService = userService
 
+
 _createUsers()
+
 
 function getUsers() {
     return storageService.query(STORAGE_KEY_USERS)
@@ -82,13 +84,14 @@ async function changeScore(by) {
 
 
 function saveLocalUser(user) {
-    user = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl, score: user.score, isAdmin : user.isAdmin }
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+    user = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl,following: user.following, followers: user.followers}
+    utilService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER,user)
     return user
 }
 
-function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+async function getLoggedinUser() {
+    const loggedInUser = await utilService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
+    return loggedInUser
 }
 
 function _createUsers(){
@@ -125,6 +128,32 @@ function _createUser(){
         return user 
 }
 
+// creation of logged in user- need to change when i will create loggin page:
+const my_user = {
+    _id: 'A1997',
+    fullname: 'Amit_Katz',
+    imgUrl: `src/imgs/profileImg/my_photo.jpg`,
+    following: [
+        {
+        _id: "u106",
+        fullname: "Ronny",
+        imgUrl: "http://some-img"
+        },
+        {
+        _id: "u107",
+        fullname: "Shoshana",
+        imgUrl: "http://some-img"
+        }
+    ],
+    followers: [
+        {
+        _id: "u105",
+        fullname: "Bob",
+        imgUrl: "http://some-img"
+        }
+      ],
+}
+saveLocalUser(my_user)
 
 
 // ;(async ()=>{
