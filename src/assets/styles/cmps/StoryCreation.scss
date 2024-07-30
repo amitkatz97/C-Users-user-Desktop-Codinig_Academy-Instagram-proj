@@ -1,0 +1,104 @@
+.story-create-overlay{
+    position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .close-btn{
+            align-self: self-start;
+            margin-top: 155px;
+            color: #fff;
+            font-size: rem(20px);
+            font-weight: 600;
+        }
+}   
+
+
+.story-create-form{
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
+        padding: 20px;
+        width: 60%;
+        height: 80%;
+        overflow: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        
+        .image-uploading{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            max-height: 100%;
+
+        }
+
+        h2{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+
+        .image-preview{
+            display: flex;
+            justify-content: center;
+            display: none;
+            max-width: 500px;
+            max-height: 700px;
+            .uploaded-img{
+                max-width: 500px;
+                max-height: 700px;
+            }
+        }
+
+        .story-information{
+            display: none;
+            align-self: baseline;
+            margin-top: 15px;
+           
+            .story-description{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-bottom: 5px;
+
+                img{
+                    border-radius: 50%;
+                    width:30px;
+                    height: 30px;
+                    margin-right: 15px;
+                }
+
+            }
+            .descprition{
+                text-align: start;
+                width: 200px;
+                height: 200px;
+                border: none;
+                border-radius: 10px;
+            
+            }
+        }
+}
+#photo{
+    display: none;
+}

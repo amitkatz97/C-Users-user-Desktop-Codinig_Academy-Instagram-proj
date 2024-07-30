@@ -1,5 +1,5 @@
 import { NavLink} from 'react-router-dom'
-import { useNavigate } from 'react-router'
+import { Outlet, useNavigate } from 'react-router'
 import {useSelector} from 'react-redux'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { login, logout, signup } from '../store/user.actions'
@@ -11,10 +11,31 @@ import ChatIcon from '@mui/icons-material/Chat';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { ImgUploader } from './ImgUploader.jsx'
+import { StoryCreation } from './StoryCreation.jsx'
+import { useState } from 'react'
+
+// function onCreate(){
+//     console.log('creation is active')
+//     return (
+//         <div><StoryCreation/></div>
+//     )
+// }
 
 
 
 export function AppHeader() {
+
+    const [isModalOpen, setIsModalOpan]= useState(false)
+    const currentUser = useSelector(userState => userState.userModule.user)
+
+    function openModal(){
+        setIsModalOpan(true)
+    }
+
+    function closeModal(){
+        setIsModalOpan(false)
+    }
     return (
         <> 
         <div className='app-header'>
@@ -45,15 +66,17 @@ export function AppHeader() {
             </NavLink>
             </div>
             <div>
-            <NavLink to ={'/'} className="nav-link" activeClassName = "active">
+            <NavLink className="nav-link" activeClassName = "active" onClick={openModal}>
                 <span> Create <button> <AddCircleOutlineOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div>
-            <NavLink to ={'/'} className="nav-link" activeClassName = "active">
-                <span> My Profile <button> Picture </button> </span>
+            <NavLink to ={currentUser._id} className="nav-link" activeClassName = "active">
+                <span> My Profile <button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
             </NavLink>
             </div>
+            <StoryCreation isOpen ={isModalOpen} onClose={closeModal}/>
+           
         </div>
         </>
     )

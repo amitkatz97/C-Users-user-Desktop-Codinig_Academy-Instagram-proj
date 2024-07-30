@@ -29,9 +29,12 @@
 @import "cmps/UserMsg";
 @import "cmps/StoryPreview.scss";
 @import "cmps/StoryDetails.scss";
+@import 'cmps/StoryCreation.scss';
+@import'cmps/Accordion.scss' ;
 
 //Pages
 @import "pages/Home.scss";
+@import "pages/ProfilePage.scss";
 
 
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"

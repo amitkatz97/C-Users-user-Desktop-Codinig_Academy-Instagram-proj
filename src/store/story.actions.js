@@ -7,6 +7,7 @@ export async function loadStories() {
         const stories = await storyService.query()
         console.log('stories from DB:', stories)
         store.dispatch(getCmdSetStories(stories))
+        return stories
     } catch (err) {
         console.log('Cannot load stories', err)
         throw err

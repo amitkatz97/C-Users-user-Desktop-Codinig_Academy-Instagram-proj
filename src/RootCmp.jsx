@@ -12,6 +12,7 @@ import { StoryDetails } from './cmps/StoryDetails'
 
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
+import { StoryCreation } from './cmps/StoryCreation'
 
 export function RootCmp() {
     return (

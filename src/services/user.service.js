@@ -85,13 +85,12 @@ async function changeScore(by) {
 
 function saveLocalUser(user) {
     user = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl,following: user.following, followers: user.followers}
-    utilService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER,user)
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
 
-async function getLoggedinUser() {
-    const loggedInUser = await utilService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
-    return loggedInUser
+function getLoggedinUser() {
+    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
 function _createUsers(){

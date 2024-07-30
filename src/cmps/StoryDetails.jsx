@@ -8,9 +8,11 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
+import { StoryPreview } from './StoryPreview'
+import { Accordion } from './Accordion.jsx'
 
 
-export function StoryDetails(){
+export function StoryDetails({onLike}){
 
     const story = useSelector(storyState => storyState.storyModule.story)
 

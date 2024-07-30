@@ -11,12 +11,14 @@ export const storyService = {
     getById,
     save,
     remove,
-    addCarMsg
+    addCarMsg,
+    getEmptyStory
 }
 
 Init()
 
 async function Init(){
+    console.log('Init sotories')
   await _createStories()
 }
 
@@ -44,23 +46,47 @@ async function remove(storyId) {
     await storageService.remove(STORAGE_KEY, storyId)
 }
 
+async function getEmptyStory(){
+    const user =  userService.getLoggedinUser()
+    const story = {
+        _id: utilService.makeId(),
+        txt: "",
+        imgUrl: ``, 
+        by: {
+            _id: user._id,
+            fullname: user.fullname,
+            imgUrl: user.imgUrl
+        },
+        loc: { // Optional
+            lat: 11.11, 
+            lng: 22.22,
+            name: "Tel Aviv"
+        },
+        comments: [
+           ],
+        likedBy:[],
+        tags: []
+    }
+    return story
+} 
+
 async function save(story) {
     var savedStory
-    if (story._id) {
+    if (story._id === 0) {
         const storyToSave = {...story,
             _id : story._id,
         }
         savedStory = await storageService.put(STORAGE_KEY, storyToSave)
     } else {
         // Later, owner is set by the backend
-        const storyToSave = {
-            txt : story.txt,
-            imgURL : story.imgURL,
-            by: story.by,
-            comments: [],
-            likedBy: []
-        }
-        savedStory = await storageService.post(STORAGE_KEY, storyToSave)
+        // const storyToSave = {
+        //     txt : story.txt,
+        //     imgURL : story.imgURL,
+        //     by: story.by,
+        //     comments: [],
+        //     likedBy: []
+        // }
+        savedStory = await storageService.post(STORAGE_KEY, story)
     }
     return savedStory
 }
@@ -137,7 +163,7 @@ function _createStory(user) {
         ],
         likedBy: [
             {
-            _id: "u105",
+            _id: "A197",
             fullname: "Bob",
             imgUrl: "http://some-img"
             },

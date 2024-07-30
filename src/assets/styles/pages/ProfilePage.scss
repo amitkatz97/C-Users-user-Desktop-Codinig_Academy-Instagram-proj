@@ -1,0 +1,61 @@
+
+.user-profile{
+    display: flex;
+    flex-direction: column;
+
+    .user-info{
+        display: flex;
+        flex-direction: row;
+
+        img{
+            border-radius: 50%;
+            width:150px;
+            height: 150px;
+            margin-right: 15px;
+            align-self: center;
+            margin-right: 100px;
+        }
+
+        .user-data{
+           display: flex;
+           flex-direction: column;
+           
+
+           .actions{
+            display: flex;
+            align-items:center;
+           
+
+                button{
+                    background-color: $gray1;
+                    border-radius: 10px;
+                    margin-left: 20px;
+
+                }
+
+                button:hover{
+                    transition: 0.3s;
+                    background-color: $gray2
+                }
+
+
+           }
+
+           .follow{
+            margin-top: 30px;
+            display: flex;
+
+            div{
+                margin-right: 25px;
+                font-weight: 700;
+
+                span{
+                    font-size: small;
+                    margin-left: 2px;
+                    
+                }
+            }
+           }
+        }
+    }
+}
