@@ -1,0 +1,29 @@
+.comment-area{
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+    "input add emoji";
+        input{
+            grid-area: input;
+            border: none;
+        }
+
+        input:focus{
+          outline: none;
+        }
+
+        .add-btn{
+            grid-area: add;
+            color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .emoji-btn{
+            grid-area: emoji;
+        }
+
+}
+

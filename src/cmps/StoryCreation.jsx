@@ -2,31 +2,25 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { Link, Outlet } from "react-router-dom"
 import { loadStories , addStory ,removeStory , updateStory} from "../store/story.actions"
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
-import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
-import { utilService } from "../services/util.service";
 import { storyService } from "../services/story.service";
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
 import { Accordion } from '../cmps/Accordion.jsx';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import EmojiList from "./EmojiList.jsx";
 
-export function StoryCreation({isOpen , onClose}){
+export function StoryCreation({isOpen , closeModal}){
     
     const [newStory, setNewStory] = useState({})
+    const [isEmojiOpen, setEmojiOpen] = useState(false)
+    const [inputValue, setInputValue] = useState('')
 
     useEffect(()=> {
        Init()
-    //    console.log('Hey')
     }, [isOpen])
 
-    // useEffect(()=> {
-    //     console.log(newStory)
-    // }, [newStory])
 
     async function Init(){
         const story = await storyService.getEmptyStory()
-        // console.log(story)
         setNewStory(story)
     }
 
@@ -60,21 +54,42 @@ export function StoryCreation({isOpen , onClose}){
 
     function handelChange(ev){
         ev.preventDefault()
+        setInputValue(ev.target.value)
         const story = {...newStory, txt : ev.target.value }
         setNewStory(story)
     }
+    const toggleDropdown = () => setEmojiOpen(prev => !prev);
+
+    function handleSelect(emoji){
+        const { selectionStart, selectionEnd } = document.getElementById('descprition');
+            // Insert emoji at the cursor position
+            const newValue =
+            inputValue.slice(0, selectionStart) +
+            emoji +
+            inputValue.slice(selectionEnd);
+        setInputValue(newValue);
+        const story =  {...newStory, txt :newValue }
+        setNewStory(story)
+        setEmojiOpen(false);
+      };
 
     async function onSave(){
-        console.log(newStory)
         addStory(newStory)
         onClose()
     }
+
+    function onClose(){
+        setInputValue("")
+        closeModal()
+    }
+
+    
         
 
 if (!isOpen) return null
     return(
     <div className="story-create-overlay">
-     <button onClick={onClose}>X</button>
+     <button onClick={onClose} className="close-btn">X</button>
             <section className="story-create-form">
                 {/* <header>Hey!</header> */}
             <div className="image-uploading">
@@ -90,17 +105,26 @@ if (!isOpen) return null
                 <img id='preview' className='uploaded-img' src="#" alt="Uploaded Image" />
             </div>
             </div>
+            <section>
             {(newStory.imgUrl !== '') ? (
-            <button id="next" className= 'next' onClick={onContinueUploading}>Next</button> ) : (<div> </div>)
+            <button id="next" className= 'next-btn' onClick={onContinueUploading}>Next</button> ) : (<div> </div>)
             }
             <article id ="story-information" className="story-information">
                     <article className="story-description">
                        <img src={newStory.by.imgUrl} /> <span>{newStory.by.fullname}</span>
                     </article>
                     <label htmlFor="descprition"></label>
-                    <input className="descprition" type="text" id="descprition" name="descprition" placeholder="Add Something" onChange={handelChange} />
-                    <button onClick={onSave}>Share</button>
+                    <input 
+                        className="descprition" type="text" id="descprition" name="descprition" 
+                        placeholder="Add Something" 
+                        value={inputValue}
+                        onChange={handelChange}
+                         />
+                    <button  onClick={toggleDropdown}><InsertEmoticonIcon/></button>
+                    <EmojiList isEmojiOpen= {isEmojiOpen} onSelect= {handleSelect}/>
+                    <button onClick={onSave} className="next-btn">Share</button>
             </article>
+            </section>
             </section>
             
 

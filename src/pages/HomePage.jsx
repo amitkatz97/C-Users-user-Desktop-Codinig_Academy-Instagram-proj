@@ -1,5 +1,5 @@
 import { storyReducer } from "../store/story.reducer"
-import { loadStories , addStory ,removeStory , updateStory} from "../store/story.actions"
+import { loadStories , addStory ,removeStory , updateStory, addLike} from "../store/story.actions"
 import { store } from "../store/store"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
@@ -8,30 +8,34 @@ import { StoryPreview } from "../cmps/StoryPreview"
 
 
 export function HomePage() {
-    // const stories = useSelector(storeState => storeState.storyModule.stories)
+    const stories = useSelector(storeState => storeState.storyModule.stories)
+    const user = useSelector(userState => userState.userModule.user)
+    const [isUserLike, setIsUserLike] = useState(false)
 
-    const [storiesList, setStoriesList] = useState()
-   
     useEffect(() =>{
-       Init()
+        loadStories()
     },[])
 
-    async function Init(){
-        const stories = await loadStories()
-        setStoriesList(stories)
+
+    function onLike(story){
+        addLike(story, user)
     }
 
 
+
+
+
+
    
 
-    if (!storiesList) return <div>loading...</div>
+    if (!stories) return <div>loading...</div>
     return (
         <section>
             <h1>Home sweet Home</h1>
             <ul className="home">
-                {storiesList.map(story =>
+                {stories.map(story =>
                     <li key={story._id}>
-                        <StoryPreview story = {story} />
+                        <StoryPreview story = {story} onLike={onLike}/>
                     </li>
                 )}
             </ul>

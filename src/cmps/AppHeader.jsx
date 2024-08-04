@@ -40,42 +40,42 @@ export function AppHeader() {
         <> 
         <div className='app-header'>
             <h1>SociatyGram</h1>
-            <div>
+            <div className='panel-link'>
             <NavLink to ={'/direct'} className="nav-link" activeClassName = "active">
                 <span> Messages <button> <ChatIcon/> </button> </span>
             </NavLink>
             </div>
-            <div>
+            <div className='panel-link'>
             <NavLink to ={'/'} className="nav-link" activeClassName = "active">
                 <span> Home <button> <HomeIcon/> </button></span>
             </NavLink>
             </div>
-            <div>
+            <div className='panel-link'> 
             <NavLink to ={'/explore'} className="nav-link" activeClassName = "active">
                 <span>Explore <button> <ExploreIcon/> </button> </span>
             </NavLink>
             </div>
-            <div>
+            <div className='panel-link'>
             <NavLink to ={'/'} className="nav-link" activeClassName = "active">
                 <span> Search <button> <SearchOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
-            <div>
+            <div className='panel-link'>
             <NavLink to ={'/'} className="nav-link" activeClassName = "active">
                 <span> Notifications <button> <FavoriteBorderOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
-            <div>
+            <div className='panel-link'>
             <NavLink className="nav-link" activeClassName = "active" onClick={openModal}>
                 <span> Create <button> <AddCircleOutlineOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
-            <div>
+            <div className='panel-link'>
             <NavLink to ={currentUser._id} className="nav-link" activeClassName = "active">
                 <span> My Profile <button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
             </NavLink>
             </div>
-            <StoryCreation isOpen ={isModalOpen} onClose={closeModal}/>
+            <StoryCreation isOpen ={isModalOpen} closeModal={closeModal}/>
            
         </div>
         </>

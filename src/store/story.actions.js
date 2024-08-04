@@ -1,4 +1,5 @@
 import { storyService } from '../services/story.service.js'
+import { utilService } from '../services/util.service.js'
 import { store } from './store.js'
 import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_MSG } from './story.reducer.js'
 
@@ -19,6 +20,7 @@ export async function loadStory(storyId) {
         const story = await storyService.getById(storyId)
         console.log('Story from DB:', story)
         store.dispatch(getCmdSetStory(story))
+        return story
     } catch (err) {
         console.log('Cannot load story', err)
         throw err
@@ -37,20 +39,21 @@ export async function removeStory(storyId) {
 }
 
 export async function addStory(story) {
+    store.dispatch(getCmdAddStory(story))
     try {
         const savedStory = await storyService.save(story)
         console.log('Added Story', savedStory)
-        store.dispatch(getCmdAddStory(savedStory))
         return savedStory
     } catch (err) {
         console.log('Cannot add Story', err)
+        store.dispatch(getCmdRemoveStory(story._id))
         throw err
     }
 }
 
 export async function updateStory(story) {
     try {
-        const savedStory = await storyService.save(story)
+        const savedStory = await storyService.update(story)
         console.log('Updated Story:', savedStory)
         store.dispatch(getCmdUpdateStory(savedStory))
         return savedStory
@@ -70,6 +73,51 @@ export async function addCarMsg(storyId, txt) {
         console.log('Cannot add car msg', err)
         throw err
     }
+}
+
+export async function addLike(story, user){
+    const {likedBy}= story 
+    let isUserLike
+        let likeStatus = likedBy.filter(userLike => userLike._id === user._id)
+        if(likeStatus.length === 0){
+        likedBy.push(
+            {
+                _id: user._id,
+                fullname: user.fullname,
+                imgUrl: user.imgUrl
+            }
+        ),isUserLike = true }  else {
+            let indexToRemove= likedBy.findIndex(userLike => userLike._id === user._id)
+            likedBy.splice(indexToRemove, 1)
+            isUserLike = false
+        }
+        updateStory(story)
+        return isUserLike
+}
+
+export async function addComment(story, user, input){
+    const {comments} = story
+    comments.push(
+        {
+            id: utilService.makeId(),
+            by:{
+                _id: user._id,
+                fullname: user.fullname,
+                imgUrl: user.imgUrl
+            },
+            txt: input,
+            likedBy: []
+        }
+    )
+    updateStory(story)
+}
+
+export function isUserLikeCheck(story, user){
+    const {likedBy} = story
+    let indexToRemove= likedBy.findIndex(userLike => userLike._id === user._id)
+    if (indexToRemove < 0 ) 
+        { return false }
+    else return true
 }
 
 // Command Creators:

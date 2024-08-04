@@ -73,7 +73,20 @@
                 button{
                     padding: 5px;
                 }
+
+                .icon{
+                    color : red
+                }
             }
+
+        }
+        .users-comments{
+            overflow: hidden;
+            overflow-y: scroll;
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            max-height: 250px;
+            
         }
     }
 }

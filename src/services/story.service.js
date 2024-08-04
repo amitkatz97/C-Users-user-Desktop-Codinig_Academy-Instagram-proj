@@ -12,7 +12,8 @@ export const storyService = {
     save,
     remove,
     addCarMsg,
-    getEmptyStory
+    getEmptyStory,
+    update
 }
 
 Init()
@@ -37,8 +38,9 @@ async function query() {
     return stories
 }
 
-function getById(storyId) {
-    return storageService.get(STORAGE_KEY, storyId)
+async function getById(storyId) {
+   let story = await storageService.get(STORAGE_KEY, storyId)
+   return story
 }
 
 async function remove(storyId) {
@@ -71,23 +73,20 @@ async function getEmptyStory(){
 } 
 
 async function save(story) {
-    var savedStory
-    if (story._id === 0) {
-        const storyToSave = {...story,
-            _id : story._id,
-        }
-        savedStory = await storageService.put(STORAGE_KEY, storyToSave)
-    } else {
-        // Later, owner is set by the backend
-        // const storyToSave = {
-        //     txt : story.txt,
-        //     imgURL : story.imgURL,
-        //     by: story.by,
-        //     comments: [],
-        //     likedBy: []
-        // }
-        savedStory = await storageService.post(STORAGE_KEY, story)
+    const storyToSave = {
+        ...story, _id: utilService.makeId()
     }
+    const savedStory = await storageService.post(STORAGE_KEY, storyToSave)
+    console.log(savedStory)
+    return savedStory
+}
+
+async function update(storyToSave){
+    const stories = await query()
+    const idx = stories.findIndex(story => story._id === storyToSave._id )
+    stories[idx] = storyToSave
+    console.log(storyToSave)
+    const savedStory = await storageService.put(STORAGE_KEY, storyToSave)
     return savedStory
 }
 

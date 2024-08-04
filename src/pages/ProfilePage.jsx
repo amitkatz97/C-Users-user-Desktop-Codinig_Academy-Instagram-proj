@@ -7,6 +7,7 @@ import { userService } from '../services/user.service'
 import { loadUser } from '../store/user.actions'
 import { loadStories } from '../store/story.actions'
 import { StoryPreview } from '../cmps/StoryPreview'
+import Loader from '../cmps/Loader.jsx'
 
 export function ProfilePage(){
 
@@ -46,8 +47,14 @@ export function ProfilePage(){
         setNumOfStories(num_of_stories)
     }
 
+    async function getUserStories(){
+        const userStoriesList = stories.filter(story => story.by._id === profile._id)
+        console.log(userStoriesList)
+        return userStoriesList
+    }
 
-    if (!profile) return <div>loading...</div>
+
+    if (!profile) return <div><Loader/></div>
     return(
         <>
         <div className='user-profile'>
@@ -68,7 +75,7 @@ export function ProfilePage(){
                 </section>
             </section>
             <section className='user-posts'>
-                <p>Here will be posts</p>
+                <p onClick={getUserStories}>Here will be posts</p>
                 {/* <StoryPreview/> */}
             </section>
         </div>
