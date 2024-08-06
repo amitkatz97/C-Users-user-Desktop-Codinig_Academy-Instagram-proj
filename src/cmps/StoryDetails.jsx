@@ -8,6 +8,7 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
 import { updateStory } from '../store/story.actions.js';
 import { CommentAdding } from './CommentAdding.jsx';
+import Loader from './Loader.jsx';
 
 
 
@@ -16,8 +17,9 @@ export function StoryDetails(){
     const story = useSelector(storyState => storyState.storyModule.story)
     const user = useSelector(userState => userState.userModule.user)
     const stories = useSelector(storeState => storeState.storyModule.stories)
-
+    
     const [isUserLike, setIsUserLike] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
     
 
@@ -26,8 +28,13 @@ export function StoryDetails(){
     
 
     useEffect(()=> {
-        loadStory(params.storyId) // need to try to implemnt "then" 
+       updateStory() 
     },[])
+
+    async function updateStory(){
+        await loadStory(params.storyId)
+        setIsLoading(false)
+    }
 
     useEffect(()=> {
         setTimeout(() => {
@@ -37,7 +44,13 @@ export function StoryDetails(){
     
 
     function onClose(){
-        navigate('/')
+       let paramsKeys = Object.keys(params)
+       let lastKey = paramsKeys[paramsKeys.length -1]
+       delete params[lastKey]
+        if (paramsKeys.includes('userId')) {
+            const {userId} = params
+            navigate(`/${userId}`)}
+        else {navigate('/')}
     }
 
     async function onLike(){
@@ -46,7 +59,7 @@ export function StoryDetails(){
     }
 
 
-    if (!story) return <div>loading...</div>
+    if (isLoading) return <Loader/>
     return(
         <div className='story-details'>
             <div className='overlay'>

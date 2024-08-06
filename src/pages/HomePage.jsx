@@ -21,13 +21,6 @@ export function HomePage() {
         addLike(story, user)
     }
 
-
-
-
-
-
-   
-
     if (!stories) return <div>loading...</div>
     return (
         <section>

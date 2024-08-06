@@ -45,7 +45,7 @@ export function CommentAdding({story, user}){
                 <button className= "add-btn"onClick={onSave}>Add</button>
             ): (<div> </div>)
             }
-            <button className= "emoji-btn" onClick={toggleDropdown}><InsertEmoticonIcon fontSize="small" style={{opacity: 0.4}}/></button>
+            <button className= "emoji-btn" onClick={toggleDropdown}><InsertEmoticonIcon fontSize="small" className="emoji-icon"/></button>
             <EmojiList isEmojiOpen= {isEmojiOpen} onSelect={handleSelect}/>
             
         </div>

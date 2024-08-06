@@ -13,15 +13,12 @@ export const storyService = {
     remove,
     addCarMsg,
     getEmptyStory,
-    update
+    update,
+    createStories
 }
 
-Init()
 
-async function Init(){
-    console.log('Init sotories')
-  await _createStories()
-}
+
 
 async function query() {
     var stories = await storageService.query(STORAGE_KEY)
@@ -107,7 +104,7 @@ async function addCarMsg(carId, txt) {
     return msg
 }
 
-async function _createStories(){
+async function createStories(){
     const users = await storageService.query('userDB')
     console.log(users)
     const stories= []
@@ -115,7 +112,9 @@ async function _createStories(){
         stories.push(_createStory(users[i]))
     }
     console.log(stories)
-    utilService.saveToStorage(STORAGE_KEY, stories)
+    // utilService.saveToStorage(STORAGE_KEY, stories)
+    console.log('_createStories: stories were created', stories)
+    return stories
 }
 
 function _createStory(user) {

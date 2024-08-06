@@ -3,6 +3,28 @@ import { utilService } from '../services/util.service.js'
 import { store } from './store.js'
 import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_MSG } from './story.reducer.js'
 
+
+
+createStories()
+// fill the local storage with randomly generated stories
+async function createStories() {
+    try {
+        const stories = await storyService.query()
+        if (!stories || stories.length === 0) {
+            console.log('create stories now')
+            // get an array of randomly-generated stories
+            const newStories = await storyService.createStories()
+            // add each of these stories through redux (storage + store)
+            for (const newStory of newStories) {
+                await addStory(newStory)
+            }
+        }
+    } catch (err) {
+        console.log('Cannot load stories', err)
+    }
+}
+
+
 export async function loadStories() {
     try {
         const stories = await storyService.query()

@@ -41,37 +41,37 @@ export function AppHeader() {
         <div className='app-header'>
             <h1>SociatyGram</h1>
             <div className='panel-link'>
-            <NavLink to ={'/direct'} className="nav-link" activeClassName = "active">
+            <NavLink to ={'/direct'} className="nav-link" activeclassname = "active">
                 <span> Messages <button> <ChatIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink to ={'/'} className="nav-link" activeClassName = "active">
+            <NavLink to ={'/'} className="nav-link" activeclassname = "active">
                 <span> Home <button> <HomeIcon/> </button></span>
             </NavLink>
             </div>
             <div className='panel-link'> 
-            <NavLink to ={'/explore'} className="nav-link" activeClassName = "active">
+            <NavLink to ={'/explore'} className="nav-link" activeclassname = "active">
                 <span>Explore <button> <ExploreIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink to ={'/'} className="nav-link" activeClassName = "active">
+            <NavLink to ={'/'} className="nav-link" activeclassname = "active">
                 <span> Search <button> <SearchOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink to ={'/'} className="nav-link" activeClassName = "active">
+            <NavLink to ={'/'} className="nav-link" activeclassname = "active">
                 <span> Notifications <button> <FavoriteBorderOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink className="nav-link" activeClassName = "active" onClick={openModal}>
+            <NavLink className="nav-link" activeclassname = "active" onClick={openModal}>
                 <span> Create <button> <AddCircleOutlineOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink to ={currentUser._id} className="nav-link" activeClassName = "active">
+            <NavLink to ={currentUser._id} className="nav-link" activeclassname = "active">
                 <span> My Profile <button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
             </NavLink>
             </div>

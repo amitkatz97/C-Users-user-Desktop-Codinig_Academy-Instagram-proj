@@ -23,6 +23,10 @@
 
         .emoji-btn{
             grid-area: emoji;
+
+            .emoji-icon{
+               color: $gray3;
+            }
         }
 
 }
