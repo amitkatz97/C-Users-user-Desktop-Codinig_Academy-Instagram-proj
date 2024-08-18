@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux'
 
 export function UserStories({story, profile}){
 
-    
 
     const navigate = useNavigate()
     const [isHovered, setIsHovered] = useState(false)

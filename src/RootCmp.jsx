@@ -13,6 +13,7 @@ import { StoryDetails } from './cmps/StoryDetails'
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
 import { StoryCreation } from './cmps/StoryCreation'
+import { LoginSignup } from './pages/LoginSignup'
 
 export function RootCmp() {
     return (
@@ -31,6 +32,7 @@ export function RootCmp() {
                                 <Route path='/direct/:convid' element ={<ConverstaionPage/>}/>
                             </Route>
                             <Route path='/explore' element= {<ExplorePage />}/>
+                            <Route path='/login' element= {<LoginSignup/>}/>
                         </Routes>
                     </main>
             </div>

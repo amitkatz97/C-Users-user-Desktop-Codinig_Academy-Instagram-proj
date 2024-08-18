@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router'
 import {useSelector} from 'react-redux'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { login, logout, signup } from '../store/user.actions'
-import { LoginSignup } from './LoginSignup.jsx'
+import { LoginSignup } from '../pages/LoginSignup.jsx'
 import { storyService } from '../services/story.service.js'
 import HomeIcon from '@mui/icons-material/Home';
 import ExploreIcon from '@mui/icons-material/Explore';
@@ -74,6 +74,12 @@ export function AppHeader() {
             <NavLink to ={currentUser._id} className="nav-link" activeclassname = "active">
                 <span> My Profile <button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
             </NavLink>
+            </div>
+            <div className='panel-link'>
+                <NavLink to={"/login"} className="nav-link" activeclassname = "active">
+                <span> Login <button></button> </span>
+                </NavLink>
+
             </div>
             <StoryCreation isOpen ={isModalOpen} closeModal={closeModal}/>
            
