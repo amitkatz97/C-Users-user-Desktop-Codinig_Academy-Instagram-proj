@@ -24,7 +24,6 @@ export function HomePage() {
     if (!stories) return <div>loading...</div>
     return (
         <section>
-            <h1>Home sweet Home</h1>
             <ul className="home">
                 {stories.map(story =>
                     <li key={story._id}>

@@ -8,6 +8,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1000;
 
         .close-btn{
             align-self: self-start;
@@ -30,7 +31,6 @@
 
 
 .story-create-form{
-        // position: relative;
         justify-self: center;
         background-color: #fff;
         border-radius: 8px;
@@ -41,8 +41,8 @@
         overflow: auto;
         display: flex;
         flex-direction: row;
-        // align-items: center;
         justify-content: center;
+        z-index: 1001;
         
         .image-uploading{
             // position: absolute;

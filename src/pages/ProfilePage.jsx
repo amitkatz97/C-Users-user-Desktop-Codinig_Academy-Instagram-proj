@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Link ,Outlet ,NavLink} from 'react-router-dom'
+import { Link ,Outlet ,NavLink, useNavigate} from 'react-router-dom'
 import { storyService } from '../services/story.service'
 import { userService } from '../services/user.service'
 import { loadUser } from '../store/user.actions'
@@ -18,6 +18,7 @@ export function ProfilePage(){
     const stories = useSelector(storeState => storeState.storyModule.stories)
 
     const params = useParams()
+    const navigate = useNavigate()
     const [profile , setProfile] = useState()
     const [userStories, setUserStories]= useState()
     const [isLoading, setIsLoading] = useState(true)
@@ -56,6 +57,10 @@ export function ProfilePage(){
         return userStoriesList
     }
 
+    function navigateToDetailes(adress){
+        navigate(`/${profile._id}/${adress}`)
+    }
+
 
     if (isLoading) return <div><Loader/></div>
     return(
@@ -84,7 +89,7 @@ export function ProfilePage(){
                 <section className='user-story-posts'>
                 {userStories.map(story =>
                     <li key={story._id}>
-                         <UserStories story ={story} profile ={profile}/>
+                         <UserStories story ={story} profile ={profile} navigateToDetailes ={navigateToDetailes}/>
                     </li>
                   
                 )}

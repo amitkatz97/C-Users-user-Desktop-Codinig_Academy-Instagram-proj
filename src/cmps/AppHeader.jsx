@@ -56,17 +56,17 @@ export function AppHeader() {
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink to ={'/'} className="nav-link" activeclassname = "active">
+            <NavLink to ={'/search'} className="nav-link" activeclassname = "active">
                 <span> Search <button> <SearchOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink to ={'/'} className="nav-link" activeclassname = "active">
+            <NavLink to ={'/notification'} className="nav-link" activeclassname = "active">
                 <span> Notifications <button> <FavoriteBorderOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
-            <NavLink className="nav-link" activeclassname = "active" onClick={openModal}>
+            <NavLink className="nav-link" onClick={openModal}>
                 <span> Create <button> <AddCircleOutlineOutlinedIcon/> </button> </span>
             </NavLink>
             </div>

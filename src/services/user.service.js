@@ -96,19 +96,23 @@ function getLoggedinUser() {
 function _createUsers(){
     const users= []
     for (var i = 0; i< 5; i++){
-        users.push(_createUser())
+        users.push(_createUser(i))
     }
     console.log(users)
     utilService.saveToStorage(STORAGE_KEY_USERS, users)
 }
 
-function _createUser(){
+
+function _createUser(i){
     const user = {
     _id: utilService.makeId(),
     // username: utilService.makeNameLorem(),
     // password: "mukmuk",
     fullname: utilService.makeNameLorem(),
-    imgUrl: `src/imgs/profileImg/img${utilService.getRandomIntInclusive(1,6)}.jpg`,
+    imgUrl: `src/imgs/profileImg/${i+1}.jpg`,
+    // imgUrl: `https://xsgames.co/randomusers/avatar.php?g=male`,
+
+    
     following: [
         {
         _id: "u106",

@@ -8,14 +8,13 @@ import { useSelector } from 'react-redux'
 
 
 
-export function UserStories({story, profile}){
+export function UserStories({story, profile, navigateToDetailes}){
 
 
     const navigate = useNavigate()
     const [isHovered, setIsHovered] = useState(false)
 
 const handleMouseEnter = () =>{
-    console.log("story from userStories:", story)
     setIsHovered(true)
 }
 
@@ -24,8 +23,8 @@ const handleMouseLeave = () =>{
 }
     
     if (!story) return <Loader/>
-    return(
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="user-story" onClick={() => {navigate(`/${profile._id}/${story._id}`)}}>
+    return (
+        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="user-story" onClick={() => {navigateToDetailes(story._id)}}>
             <img src={story.imgUrl} alt="" />
             {isHovered? (<div className="hovered">
                 <section className="like-display">

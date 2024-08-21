@@ -45,11 +45,16 @@ export function StoryDetails(){
 
     function onClose(){
        let paramsKeys = Object.keys(params)
+       console.log(params)
        let lastKey = paramsKeys[paramsKeys.length -1]
        delete params[lastKey]
         if (paramsKeys.includes('userId')) {
             const {userId} = params
             navigate(`/${userId}`)}
+        else if(paramsKeys.includes('explore')){
+            const {explore} = params
+            navigate(`/${explore}`)
+        }
         else {navigate('/')}
     }
 

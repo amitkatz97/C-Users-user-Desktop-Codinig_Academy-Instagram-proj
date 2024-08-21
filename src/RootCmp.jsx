@@ -31,7 +31,9 @@ export function RootCmp() {
                             <Route path='/direct' element ={<MessagePage/>}>
                                 <Route path='/direct/:convid' element ={<ConverstaionPage/>}/>
                             </Route>
-                            <Route path='/explore' element= {<ExplorePage />}/>
+                            <Route path='/explore' element= {<ExplorePage />}>
+                                <Route path='/explore/:storyId' element = {<StoryDetails/>}/>
+                            </Route>
                             <Route path='/login' element= {<LoginSignup/>}/>
                         </Routes>
                     </main>

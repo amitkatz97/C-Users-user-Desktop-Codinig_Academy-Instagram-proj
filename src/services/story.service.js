@@ -108,8 +108,8 @@ async function createStories(){
     const users = await storageService.query('userDB')
     console.log(users)
     const stories= []
-    for (var i = 0; i< 3; i++){
-        stories.push(_createStory(users[i]))
+    for (var i = 0; i< 17; i++){
+        stories.push(_createStory(users[utilService.getRandomIntInclusive(0,4)]))
     }
     console.log(stories)
     // utilService.saveToStorage(STORAGE_KEY, stories)
@@ -121,7 +121,8 @@ function _createStory(user) {
     const story = {
         _id: utilService.makeId(),
         txt: "Something to write on the post",
-        imgUrl: `src/imgs/img${utilService.getRandomIntInclusive(1,7)}.jpg`, 
+        // imgUrl: `src/imgs/img${utilService.getRandomIntInclusive(1,7)}.jpg`, 
+        imgUrl: `https://picsum.photos/id/${utilService.getRandomIntInclusive(0,300)}/200/300`, 
         by: {
             _id: user._id,
             fullname: user.fullname,
