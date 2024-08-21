@@ -42,20 +42,6 @@
         }
     }
 
-    
-
-    
-
-    // a span{
-    //     display: flex;
-    //     flex-direction: row-reverse;
-    //     align-items: center;
-    //     justify-content: start;
-    //     color: black;
-
-    // }
-
-
     nav {
         font-size: .8em;
         background-color: red;
@@ -78,3 +64,10 @@
     }
 
 }
+
+@media (max-width : 900px){
+    .panel-link{
+        // background-color: red
+    }
+}
+

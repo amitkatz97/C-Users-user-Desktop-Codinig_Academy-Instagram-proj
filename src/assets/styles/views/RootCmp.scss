@@ -9,7 +9,7 @@
 
 .app-header{
     grid-area: aside;
-    position: fixed;
+    // position: fixed;
     border-right: 1px solid $gray1;
     height: 100vh;
 }
@@ -18,4 +18,28 @@
     grid-area: main;
     padding: 15px;
     margin-left: 45px;
+}
+
+@media (max-width : 900px){
+    .main-app{
+        display: grid;
+        grid-template-rows: 1fr auto;
+        min-height: 100vh;
+        grid-template-columns:1fr;
+        grid-template-areas: 
+        "main"
+        "aside";
+    }
+    .app-header{
+        grid-area: aside;
+        min-height: 100vh;
+        // position: fixed;
+        border-top: 1px solid $gray1;
+        width: 100vh;
+    }
+    
+    .container{
+        grid-area: main;
+        padding: 15px;
+    }
 }
