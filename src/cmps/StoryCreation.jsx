@@ -13,6 +13,7 @@ export function StoryCreation({isOpen , closeModal}){
     const [newStory, setNewStory] = useState({})
     const [isEmojiOpen, setEmojiOpen] = useState(false)
     const [inputValue, setInputValue] = useState('')
+    const [isReadyToShare, setIsReadyToShare] = useState(false)
 
     useEffect(()=> {
        Init()
@@ -48,8 +49,10 @@ export function StoryCreation({isOpen , closeModal}){
     }
 
     function onContinueUploading(){
-        document.getElementById("story-information").style.display = 'block'
+        document.getElementById("story-information").style.display = 'flex'
         document.getElementById("next").style.display = 'none'
+        document.getElementById("story-create-form").style.width = '80%'
+        setIsReadyToShare(true)
     }
 
     function handelChange(ev){
@@ -76,11 +79,13 @@ export function StoryCreation({isOpen , closeModal}){
     async function onSave(){
         addStory(newStory)
         onClose()
+        setIsReadyToShare(false)
     }
 
     function onClose(){
         setInputValue("")
         closeModal()
+        setIsReadyToShare(false)
     }
 
     
@@ -90,9 +95,9 @@ if (!isOpen) return null
     return(
     <div className="story-create-overlay">
      <button onClick={onClose} className="close-btn">X</button>
-            <section className="story-create-form">
-                {/* <header>Hey!</header> */}
+            <section className="story-create-form" id="story-create-form">
             <div className="image-uploading">
+                 {/* <h3>Create New Post!</h3> */}
             <form id='upload-form'action="/upload" method="post" encType="multipart/form-data">
                 <h2>
                 <CropOriginalOutlinedIcon fontSize="large" />
@@ -105,10 +110,18 @@ if (!isOpen) return null
                 <img id='preview' className='uploaded-img' src="#" alt="Uploaded Image" />
             </div>
             </div>
-            <section>
+            <div className="btns-area">
+            {(isReadyToShare) ?(<h3>Add Description to the post</h3>):
+            (<h3>Create New Post</h3>)}
             {(newStory.imgUrl !== '') ? (
             <button id="next" className= 'next-btn' onClick={onContinueUploading}>Next</button> ) : (<div> </div>)
             }
+             {(newStory.imgUrl !== '') ? (
+            <button className="back-btn">Back</button>) : (<div> </div>)}
+            {(isReadyToShare) ? (
+            <button onClick={onSave} className="next-btn">Share</button> ):(<div> </div>)}
+            </div>
+            <section className="inforamtion-area">
             <article id ="story-information" className="story-information">
                     <article className="story-description">
                        <img src={newStory.by.imgUrl} /> <span>{newStory.by.fullname}</span>
@@ -122,7 +135,7 @@ if (!isOpen) return null
                          />
                     <button  onClick={toggleDropdown}><InsertEmoticonIcon/></button>
                     <EmojiList isEmojiOpen= {isEmojiOpen} onSelect= {handleSelect}/>
-                    <button onClick={onSave} className="next-btn">Share</button>
+                    
             </article>
             </section>
             </section>
