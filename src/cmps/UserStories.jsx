@@ -1,6 +1,6 @@
 import { useState } from "react"
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
-import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import Loader from "./Loader";
 import {useNavigate, Link, Outlet } from "react-router-dom"
 import { useSelector } from 'react-redux'
@@ -28,12 +28,12 @@ const handleMouseLeave = () =>{
             <img src={story.imgUrl} alt="" />
             {isHovered? (<div className="hovered">
                 <section className="like-display">
-                    <FavoriteOutlinedIcon/>
-                    {story.likedBy.length}
+                    <span>{story.likedBy.length}</span>
+                    <FavoriteOutlinedIcon />
                 </section>
                 <section className="comments-display">
-                    <ModeCommentOutlinedIcon/>
-                    {story.comments.length}
+                    <span>{story.comments.length}</span>
+                    <ChatBubbleIcon  color="white"/>
                 </section>
             </div>
             ):(

@@ -5,15 +5,17 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { login, logout, signup } from '../store/user.actions'
 import { LoginSignup } from '../pages/LoginSignup.jsx'
 import { storyService } from '../services/story.service.js'
-import HomeIcon from '@mui/icons-material/Home';
-import ExploreIcon from '@mui/icons-material/Explore';
-import ChatIcon from '@mui/icons-material/Chat';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
+import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { ImgUploader } from './ImgUploader.jsx'
 import { StoryCreation } from './StoryCreation.jsx'
 import { useState } from 'react'
+
 
 // function onCreate(){
 //     console.log('creation is active')
@@ -39,20 +41,20 @@ export function AppHeader() {
     return (
         <> 
         <div className='app-header'>
-            <h1>SociatyGram</h1>
+            <h1><img src="src/imgs/Logo.svg" alt="" /></h1>
             <div className='panel-link'>
-            <NavLink to ={'/direct'} className="nav-link" activeclassname = "active">
-                <span> Messages <button> <ChatIcon/> </button> </span>
-            </NavLink>
-            </div>
             <div className='panel-link'>
             <NavLink to ={'/'} className="nav-link" activeclassname = "active">
-                <span> Home <button> <HomeIcon/> </button></span>
+                <span> Home <button> <HomeOutlinedIcon/> </button></span>
+            </NavLink>
+            </div>
+            <NavLink to ={'/direct'} className="nav-link" activeclassname = "active">
+                <span> Messages <button> <ChatOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'> 
             <NavLink to ={'/explore'} className="nav-link" activeclassname = "active">
-                <span>Explore <button> <ExploreIcon/> </button> </span>
+                <span>Explore <button> <ExploreOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
@@ -67,7 +69,7 @@ export function AppHeader() {
             </div>
             <div className='panel-link'>
             <NavLink className="nav-link" onClick={openModal}>
-                <span> Create <button> <AddCircleOutlineOutlinedIcon/> </button> </span>
+                <span> Create <button> <AddBoxOutlinedIcon/> </button> </span>
             </NavLink>
             </div>
             <div className='panel-link'>
@@ -75,12 +77,12 @@ export function AppHeader() {
                 <span> My Profile <button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
             </NavLink>
             </div>
-            <div className='panel-link'>
+            {/* <div className='panel-link'>
                 <NavLink to={"/login"} className="nav-link" activeclassname = "active">
                 <span> Login <button></button> </span>
                 </NavLink>
 
-            </div>
+            </div> */}
             <StoryCreation isOpen ={isModalOpen} closeModal={closeModal}/>
            
         </div>

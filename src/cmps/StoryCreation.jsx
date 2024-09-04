@@ -100,9 +100,10 @@ if (!isOpen) return null
                  {/* <h3>Create New Post!</h3> */}
             <form id='upload-form'action="/upload" method="post" encType="multipart/form-data">
                 <h2>
-                <CropOriginalOutlinedIcon fontSize="large" />
+                <img src="src/imgs/Upload.svg" alt="" />
+                    Drag photos and videos here
                 </h2>
-                <label htmlFor="photo" className="upload-button"> Select a photo</label>
+                <label htmlFor="photo" className="upload-button"> Select from computer</label>
                 <input type="file" id='photo' name='photo' accept=".jpg, .jpeg, .png" onChange={()=> displayPreview(event)}/>
                 {/* <button type="submit"> Upload </button> */}
             </form>

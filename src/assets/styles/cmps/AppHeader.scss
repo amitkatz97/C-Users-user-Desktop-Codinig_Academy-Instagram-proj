@@ -5,7 +5,11 @@
     position: fixed;
 
     h1 {
-        margin-bottom: 100px;
+        // margin-bottom: 100px;
+        height: 100px;
+        img{
+            height: 170px;
+        }
     }
 
     .panel-link {

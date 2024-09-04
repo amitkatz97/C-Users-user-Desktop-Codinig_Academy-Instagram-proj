@@ -43,7 +43,7 @@
 
             img{
                 object-fit: cover;
-                height: 200px;
+                max-height: 300px;
                 display: block;
             }
             .hovered{
@@ -61,6 +61,24 @@
                 z-index: 10; 
                 transition: opacity 0.3s; 
                 opacity: 1; 
+
+                .like-display{
+                 display: flex;
+                 flex-direction: row;
+                 margin-right: 10px;
+
+                    span{
+                        margin-right: 3px;
+                    }
+                }
+                .comments-display{
+                    display: flex;
+                    flex-direction: row;
+
+                    span{
+                        margin-right: 3px;
+                    }
+                }
             }
         }
     }
