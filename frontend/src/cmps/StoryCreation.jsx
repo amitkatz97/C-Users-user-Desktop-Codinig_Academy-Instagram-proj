@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { Link, Outlet } from "react-router-dom"
 import { loadStories , addStory ,removeStory , updateStory} from "../store/story.actions"
-import { storyService } from "../services/story.service";
+import { storyService } from "../services/story/story.service.js";
 import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
 import { Accordion } from '../cmps/Accordion.jsx';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';

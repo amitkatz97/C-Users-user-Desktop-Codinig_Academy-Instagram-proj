@@ -1,11 +1,11 @@
-import { storyService } from '../services/story.service.js'
+import { storyService } from '../services/story/index.js'
 import { utilService } from '../services/util.service.js'
 import { store } from './store.js'
 import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_MSG } from './story.reducer.js'
 
 
 
-createStories()
+// createStories()
 // fill the local storage with randomly generated stories
 async function createStories() {
     try {

@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { login, logout, signup } from '../store/user.actions'
 import { LoginSignup } from '../pages/LoginSignup.jsx'
-import { storyService } from '../services/story.service.js'
+import { storyService } from '../services/story/index.js'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';

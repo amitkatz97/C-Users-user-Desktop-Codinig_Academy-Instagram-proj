@@ -1,7 +1,7 @@
 
-import { storageService } from './async-storage.service'
-import { utilService } from './util.service'
-import { userService } from './user.service'
+import { storageService } from '../async-storage.service'
+import { utilService } from '../util.service'
+import { userService } from '../user/user.service'
 
 const STORAGE_KEY = 'storyDB'
 
@@ -47,8 +47,9 @@ async function remove(storyId) {
 
 async function getEmptyStory(){
     const user =  userService.getLoggedinUser()
+    console.log("youre using get empty story function")
     const story = {
-        _id: utilService.makeId(),
+        // _id: utilService.makeId(),
         txt: "",
         imgUrl: ``, 
         by: {

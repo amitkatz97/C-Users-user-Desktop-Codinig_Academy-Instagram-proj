@@ -1,5 +1,5 @@
-import { storageService } from './async-storage.service'
-import { utilService } from './util.service'
+import { storageService } from '../async-storage.service'
+import { utilService } from '../util.service'
 // import { httpService } from './http.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
@@ -15,7 +15,6 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore
 }
 
 window.userService = userService
@@ -72,14 +71,6 @@ async function signup(userCred) {
 async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     // return await httpService.post('auth/logout')
-}
-
-async function changeScore(by) {
-    const user = getLoggedinUser()
-    if (!user) throw new Error('Not loggedin')
-    user.score = user.score + by || by
-    await update(user)
-    return user.score
 }
 
 

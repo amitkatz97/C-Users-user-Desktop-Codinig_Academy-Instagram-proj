@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
-import { storyService } from '../services/story.service'
+import { storyService } from '../services/story/index.js'
 import { UserStories } from '../cmps/userStories.jsx'
 import Loader from '../cmps/Loader.jsx'
 
