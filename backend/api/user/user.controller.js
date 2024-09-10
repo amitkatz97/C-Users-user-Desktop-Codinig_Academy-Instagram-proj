@@ -4,7 +4,7 @@ import { UserService } from "./user.service.js";
 
 export async function getUsers(req, res){
     try {
-        const users = UserService.query()
+        const users = await UserService.query()
         res.send(users)
     } catch (err) {
         console.log('Couldent gat users', err)

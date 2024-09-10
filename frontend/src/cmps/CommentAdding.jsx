@@ -37,7 +37,7 @@ export function CommentAdding({story, user}){
         <div className="comment-area">
             <label htmlFor="comment"></label>
             <input type="text" id="comment" name="comment" 
-               placeholder="Add Comment.."
+               placeholder="Add a comment.."
                value={inputValue}
                onChange={handelChange}
                 />
@@ -45,7 +45,7 @@ export function CommentAdding({story, user}){
                 <button className= "add-btn"onClick={onSave}>Add</button>
             ): (<div> </div>)
             }
-            <button className= "emoji-btn" onClick={toggleDropdown}><InsertEmoticonIcon fontSize="small" className="emoji-icon"/></button>
+            <button className= "emoji-btn" onClick={toggleDropdown}><InsertEmoticonIcon fontSize="1.2em" className="emoji-icon"/></button>
             <EmojiList isEmojiOpen= {isEmojiOpen} onSelect={handleSelect}/>
             
         </div>

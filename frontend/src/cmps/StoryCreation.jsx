@@ -7,6 +7,7 @@ import CropOriginalOutlinedIcon from '@mui/icons-material/CropOriginalOutlined';
 import { Accordion } from '../cmps/Accordion.jsx';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import EmojiList from "./EmojiList.jsx";
+import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
 export function StoryCreation({isOpen , closeModal}){
     
@@ -118,7 +119,7 @@ if (!isOpen) return null
             <button id="next" className= 'next-btn' onClick={onContinueUploading}>Next</button> ) : (<div> </div>)
             }
              {(newStory.imgUrl !== '') ? (
-            <button className="back-btn">Back</button>) : (<div> </div>)}
+            <button className="back-btn"><ArrowBackSharpIcon fontSize="medium"/></button>) : (<div> </div>)}
             {(isReadyToShare) ? (
             <button onClick={onSave} className="next-btn">Share</button> ):(<div> </div>)}
             </div>

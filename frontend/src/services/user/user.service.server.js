@@ -13,7 +13,7 @@ const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
 export const userService = {
     // login,
-    // logout,
+    logout,
     // signup,
     getLoggedinUser,
     saveLocalUser,
@@ -26,6 +26,7 @@ export const userService = {
 async function getUsers(filterBy){
     try {
         const {data : users} = await axios.get(BASE_URL)
+        console.log(users)
         return users
     } catch (err) {
         console.log("Can't gat users". err)
@@ -49,4 +50,9 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+}
+
+async function logout() {
+    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+    // return await httpService.post('auth/logout')
 }

@@ -1,0 +1,29 @@
+.login-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    line-height: 18px;
+
+    img{
+        width: 400.32px;
+        height: 581.15px;
+        margin-right: 32px;
+    }
+
+    .all-forms{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid $gray1;
+
+        img{
+            width: 150px;
+            height: 150px;
+            
+        }
+        
+    }
+}

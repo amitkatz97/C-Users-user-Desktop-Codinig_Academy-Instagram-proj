@@ -1,3 +1,4 @@
+import { userService } from "../user/index.js";
 import  Axios  from "axios";
 
 const axios = Axios.create({
@@ -13,7 +14,8 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
         getById,
         remove,
         save,
-        update
+        update,
+        getEmptyStory
     }
 
     async function query(filterBy ={}){
@@ -63,3 +65,28 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
             console.log("Cant update story:", err)
         }
     }
+
+    async function getEmptyStory(){
+        const user =  userService.getLoggedinUser()
+        console.log("youre using get empty story function")
+        const story = {
+            // _id: utilService.makeId(),
+            txt: "",
+            imgUrl: ``, 
+            by: {
+                _id: user._id,
+                fullname: user.fullname,
+                imgUrl: user.imgUrl
+            },
+            loc: { // Optional
+                lat: 11.11, 
+                lng: 22.22,
+                name: "Tel Aviv"
+            },
+            comments: [
+               ],
+            likedBy:[],
+            tags: []
+        }
+        return story
+    } 

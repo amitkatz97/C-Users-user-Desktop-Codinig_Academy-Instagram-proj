@@ -12,12 +12,14 @@
     // position: fixed;
     border-right: 1px solid $gray1;
     height: 100vh;
+    width: 220;
 }
 
 .container{
     grid-area: main;
     padding: 15px;
     margin-left: 45px;
+    height: 100vh;
 }
 
 // @media (max-width : 900px){

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../services/user/index.js'
 import { ImgUploader } from '../cmps/ImgUploader'
+import LoginImg from '../cmps/LoginImg.jsx'
 
 export function LoginSignup(props) {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
@@ -9,10 +10,12 @@ export function LoginSignup(props) {
 
     useEffect(() => {
         loadUsers()
+        document.getElementById("app-header").style.display = 'none'
     }, [])
 
     async function loadUsers() {
         const users = await userService.getUsers()
+        console.log(users)
         setUsers(users)
     }
 
@@ -30,7 +33,8 @@ export function LoginSignup(props) {
     function onLogin(ev = null) {
         if (ev) ev.preventDefault()
         if (!credentials.username) return
-        props.onLogin(credentials)
+        // props.onLogin(credentials)
+        document.getElementById("app-header").style.display = 'flex'
         clearState()
     }
 
@@ -49,11 +53,18 @@ export function LoginSignup(props) {
         setCredentials({ ...credentials, imgUrl })
     }
 
+    const loginImgs =[
+        'src\imgs\LoginImg.JPG',
+        "src\imgs\LoginImg2.JPG",
+
+    ]
+
     return (
         <div className="login-page">
-            <p>
-                <button className="btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</button>
-            </p>
+            {/* <LoginImg images={loginImgs} interval={3000}/> */}
+            <img src="src\imgs\LoginImg.JPG" alt="" />
+            <div className='all-forms'>
+                <img src="src/imgs/Logo.svg" alt="" />
             {!isSignup && <form className="login-form" onSubmit={onLogin}>
                 <select
                     name="username"
@@ -111,6 +122,10 @@ export function LoginSignup(props) {
                     <ImgUploader onUploaded={onUploaded} />
                     <button>Signup</button>
                 </form>}
+                <p>
+                <button className="btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</button>
+                </p>
+                </div>
             </div>
         </div>
     )

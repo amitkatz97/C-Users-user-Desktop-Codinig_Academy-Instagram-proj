@@ -9,6 +9,16 @@ import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
 import { utilService } from "../services/util.service";
 import { Accordion } from "./Accordion";
 import { CommentAdding } from "./CommentAdding";
+import { FaHeart } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa";
+import { TbMessageCircle } from "react-icons/tb";
+import { CgBookmark } from "react-icons/cg";
+
+
+
+
+
+
 
 export function StoryPreview({story, onLike}){
     const user = useSelector(userState => userState.userModule.user)
@@ -42,22 +52,23 @@ export function StoryPreview({story, onLike}){
                     <div className="action-panel">
                         {/* {like(story)} */}
                         {isUserLike ? (
-                        <button onClick={()=> {onLike(story)}}><FavoriteOutlinedIcon className="icon"/></button>) : 
-                        ( <button onClick={()=> {onLike(story)}}><FavoriteBorderOutlinedIcon/></button>)
+                        <button onClick={()=> {onLike(story)}}><FaHeart size={"1.8em"} color="red"/></button>) : 
+                        ( <button onClick={()=> {onLike(story)}}><FaRegHeart size={"1.8em"}/></button>)
                         }
-                        <button onClick={()=> navigate(`/p/${story._id}`)}><ModeCommentOutlinedIcon/></button>
-                        <button><NearMeOutlinedIcon/></button>
+                        <button onClick={()=> navigate(`/p/${story._id}`)}><TbMessageCircle  size={"2em"}/></button>
+                        <button className="bookmark"><CgBookmark size={"2.2em"}/></button>
                     </div>
                     <div>
                         <div className="likes-amount"> {story.likedBy.length} Likes</div>
                         <div className="story-description">
                         <span>{story.by.fullname}</span>
                             : {story.txt}
-                            </div>
-                            <section>
-                            <Link to={`/p/${story._id}`}>Show all {story.comments.length} comments</Link>
-                            <CommentAdding story ={story} user = {user}/>
-                            </section>
+                            
+                        <section className="comment-panel">
+                        <Link to={`/p/${story._id}`}>View all {story.comments.length} comments</Link>
+                        <CommentAdding story ={story} user = {user}/>
+                        </section>
+                        </div>
                     </div>
                     {/* <button onClick={()=> {removeStory(story.id)}}>Remove</button>
                     <button onClick={()=> {updateStory()}}>Edit</button> */}
