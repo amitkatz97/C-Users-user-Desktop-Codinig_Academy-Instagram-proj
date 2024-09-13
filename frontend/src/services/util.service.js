@@ -6,7 +6,8 @@ export const utilService = {
     randomPastTime,
     saveToStorage,
     loadFromStorage,
-    makeNameLorem
+    makeNameLorem,
+    // resizeImage
 }
 
 function makeId(length = 6) {
@@ -70,4 +71,42 @@ function loadFromStorage(key) {
 }
 
 
+export const resizeImage = (file, targetWidth, targetHeight, callback) => {
+    const reader = new FileReader();
+    const img = new Image();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
+    reader.onload = function(event) {
+      img.onload = function() {
+        // Calculate aspect ratio
+        const imgAspect = img.width / img.height;
+        const targetAspect = targetWidth / targetHeight;
+        
+        let newWidth, newHeight;
+        if (imgAspect > targetAspect) {
+          // Image is wider than target aspect ratio
+          newHeight = targetHeight;
+          newWidth = Math.round(targetHeight * imgAspect);
+        } else {
+          // Image is taller than target aspect ratio
+          newWidth = targetWidth;
+          newHeight = Math.round(targetWidth / imgAspect);
+        }
+
+        // Set canvas size and draw resized image
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+        
+        // Draw image onto canvas and center it
+        ctx.drawImage(img, (targetWidth - newWidth) / 2, (targetHeight - newHeight) / 2, newWidth, newHeight);
+
+        // Convert canvas to data URL and call the callback
+        const dataURL = canvas.toDataURL('image/jpeg');
+        callback(dataURL);
+      };
+      img.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  };

@@ -71,13 +71,14 @@ export function ProfilePage(){
                 <section className='user-data'>
                     <div className='actions'>
                         <h1>{profile.fullname}</h1>
+                        <button>Following</button>
                         <button>Message</button>
-                        <button>Follow!</button>
+                        
                     </div>
                     <div className='follow'>
-                        {userStories ? ( <div>{userStories.length}<span> Posts</span></div>):(<div>0</div>)}
-                        <div>{profile.following.length} <span> Following</span></div>
-                        <div>{profile.followers.length}<span> Followers</span></div>
+                        {userStories ? ( <div>{userStories.length}<span> posts</span></div>):(<div>0</div>)}
+                        <div>{profile.followers.length}<span> followers</span></div>
+                        <div>{profile.following.length} <span> following</span></div>
                     </div>
                 </section>
             </section>

@@ -1,7 +1,7 @@
 import { storyService } from '../services/story/index.js'
 import { utilService } from '../services/util.service.js'
 import { store } from './store.js'
-import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_MSG } from './story.reducer.js'
+import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_MSG , SET_COMMENT} from './story.reducer.js'
 
 
 
@@ -73,11 +73,12 @@ export async function addStory(story) {
     }
 }
 
-export async function updateStory(story) {
+export async function updateStory(story, comment) {
     try {
         const savedStory = await storyService.update(story)
         console.log('Updated Story:', savedStory)
         store.dispatch(getCmdUpdateStory(savedStory))
+        store.dispatch(getCmdSetComment(comment))
         return savedStory
     } catch (err) {
         console.log('Cannot save story', err)
@@ -115,6 +116,29 @@ export async function addLike(story, user){
         }
         updateStory(story)
         return isUserLike
+}
+
+export async function addCommentLike( story ,comment, user){
+    const {likedBy} = comment
+    console.log (comment)
+    console.log (likedBy)
+    
+    let isUserLikeComment
+        let likeStatus = likedBy.filter(userLike => userLike._id === user._id)
+        if(likeStatus.length === 0){
+        likedBy.push(
+            {
+                _id: user._id,
+                fullname: user.fullname,
+                imgUrl: user.imgUrl
+            }
+        ),isUserLikeComment = true }  else {
+            let indexToRemove= likedBy.findIndex(userLike => userLike._id === user._id)
+            likedBy.splice(indexToRemove, 1)
+            isUserLikeComment = false
+        }
+        updateStory(story, comment)
+        return isUserLikeComment
 }
 
 export async function addComment(story, user, input){
@@ -177,6 +201,13 @@ function getCmdAddCarMsg(msg) {
     return {
         type: ADD_CAR_MSG,
         msg
+    }
+}
+
+function getCmdSetComment(comment) {
+    return {
+        type: SET_COMMENT,
+        comment
     }
 }
 

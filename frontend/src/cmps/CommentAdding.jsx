@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
 import { addComment } from "../store/story.actions"
 import { EmojiEmotions } from "@mui/icons-material"
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import { HiOutlineEmojiHappy } from "react-icons/hi";
+
 import EmojiList from "./EmojiList"
 
 
-export function CommentAdding({story, user}){
+export function CommentAdding({story, user ,font_size = "1.1em", reverse}){
     const [inputValue, setInputValue] = useState("")
     const [isEmojiOpen, setEmojiOpen] = useState(false)
 
@@ -42,10 +43,10 @@ export function CommentAdding({story, user}){
                onChange={handelChange}
                 />
             {inputValue?(
-                <button className= "add-btn"onClick={onSave}>Add</button>
+                <button className= "add-btn"onClick={onSave}>Post</button>
             ): (<div> </div>)
             }
-            <button className= "emoji-btn" onClick={toggleDropdown}><InsertEmoticonIcon fontSize="1.2em" className="emoji-icon"/></button>
+            <button className= "emoji-btn" onClick={toggleDropdown}><HiOutlineEmojiHappy size={font_size} className="emoji-icon"/></button>
             <EmojiList isEmojiOpen= {isEmojiOpen} onSelect={handleSelect}/>
             
         </div>

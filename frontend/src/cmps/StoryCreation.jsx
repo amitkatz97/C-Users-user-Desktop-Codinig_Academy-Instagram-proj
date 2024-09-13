@@ -8,18 +8,22 @@ import { Accordion } from '../cmps/Accordion.jsx';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import EmojiList from "./EmojiList.jsx";
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
+import { resizeImage } from "../services/util.service.js";
 
 export function StoryCreation({isOpen , closeModal}){
+    
     
     const [newStory, setNewStory] = useState({})
     const [isEmojiOpen, setEmojiOpen] = useState(false)
     const [inputValue, setInputValue] = useState('')
+    const [resizedImage, setResizedImage] = useState(null);
     const [isReadyToShare, setIsReadyToShare] = useState(false)
 
     useEffect(()=> {
        Init()
     }, [isOpen])
 
+   
 
     async function Init(){
         const story = await storyService.getEmptyStory()
@@ -29,8 +33,13 @@ export function StoryCreation({isOpen , closeModal}){
 
     function displayPreview(event) {
         const file = event.target.files[0];
+        // if (file){
+        //     resizeImage(file, 800, 800, (resizedImageURL) => {
+        //         setResizedImage(resizedImageURL)
+        //     })
+        // }
         const preview = document.getElementById('preview');
-        const reader = new FileReader();
+        const reader = new FileReader()
   
         reader.onloadend = function() {
           preview.src = reader.result;
@@ -39,6 +48,7 @@ export function StoryCreation({isOpen , closeModal}){
           const update = {...newStory, imgUrl : preview.src}
           setNewStory(update)
         }
+        
   
         if (file) {
           reader.readAsDataURL(file);
@@ -89,6 +99,21 @@ export function StoryCreation({isOpen , closeModal}){
         setIsReadyToShare(false)
     }
 
+    function onUndo(){
+        if (isReadyToShare){
+            document.getElementById("story-create-form").style.width = '50%'
+            document.getElementById("story-information").style.display = 'none'
+            document.getElementById("next").style.display = 'flex'
+            setInputValue("")
+            setIsReadyToShare(false)
+        } else {
+        const update = {...newStory, imgUrl : "" }
+        setNewStory(update)
+        document.getElementById('image-preview').style.display = 'none';
+        document.getElementById('upload-form').style.display = 'block'
+        }
+    }
+
     
         
 
@@ -119,7 +144,7 @@ if (!isOpen) return null
             <button id="next" className= 'next-btn' onClick={onContinueUploading}>Next</button> ) : (<div> </div>)
             }
              {(newStory.imgUrl !== '') ? (
-            <button className="back-btn"><ArrowBackSharpIcon fontSize="medium"/></button>) : (<div> </div>)}
+            <button className="back-btn" onClick={onUndo}><ArrowBackSharpIcon fontSize="medium"/></button>) : (<div> </div>)}
             {(isReadyToShare) ? (
             <button onClick={onSave} className="next-btn">Share</button> ):(<div> </div>)}
             </div>
