@@ -10,6 +10,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { TbMessageCircle } from "react-icons/tb";
 import { TbSend } from "react-icons/tb";
 import { CommentPreview } from './CommentPreview.jsx';
+import { NotificationIconRed, MessageIcon, MessageIconFull, NotificationIcon, NotificationIconFull, ReelsIcon, ReelsIconFull, SearchIcon, SearchIconFull, ExploreIcon, ExploreIconFull, CreateIcon , CommentIcon} from './SVG.jsx';
+
 
 
 import Loader from './Loader.jsx';
@@ -96,11 +98,11 @@ export function StoryDetails(){
                             </div>
                         <div className='actions'>
                         {isUserLike ? (
-                        <button onClick={()=> {onLike(story)}}><FaHeart size="2em" color='red'/></button>) : 
-                        ( <button onClick={()=> {onLike(story)}}><FaRegHeart size="2em"/></button>)
+                        <button onClick={()=> {onLike(story)}}><NotificationIconRed /></button>) : 
+                        ( <button onClick={()=> {onLike(story)}}><NotificationIcon/></button>)
                         }
-                            <button><TbMessageCircle size="2.2em"/></button>
-                            <button><TbSend size="2em"/></button>
+                            <button><CommentIcon/></button>
+                            <button><MessageIcon/></button>
                         </div>
                         <div>
                             <CommentAdding story={story} user={user} font_size={'24px'} reverse={true}/>

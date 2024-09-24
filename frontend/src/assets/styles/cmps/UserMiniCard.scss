@@ -1,0 +1,47 @@
+.user-card{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+    "img name btn";
+    align-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-width: 283px;
+    
+
+    img{
+        grid-area: img;
+        border-radius: 50%;
+        width:44px;
+        height: 44px;
+    }
+
+    a{
+        grid-area: name;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        color: black;
+        padding-left: 8px;
+
+        &:hover{
+           text-decoration: none;
+        }
+    }
+
+    button{
+        grid-area: btn;
+        color:rgb(0, 149, 246);
+        outline-color: rgb(0, 149, 246);
+        border: none;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 600;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+        &:hover{
+            color: black;
+         }
+    }
+}

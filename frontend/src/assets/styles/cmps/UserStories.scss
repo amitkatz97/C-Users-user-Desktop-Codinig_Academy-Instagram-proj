@@ -28,7 +28,7 @@
     .user-story-posts{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 200px;
+        // grid-template-rows: 200px;
         gap: 5px;
         
         >li{
@@ -37,11 +37,12 @@
         .user-story{
             box-sizing: border-box;
             position: relative;
-            overflow: hidden;
+            overflow: auto;
            
 
             img{
                 object-fit: cover;
+                min-height: 300px;
                 max-height: 300px;
                 display: block;
             }

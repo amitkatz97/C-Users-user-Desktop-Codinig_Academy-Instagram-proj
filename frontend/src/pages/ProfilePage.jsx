@@ -13,8 +13,9 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 
 export function ProfilePage(){
-
-    const user = useSelector(userState => userState.userModule.watchedUser)
+    
+    const user = useSelector(userState => userState.userModule.user)
+    const watchedUser = useSelector(userState => userState.userModule.watchedUser)
     const stories = useSelector(storeState => storeState.storyModule.stories)
 
     const params = useParams()
@@ -25,6 +26,7 @@ export function ProfilePage(){
 
     useEffect(()=>{
         updateStories()
+        console.log("user:", user, "watchedUser:", watchedUser)
     },[profile])
 
     useEffect(()=>{
@@ -70,9 +72,20 @@ export function ProfilePage(){
                 <img src={profile.imgUrl} alt="No picture" />
                 <section className='user-data'>
                     <div className='actions'>
-                        <h1>{profile.fullname}</h1>
-                        <button>Following</button>
-                        <button>Message</button>
+                        {user._id === profile._id?(
+                            <>
+                            <h1>{profile.fullname}</h1>
+                            <button>Following</button>
+                            <button>Message</button>
+                            </>
+                        ):(
+                            <>
+                            <h1>{profile.fullname}</h1>
+                            <button>Following</button>
+                            <button>Message</button>
+                            </>
+                        )}
+                        
                         
                     </div>
                     <div className='follow'>

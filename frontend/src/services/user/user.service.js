@@ -20,7 +20,7 @@ export const userService = {
 window.userService = userService
 
 
-_createUsers()
+// _createUsers()
 
 
 function getUsers() {
@@ -123,31 +123,31 @@ function _createUser(i){
 }
 
 // creation of logged in user- need to change when i will create loggin page:
-const my_user = {
-    _id: 'A1997',
-    fullname: 'Amit_Katz',
-    imgUrl: `src/imgs/profileImg/my_photo.jpg`,
-    following: [
-        {
-        _id: "u106",
-        fullname: "Ronny",
-        imgUrl: "http://some-img"
-        },
-        {
-        _id: "u107",
-        fullname: "Shoshana",
-        imgUrl: "http://some-img"
-        }
-    ],
-    followers: [
-        {
-        _id: "u105",
-        fullname: "Bob",
-        imgUrl: "http://some-img"
-        }
-      ],
-}
-saveLocalUser(my_user)
+// const my_user = {
+//     _id: 'A1997',
+//     fullname: 'Amit_Katz',
+//     imgUrl: `src/imgs/profileImg/my_photo.jpg`,
+//     following: [
+//         {
+//         _id: "u106",
+//         fullname: "Ronny",
+//         imgUrl: "http://some-img"
+//         },
+//         {
+//         _id: "u107",
+//         fullname: "Shoshana",
+//         imgUrl: "http://some-img"
+//         }
+//     ],
+//     followers: [
+//         {
+//         _id: "u105",
+//         fullname: "Bob",
+//         imgUrl: "http://some-img"
+//         }
+//       ],
+// }
+// saveLocalUser(my_user)
 
 
 // ;(async ()=>{

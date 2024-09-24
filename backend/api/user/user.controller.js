@@ -22,3 +22,16 @@ export async function getUser(req, res){
         res.status(401).send("user not find")
     }
 }
+
+export async function addUser(req, res){
+    const { fullname , imgUrl } = req.body
+    const userToSave = {fullname, imgUrl, following : [], followers: []}
+    try {
+        const savedUser = await UserService.add(userToSave)
+        res.send(savedUser)
+        loggerService.info(" User Saved succffuly")
+    } catch (error) {
+        console.log(error)
+        res.status(400).send("Couldnt save story")
+    }
+}

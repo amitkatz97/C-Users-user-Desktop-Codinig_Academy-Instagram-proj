@@ -12,9 +12,9 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
 export const userService = {
-    // login,
+    login,
     logout,
-    // signup,
+    signup,
     getLoggedinUser,
     saveLocalUser,
     getUsers,
@@ -52,7 +52,26 @@ function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
+async function login(userCred) {
+   try {
+     const {data : users} = await axios.get(BASE_URL)
+     const user = await users.find(user => user.fullname === userCred.fullname)
+     // const user = await httpService.post('auth/login', userCred)
+     console.log(userCred)
+     if (user) return saveLocalUser(user)
+   } catch (err) {
+        console.log("cant logged in", err)
+   }
+}
+
 async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     // return await httpService.post('auth/logout')
+}
+
+async function signup(userCred) {
+    if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+    const user = await axios.post(BASE_URL, userCred)
+    // const user = await httpService.post('auth/signup', userCred)
+    return saveLocalUser(user)
 }

@@ -10,7 +10,8 @@ export const UserService = {
     getById,
     // save,
     // remove,
-    update
+    update,
+    add
 }
 
 async function query(filterBy ={}){
@@ -57,6 +58,18 @@ async function update(user){
         throw err
     }
 
+}
+
+async function add(user){
+    try {
+        const collection = await dbService.getCollection("user")
+        await collection.insertOne(user)
+
+        return user
+    } catch (err) {
+        loggerService.error("Couldn't add user " ,err)
+        throw err
+    }
 }
 
 

@@ -1,23 +1,30 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../services/user/index.js'
 import { ImgUploader } from '../cmps/ImgUploader'
-import LoginImg from '../cmps/LoginImg.jsx'
+import { useSelector } from "react-redux"
+import {useNavigate} from "react-router-dom"
+import { login , signup } from "../store/user.actions.js"
+import {showErrorMsg} from "../services/event-bus.service.js"
+import { loadUsers } from '../store/user.actions.js'
 
 export function LoginSignup(props) {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
     const [isSignup, setIsSignup] = useState(false)
-    const [users, setUsers] = useState([])
+    // const [users, setUsers] = useState([])
+    const users = useSelector(userState => userState.userModule.users)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadUsers()
         document.getElementById("app-header").style.display = 'none'
     }, [])
 
-    async function loadUsers() {
-        const users = await userService.getUsers()
-        console.log(users)
-        setUsers(users)
-    }
+    // async function loadUsers() {
+    //     const users = await userService.getUsers()
+    //     console.log(users)
+    //     setUsers(users)
+    // }
 
     function clearState() {
         setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
@@ -31,18 +38,31 @@ export function LoginSignup(props) {
     }
 
     function onLogin(ev = null) {
-        if (ev) ev.preventDefault()
-        if (!credentials.username) return
-        // props.onLogin(credentials)
-        document.getElementById("app-header").style.display = 'flex'
-        clearState()
+        console.log("login")
+        try {
+            if (ev) ev.preventDefault()
+            if (credentials.fullname === "") {
+                showErrorMsg("Enter Username")
+                return}
+            login(credentials)
+            document.getElementById("app-header").style.display = 'flex'
+            clearState()
+            navigate("/")
+        } catch (err) {
+            console.log("Cant logged in , Some credentials are missing", err)
+        }
     }
 
     function onSignup(ev = null) {
-        if (ev) ev.preventDefault()
-        if (!credentials.username || !credentials.password || !credentials.fullname) return
-        props.onSignup(credentials)
-        clearState()
+       try {
+         if (ev) ev.preventDefault()
+         if (!credentials.username || !credentials.password || !credentials.fullname) return
+         signup(credentials)
+         clearState()
+         navigate("/")
+       } catch (err) {
+            console.log("Cant sigend up:", err)
+       }
     }
 
     function toggleSignup() {
@@ -67,8 +87,8 @@ export function LoginSignup(props) {
                 <img src="src/imgs/Logo.svg" alt="" />
             {!isSignup && <form className="login-form" onSubmit={onLogin}>
                 <select
-                    name="username"
-                    value={credentials.username}
+                    name="fullname"
+                    value={credentials.fullname}
                     onChange={handleChange}
                 >
                     <option value="">Select User</option>
