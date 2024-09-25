@@ -46,7 +46,20 @@ async function getById(userId){
 
 async function update(user){
     const {following , followers} = user
-    const userToUpdate = {following, followers}
+    const updateFollowing = following.map(Object =>({
+                _id: typeof Object._id === 'string' ? ObjectId.createFromHexString(Object._id) : Object._id,
+                fullname: Object.fullname,
+                imgUrl: Object.imgUrl
+    }))
+
+    const updateFollowers = followers.map(Object =>({
+        _id: typeof Object._id === 'string' ? ObjectId.createFromHexString(Object._id) : Object._id,
+        fullname: Object.fullname,
+        imgUrl: Object.imgUrl
+}))
+
+
+    const userToUpdate = {following: updateFollowing, followers: updateFollowers}
 
     try {
         const criteria = { _id: ObjectId.createFromHexString(user._id) }
@@ -71,13 +84,6 @@ async function add(user){
         throw err
     }
 }
-
-
-
-
-
-
-
 
 
 

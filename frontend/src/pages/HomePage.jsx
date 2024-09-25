@@ -15,7 +15,7 @@ export function HomePage() {
     const [isUserLike, setIsUserLike] = useState(false)
 
     useEffect(() =>{
-        loadStories()
+        loadStories(user)
     },[])
 
 
@@ -34,7 +34,7 @@ export function HomePage() {
                 )}
             </ul>
             <ul className="users-list-area">
-                <UserList user ={user}/>
+                <UserList user ={user} users = {users}/>
             </ul>
                 <Outlet/>
         </section >

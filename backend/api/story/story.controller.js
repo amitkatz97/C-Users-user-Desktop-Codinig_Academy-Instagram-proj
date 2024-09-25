@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { loggerService } from "../../services/logger.service.js";
 import { StoryService } from "./story.service.js";
 
@@ -10,6 +11,18 @@ export async function getStories(req, res){
     } catch (err) {
         console.log("Couldnt get stories", err)
         res.status(400).send("Couldnt get stories")
+    }
+}
+
+export async function getStoriesByFollowing(req, res){
+    const {userId} = req.params
+
+    try {
+        const stories = await StoryService.queryByFollowing(userId)
+        res.send(stories)
+    } catch (err) {
+        console.log("cant get stories to user with ID:", userId, err)
+        res.status(401).send("Stories not found")
     }
 }
 

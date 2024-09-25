@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { Await, useParams, useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Link ,Outlet ,NavLink, useNavigate} from 'react-router-dom'
-import { storyService } from '../services/story/index.js'
 import { userService } from '../services/user/index.js'
-import { loadUser } from '../store/user.actions'
-import { loadStories } from '../store/story.actions'
-import { StoryPreview } from '../cmps/StoryPreview'
+import { addFollow, loadUser , isUserFollowCheck } from '../store/user.actions'
 import Loader from '../cmps/Loader.jsx'
 import { UserStories } from '../cmps/userStories.jsx'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import { ProfileSettings } from '../cmps/SVG.jsx'
 
 
 export function ProfilePage(){
@@ -23,44 +21,55 @@ export function ProfilePage(){
     const [profile , setProfile] = useState()
     const [userStories, setUserStories]= useState()
     const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(()=>{
-        updateStories()
-        console.log("user:", user, "watchedUser:", watchedUser)
-    },[profile])
+    const [isFollow, setIsFollow] = useState(false)
 
     useEffect(()=>{
         Init()
     },[params])
 
+    useEffect(()=>{
+        updateStories()
+    },[profile])
+
+
+    useEffect(()=> {
+        setTimeout(() => {
+            setIsFollow(isUserFollowCheck(user, profile)) 
+        }, 1000);
+    },[profile])
+
    
 
     async function updateStories() {
         await getUserStories()
-        console.log("Profile from updateStories",profile)
         setIsLoading(false)
     }
 
     async function Init(){
-        const currUser = userService.getLoggedinUser()
-        console.log(currUser)
-        if (params.userId === currUser._id){
-            setProfile(currUser)
+        if (params.userId === user._id){
+            setProfile(user)
         }
         else {const newUser = await loadUser(params.userId)
         setProfile(newUser)
         }
+        console.log( "profile:", profile)
+
     }
 
     async function getUserStories(){
         const userStoriesList = await stories.filter(story => story.by._id === profile._id)
-        console.log("user stories list: ",userStoriesList)
         setUserStories(userStoriesList)
         return userStoriesList
     }
 
     function navigateToDetailes(adress){
         navigate(`/${profile._id}/${adress}`)
+    }
+
+    async function onFollow(){
+        console.log(watchedUser)
+        const followStatus = await addFollow(user ,profile)
+        setIsFollow(followStatus)
     }
 
 
@@ -75,13 +84,17 @@ export function ProfilePage(){
                         {user._id === profile._id?(
                             <>
                             <h1>{profile.fullname}</h1>
-                            <button>Following</button>
-                            <button>Message</button>
+                            <button>Edit Profile</button>
+                            <button>View archive</button>
+                            <div><ProfileSettings/></div>
                             </>
                         ):(
                             <>
                             <h1>{profile.fullname}</h1>
-                            <button>Following</button>
+                            {isFollow?(
+                            <button onClick={onFollow}>Following</button>
+                            ):(<button className= 'follow' onClick={onFollow}>Follow</button>)
+                            }
                             <button>Message</button>
                             </>
                         )}

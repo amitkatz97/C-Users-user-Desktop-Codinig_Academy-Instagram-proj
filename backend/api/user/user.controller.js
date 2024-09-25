@@ -32,6 +32,19 @@ export async function addUser(req, res){
         loggerService.info(" User Saved succffuly")
     } catch (error) {
         console.log(error)
-        res.status(400).send("Couldnt save story")
+        res.status(400).send("Couldnt save user")
+    }
+}
+
+export async function updateUser(req, res){
+    const {followers, following, _id} = req.body
+    const userToSave = {followers, following, _id}
+    try {
+        const savedUser = await UserService.update(userToSave)
+        res.send(savedUser)
+        loggerService.info(" User updated succffuly")
+    } catch (err) {
+        loggerService.error("Cant update user", err)
+        res.status(400).send("Couldnt update user")
     }
 }

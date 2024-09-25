@@ -32,9 +32,9 @@ const EmojiList = ({ isEmojiOpen, onSelect }) => {
 };
 
 // Define PropTypes for validation
-EmojiList.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onSelect: PropTypes.func.isRequired,
-};
+// EmojiList.propTypes = {
+//   isOpen: PropTypes.bool.isRequired,
+//   onSelect: PropTypes.func.isRequired,
+// };
 
 export default EmojiList;

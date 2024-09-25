@@ -33,7 +33,7 @@ export function CommentAdding({story, user ,font_size = "1.1em", reverse}){
 
     const toggleDropdown = () => setEmojiOpen(prev => !prev);
 
-
+    
     return(
         <div className="comment-area">
             <label htmlFor="comment"></label>

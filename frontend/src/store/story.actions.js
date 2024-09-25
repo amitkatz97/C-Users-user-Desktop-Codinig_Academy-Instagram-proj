@@ -25,9 +25,10 @@ async function createStories() {
 }
 
 
-export async function loadStories() {
+export async function loadStories(user) {
+    const {_id} = user
     try {
-        const stories = await storyService.query()
+        const stories = await storyService.queryOnlyFollowing(_id)
         console.log('stories from DB:', stories)
         store.dispatch(getCmdSetStories(stories))
         return stories

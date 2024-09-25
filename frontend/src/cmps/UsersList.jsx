@@ -4,13 +4,30 @@ import Loader from "./Loader"
 import { UserMiniCard } from "./UserMiniCard.jsx"
 
 
-export function UserList({ user }) {
-    const users = useSelector(userState => userState.userModule.users)
+export function UserList({ user , users}) {
+    const currUser = useSelector(userState => userState.userModule.user)
+    // const users = useSelector(userState => userState.userModule.users)
+
+    const [unfollowUserList, setUnfollowUserList]= useState(null)
 
     useEffect(() => {
         console.log(users)
-    }, [])
+        getUnfollowUsers()
+    }, [currUser])
 
+    async function getUnfollowUsers(){
+        let unfollowUserList = []
+        for (let i = 0; i < users.length ; i++ ){
+            for(let j = 0 ; j < users[i].followers.length; j++){
+                if (users[i].followers[j]._id !== currUser._id){
+                    unfollowUserList.push(users[i])
+                }
+           }
+        }
+        console.log("unfollowList:",unfollowUserList)
+        const randomUsers = shuffleArray([...users]).slice(0, 6)
+        setUnfollowUserList(randomUsers)
+    }
 
     const shuffleArray = (users) => {
         for (let i = users.length - 1; i > 0; i--) {
@@ -20,11 +37,11 @@ export function UserList({ user }) {
         return users;
     }
 
-    const randomUsers = shuffleArray([...users]).slice(0, 6)
+    
 
 
 
-    if (!users) return <div><Loader /></div>
+    if (!unfollowUserList) return <div><Loader /></div>
     return (
         <>
             <div className="Logged-in-user-info">
@@ -32,8 +49,8 @@ export function UserList({ user }) {
             </div>
             <div className="suggested-users">
                 <section>Suggested for you</section>
-                {randomUsers.map(suggestedUser =>
-                    <li key={suggestedUser._id}>
+                {unfollowUserList.map(suggestedUser =>
+                    <li>
                         <UserMiniCard user={suggestedUser} />
                     </li>
                 )}

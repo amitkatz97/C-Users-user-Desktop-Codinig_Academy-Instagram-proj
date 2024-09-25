@@ -20,7 +20,7 @@ export const userService = {
     getUsers,
     getById,
     // remove,
-    // update,
+    update,
 }
 
 async function getUsers(filterBy){
@@ -74,4 +74,14 @@ async function signup(userCred) {
     const user = await axios.post(BASE_URL, userCred)
     // const user = await httpService.post('auth/signup', userCred)
     return saveLocalUser(user)
+}
+
+async function update(user){
+    try {
+        const {data :savedUser} = await axios.put(BASE_URL, user)
+        return savedUser
+    } catch (err) {
+        console.log("Cant update user," ,err)
+    }
+
 }
