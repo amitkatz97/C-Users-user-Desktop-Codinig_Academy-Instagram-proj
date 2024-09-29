@@ -7,6 +7,9 @@ import { Accordion } from "./Accordion";
 import { CommentAdding } from "./CommentAdding";
 import { CommentIcon } from "./SVG.jsx";
 import { SaveIcon, NotificationIcon, NotificationIconRed , MessageIcon} from "./SVG.jsx"
+import Loader from '../cmps/Loader.jsx'
+import BasicModal from "../cmps/Modal.jsx"
+import { UserMiniCard } from "./UserMiniCard.jsx";
 
 
 
@@ -21,6 +24,7 @@ export function StoryPreview({ story, onLike }) {
     const [isUserLike, setIsUserLike] = useState(false)
 
     useEffect(() => {
+        console.log("Story preview is rendering")
         isUserLikeCheck1(story)
     }, [isUserLike, stories])
 
@@ -31,7 +35,7 @@ export function StoryPreview({ story, onLike }) {
         else setIsUserLike(true)
     }
 
-    if (!stories) return <div>loading...</div>
+    if (!stories) return <div><Loader/></div>
     return (
         <div className="story-preview">
 
@@ -53,7 +57,13 @@ export function StoryPreview({ story, onLike }) {
                 <button className="bookmark"><SaveIcon /></button>
             </div>
             <div>
-                <div className="likes-amount"> {story.likedBy.length} Likes</div>
+                <div className="likes-amount"> 
+                <BasicModal header ={`${story.likedBy.length} Likes`} text ={"Likes"} content={story.likedBy.map(user =>
+                    <li style={{listStyle : 'none'}}>
+                        <UserMiniCard user ={user} fromHome = {false}/>
+                    </li>
+                )}/>
+                </div>
                 <div className="story-description">
                     <span>{story.by.fullname}</span>
                     : {story.txt}

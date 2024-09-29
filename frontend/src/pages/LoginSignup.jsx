@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { userService } from '../services/user/index.js'
 import { ImgUploader } from '../cmps/ImgUploader'
 import { useSelector } from "react-redux"
-import {useNavigate} from "react-router-dom"
+import {useNavigate, Outlet} from "react-router-dom"
 import { login , signup } from "../store/user.actions.js"
 import {showErrorMsg} from "../services/event-bus.service.js"
 import { loadUsers } from '../store/user.actions.js'
@@ -147,6 +147,7 @@ export function LoginSignup(props) {
                 </p>
                 </div>
             </div>
+            <Outlet/>
         </div>
     )
 }

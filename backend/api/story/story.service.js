@@ -13,7 +13,7 @@ export const StoryService = {
     remove,
     add,
     update,
-    queryByFollowing
+    queryByFollowing,
 }
 
 async function query(filterBy = {}) {
@@ -32,8 +32,9 @@ async function query(filterBy = {}) {
     }
 }
 
-async function queryByFollowing(userId) {
+async function queryByFollowing(userId, explore = false) {
     console.log("User Id from front:", userId)
+    console.log("explore from service",explore)
     try {
         const criteria = { _id: ObjectId.createFromHexString(userId) }
         const Ecriteria = {}
@@ -46,14 +47,15 @@ async function queryByFollowing(userId) {
 
         const followingIds = user.following.map(follow => follow._id)
         followingIds.push(ObjectId.createFromHexString(userId))
-        console.log("followingids:", followingIds)
 
         const storiesCollection = await dbService.getCollection("story_ex")
-        var storyCursor = await storiesCollection.find({ 'by._id': { $in: followingIds } })
+        if (explore){
+            var storyCursor = await storiesCollection.find({ 'by._id': { $nin: followingIds } }).sort({"by._id": -1})
+        }else {
+            var storyCursor = await storiesCollection.find({ 'by._id': { $in: followingIds } }).sort({"by._id": -1})
+        }
         const results = await storyCursor.toArray()
 
-        // const results = await stories.find({ 'by._id': { $in: followingIds } }).toArray();
-        console.log("result:", results)
         return results;
 
     } catch (err) {
@@ -61,6 +63,7 @@ async function queryByFollowing(userId) {
         throw err
     }
 }
+
 
 async function getById(storyId) {
     try {

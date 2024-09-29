@@ -5,7 +5,8 @@ import { addStory, deleteStory, getStories, getStoriesByFollowing, getStory, upd
 const router = express.Router()
 
 router.get("/", getStories)
-router.get("/:userId", getStoriesByFollowing)
+router.get("/follow/:userId", getStoriesByFollowing)
+router.get("/unfollow/:userId", getStoriesByFollowing)
 router.get("/:storyId", getStory)
 router.delete("/:storyId", deleteStory)
 router.post("/", addStory)

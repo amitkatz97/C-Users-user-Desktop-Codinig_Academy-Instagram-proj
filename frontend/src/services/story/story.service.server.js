@@ -16,7 +16,8 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
         save,
         update,
         getEmptyStory,
-        queryOnlyFollowing
+        queryOnlyFollowing,
+        queryOnlyUnfollowing
     }
 
     async function query(filterBy ={}){
@@ -30,7 +31,16 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
 
     async function queryOnlyFollowing(userId){
         try {
-            const {data: stories}= await axios.get(BASE_URL+'/'+ userId)
+            const {data: stories}= await axios.get(BASE_URL+'/follow/'+ userId)
+            return stories
+        } catch (err) {
+            console.log("cant get stories", err)
+        }
+    }
+
+    async function queryOnlyUnfollowing(userId){
+        try {
+            const {data: stories}= await axios.get(BASE_URL+'/unfollow/'+ userId)
             return stories
         } catch (err) {
             console.log("cant get stories", err)

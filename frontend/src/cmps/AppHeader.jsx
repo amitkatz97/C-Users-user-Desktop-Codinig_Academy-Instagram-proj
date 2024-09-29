@@ -80,14 +80,14 @@ export function AppHeader() {
                         <span> Create <button> <CreateIcon /> </button> </span>
                     </NavLink>
                 </div>
-                <div className='panel-link'>
-                    <NavLink to={currentUser._id} className="nav-link">
+                {currentUser && <div className='panel-link'>
+                   <NavLink to={currentUser._id} className="nav-link">
                         <span> Profile <button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
                     </NavLink>
-                </div>
+                </div>}
                 <div className='panel-link'>
-                    <NavLink to={"/login"} className="logout-btn">
-                        <span> Logout <button onClick={onLogout}></button> </span>
+                    <NavLink to={"/login"} className="logout-btn" onClick={onLogout}>
+                        <span> Logout <button ></button> </span>
                     </NavLink>
 
                 </div>

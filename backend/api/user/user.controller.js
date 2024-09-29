@@ -12,6 +12,17 @@ export async function getUsers(req, res){
     }
 }
 
+export async function getUsersByFollowing( req, res){
+    const {userId } = req.params
+    try {
+        const users = await UserService.queryByFollowing(userId)
+        res.send(users)
+    } catch (err) {
+        console.log('Couldent gat users', err)
+        res.status(400).send("Couldnt get users")
+    }
+}
+
 export async function getUser(req, res){
     const {userId } = req.params
     try {

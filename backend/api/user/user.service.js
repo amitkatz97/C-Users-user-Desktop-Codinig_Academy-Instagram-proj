@@ -11,7 +11,8 @@ export const UserService = {
     // save,
     // remove,
     update,
-    add
+    add,
+    queryByFollowing
 }
 
 async function query(filterBy ={}){
@@ -32,6 +33,30 @@ async function query(filterBy ={}){
     }
 }
 
+async function queryByFollowing(userId){
+    try {
+        const criteria = { _id: ObjectId.createFromHexString(userId) }
+
+        const users = await dbService.getCollection("user")
+        const user = await users.findOne(criteria)
+        if (!user) {
+            throw new Error("User not found")
+        }
+
+        const followingIds = user.following.map(follow => follow._id)
+        followingIds.push(ObjectId.createFromHexString(userId))
+
+        var userCursor = await users.find({ '_id': { $nin: followingIds } })
+
+        const results = await userCursor.toArray()
+        loggerService.info("query by Following succeded")
+        return results
+    } catch (err){
+        console.log("Cant getusers by Following", err)
+        throw err
+    }
+}
+
 async function getById(userId){
     try {
         const criteria = {_id: ObjectId.createFromHexString(userId)}
@@ -45,6 +70,7 @@ async function getById(userId){
 }
 
 async function update(user){
+    console.log("user:",user)
     const {following , followers} = user
     const updateFollowing = following.map(Object =>({
                 _id: typeof Object._id === 'string' ? ObjectId.createFromHexString(Object._id) : Object._id,

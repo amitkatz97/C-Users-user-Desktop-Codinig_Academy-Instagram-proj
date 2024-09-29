@@ -15,10 +15,13 @@ export async function getStories(req, res){
 }
 
 export async function getStoriesByFollowing(req, res){
-    const {userId} = req.params
+    const {userId } = req.params
+    let explore = false
+    console.log("req:",req.path)
+    if (req.path.includes("unfollow")){explore = true}
 
     try {
-        const stories = await StoryService.queryByFollowing(userId)
+        const stories = await StoryService.queryByFollowing(userId, explore)
         res.send(stories)
     } catch (err) {
         console.log("cant get stories to user with ID:", userId, err)

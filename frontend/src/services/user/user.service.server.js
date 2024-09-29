@@ -21,7 +21,10 @@ export const userService = {
     getById,
     // remove,
     update,
+    getUsersByFollowing
 }
+
+console.log("remote mode")
 
 async function getUsers(filterBy){
     try {
@@ -30,6 +33,15 @@ async function getUsers(filterBy){
         return users
     } catch (err) {
         console.log("Can't gat users". err)
+    }
+}
+
+async function getUsersByFollowing(userId){
+    try {
+        const {data : users} = await axios.get(BASE_URL + "/follow/" + userId)
+        return users
+    } catch (err) {
+        console.log("Can't gat users by Foloowing". err)
     }
 }
 

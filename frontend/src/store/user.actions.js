@@ -71,6 +71,7 @@ export async function logout() {
 }
 
 export async function addFollow(user, profile){
+    console.log("user:", user, "profile:", profile)
     let status
     const {followers} = profile 
     const {following} = user
@@ -79,12 +80,12 @@ export async function addFollow(user, profile){
     const myMiniUser = {
         _id: user._id,
         fullname :user.fullname,
-        imgUrl: user.imgUrl
+        imgUrl: user.imgUrl,
     }
     const profileMiniUser = {
         _id: profile._id,
         fullname :profile.fullname,
-        imgUrl: profile.imgUrl
+        imgUrl: profile.imgUrl,
     }
 
 
@@ -106,8 +107,10 @@ export async function addFollow(user, profile){
 }
 
 export function isUserFollowCheck(user, profile){
-    const {followers} = profile 
-    let indexToRemove= followers.findIndex(userFollower => userFollower._id === user._id)
+    console.log("is user chack is activated")
+    const {following} = user 
+    // console.log("CurrUser following on" , following)
+    let indexToRemove= following.findIndex(userFollower => userFollower._id === profile._id)
     if (indexToRemove < 0 ) 
         { return false }
     else return true

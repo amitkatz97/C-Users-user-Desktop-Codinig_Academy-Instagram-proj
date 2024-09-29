@@ -2,29 +2,23 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import Loader from "./Loader"
 import { UserMiniCard } from "./UserMiniCard.jsx"
+import { userService } from "../services/user/index.js"
 
 
-export function UserList({ user , users}) {
-    const currUser = useSelector(userState => userState.userModule.user)
+export function UserList({ user }) {
+    // const currUser = useSelector(userState => userState.userModule.user)
     // const users = useSelector(userState => userState.userModule.users)
 
-    const [unfollowUserList, setUnfollowUserList]= useState(null)
+    const [unfollowUserList, setUnfollowUserList]= useState()
 
     useEffect(() => {
-        console.log(users)
+        console.log("User list is rendering")
         getUnfollowUsers()
-    }, [currUser])
+    }, [user])
 
     async function getUnfollowUsers(){
-        let unfollowUserList = []
-        for (let i = 0; i < users.length ; i++ ){
-            for(let j = 0 ; j < users[i].followers.length; j++){
-                if (users[i].followers[j]._id !== currUser._id){
-                    unfollowUserList.push(users[i])
-                }
-           }
-        }
-        console.log("unfollowList:",unfollowUserList)
+        const users = await userService.getUsersByFollowing(user._id)
+        console.log(users.length)
         const randomUsers = shuffleArray([...users]).slice(0, 6)
         setUnfollowUserList(randomUsers)
     }
@@ -48,10 +42,10 @@ export function UserList({ user , users}) {
                 <UserMiniCard user={user} />
             </div>
             <div className="suggested-users">
-                <section>Suggested for you</section>
+                <section>Suggested for you <span>See All</span></section>
                 {unfollowUserList.map(suggestedUser =>
                     <li>
-                        <UserMiniCard user={suggestedUser} />
+                        <UserMiniCard user={suggestedUser} fromHome ={true} />
                     </li>
                 )}
             </div>
