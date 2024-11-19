@@ -106,20 +106,20 @@ export async function addFollow(user, profile){
     return status
 }
 
-export function isUserFollowCheck(user, profile){
-    console.log("is user chack is activated")
+export async function isUserFollowCheck(user, profile){
     const {following} = user 
     // console.log("CurrUser following on" , following)
-    let indexToRemove= following.findIndex(userFollower => userFollower._id === profile._id)
-    if (indexToRemove < 0 ) 
-        { return false }
-    else return true
+    let indexToRemove= await following.findIndex(userFollower => userFollower._id === profile._id)
+    if (indexToRemove > -1 ) 
+        { return true }
+    else return false
 }
 
 export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId)
-        store.dispatch({ type: SET_WATCHED_USER, user })
+        console.log('user from DB:', user)
+        store.dispatch(getCmdSetUser(user))
         return user
     } catch (err) {
         showErrorMsg('Cannot load user')
@@ -135,5 +135,12 @@ export async function updateUser(user){
     } catch (err) {
         showErrorMsg("Cant update user")
         console.log('Cannot update user', err)
+    }
+}
+
+function getCmdSetUser(user) {
+    return {
+        type: SET_WATCHED_USER,
+        user
     }
 }

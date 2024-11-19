@@ -5,9 +5,11 @@ export const ADD_STORY = 'ADD_STORY'
 export const UPDATE_STORY = 'UPDATE_STORY'
 export const ADD_STORY_MSG = 'ADD_STORY_MSG'
 export const SET_COMMENT = "SET_COMMENT"
+export const SET_ALL_STORIES = "SET_ALL_STORIES"
 
 const initialState = {
     stories: [],
+    allStories: [],
     story: null,
     comment: null
 }
@@ -18,6 +20,9 @@ export function storyReducer(state = initialState, action) {
     switch (action.type) {
         case SET_STORIES:
             newState = { ...state, stories: action.stories }
+            break
+        case SET_ALL_STORIES:
+            newState = { ...state, allStories: action.stories }
             break
         case SET_STORY:
             newState = { ...state, story: action.story }
@@ -45,30 +50,4 @@ export function storyReducer(state = initialState, action) {
     return newState
 }
 
-// unitTestReducer()
-
-function unitTestReducer() {
-    var state = initialState
-    const car1 = { _id: 'b101', vendor: 'Car ' + parseInt(Math.random() * 10), msgs: [] }
-    const car2 = { _id: 'b102', vendor: 'Car ' + parseInt(Math.random() * 10), msgs: [] }
-
-    state = storyReducer(state, { type: SET_CARS, cars: [car1] })
-    console.log('After SET_CARS:', state)
-
-    state = storyReducer(state, { type: ADD_CAR, car: car2 })
-    console.log('After ADD_CAR:', state)
-
-    state = storyReducer(state, { type: UPDATE_CAR, car: { ...car2, vendor: 'Good' } })
-    console.log('After UPDATE_CAR:', state)
-
-    state = storyReducer(state, { type: REMOVE_CAR, carId: car2._id })
-    console.log('After REMOVE_CAR:', state)
-
-    const msg = { id: 'm' + parseInt(Math.random() * 100), txt: 'Some msg' }
-    state = storyReducer(state, { type: ADD_CAR_MSG, carId: car1._id, msg })
-    console.log('After ADD_CAR_MSG:', state)
-
-    state = storyReducer(state, { type: REMOVE_CAR, carId: car1._id })
-    console.log('After REMOVE_CAR:', state)
-}
 

@@ -10,6 +10,13 @@
 
 .users-list-area{
     margin-left: 60px;
+
+    @include for-narrow-layout {
+        display: block;
+    }
+    @include for-mobile-layout {
+        display: none;
+    }
     
 }
 

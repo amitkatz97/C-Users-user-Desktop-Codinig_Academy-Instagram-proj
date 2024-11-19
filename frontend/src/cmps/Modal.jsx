@@ -46,7 +46,7 @@ export default function BasicModal({header, text ,content, number = null }) {
           <Typography className="modal-header">
             {text}
           </Typography>
-          <Typography className="modal-content">
+          <Typography className="modal-content" onClick ={handleClose}>
            {content}
           </Typography>
         </Box>

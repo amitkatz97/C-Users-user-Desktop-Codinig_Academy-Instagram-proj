@@ -44,7 +44,7 @@ export function UserList({ user }) {
             <div className="suggested-users">
                 <section>Suggested for you <span>See All</span></section>
                 {unfollowUserList.map(suggestedUser =>
-                    <li>
+                    <li key={suggestedUser._id}>
                         <UserMiniCard user={suggestedUser} fromHome ={true} />
                     </li>
                 )}

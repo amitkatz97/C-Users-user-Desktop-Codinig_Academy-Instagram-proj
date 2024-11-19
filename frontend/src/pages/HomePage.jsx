@@ -1,5 +1,5 @@
 import { storyReducer } from "../store/story.reducer"
-import { loadStories, addStory, removeStory, updateStory, addLike } from "../store/story.actions"
+import { loadStories, addStory, removeStory, updateStory, addLike, loadAllStories } from "../store/story.actions"
 import { store } from "../store/store"
 import { useEffect, useState , useRef} from "react"
 import { useSelector } from "react-redux"
@@ -7,6 +7,7 @@ import { Link, Outlet } from "react-router-dom"
 import { StoryPreview } from "../cmps/StoryPreview"
 import { UserList } from "../cmps/UsersList.jsx"
 import Loader from '../cmps/Loader.jsx'
+import { utilService } from "../services/util.service.js"
 
 
 export function HomePage() {
@@ -22,6 +23,7 @@ export function HomePage() {
     useEffect(() => {
         console.log("Home is rendering")
         loadStories(user)
+        loadAllStories()
     }, [user])
 
     // useEffect(() => {
@@ -37,18 +39,6 @@ export function HomePage() {
         addLike(story, user)
     }
 
-    // async function loadPartOfStories(amount = 5 ){
-    //     setIsLoading(true)
-    //     try {
-    //         const nextStories = await stories.slice(nextIdx.current * amount, nextIdx.current++ * amount)
-    //         setStoriesToDisplay(prevStories => [...prevStories, ...nextStories])
-    //     } catch (err) {
-    //         console.log("err:", err)
-    //     }
-    //     finally{
-    //         setIsLoading(false)
-    //     }
-    // }
 
     if (!stories) return <div><Loader /></div>
     if (!user) return <div><Loader /></div>
@@ -56,12 +46,10 @@ export function HomePage() {
         <section className="home-page">
             <ul className="stories-list">
                 {stories.map(story =>
-                    <li key={story._id}>
+                    <li key={utilService.makeId()}>
                         <StoryPreview story={story} onLike={onLike} />
                     </li>
                 )}
-                {/* {isLoading && <Loader/>}
-                <div ref={bottomDiv} className='bottom-div'></div> */}
             </ul>
             <ul className="users-list-area">
                 <UserList user={user}/>

@@ -8,7 +8,7 @@ import {showErrorMsg} from "../services/event-bus.service.js"
 import { loadUsers } from '../store/user.actions.js'
 
 export function LoginSignup(props) {
-    const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
+    const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' , ImgUrl: ''})
     const [isSignup, setIsSignup] = useState(false)
     // const [users, setUsers] = useState([])
     const users = useSelector(userState => userState.userModule.users)
@@ -27,13 +27,16 @@ export function LoginSignup(props) {
     // }
 
     function clearState() {
-        setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
+        setCredentials({ username: '', password: '', fullname: ''})
         setIsSignup(false)
     }
 
     function handleChange(ev) {
+        console.log("ev target:",ev.target.img)
         const field = ev.target.name
         const value = ev.target.value
+        const img = ev.target.img
+        
         setCredentials({ ...credentials, [field]: value })
     }
 
@@ -85,14 +88,14 @@ export function LoginSignup(props) {
             <img src="src\imgs\LoginImg.JPG" alt="" />
             <div className='all-forms'>
                 <img src="src/imgs/Logo.svg" alt="" />
-            {!isSignup && <form className="login-form" onSubmit={onLogin}>
+            {!isSignup &&<form className="login-form" onSubmit={onLogin}>
                 <select
                     name="fullname"
                     value={credentials.fullname}
                     onChange={handleChange}
                 >
                     <option value="">Select User</option>
-                    {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
+                    {users.map(user => <option key={user._id} value={user.username} img ={user.ImgUrl}>{user.fullname}</option>)}
                 </select>
                 {/* <input
                         type="text"
@@ -111,8 +114,9 @@ export function LoginSignup(props) {
                         onChange={handleChange}
                         required
                     /> */}
-                <button>Login</button>
+                <button>Log in</button>
             </form>}
+            {!isSignup &&<div className='password'>Forgot password? </div>}
             <div className="signup-section">
                 {isSignup && <form className="signup-form" onSubmit={onSignup}>
                     <input
@@ -140,10 +144,11 @@ export function LoginSignup(props) {
                         required
                     />
                     <ImgUploader onUploaded={onUploaded} />
-                    <button>Signup</button>
+                    <button className="btn-link" >Sign Up</button>
                 </form>}
                 <p>
-                <button className="btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</button>
+                {!isSignup &&<span>Don't have an account? <button className="btn-link" onClick={toggleSignup}>Sign Up</button></span>}
+                {isSignup &&  <button  onClick={toggleSignup}>Back</button>}
                 </p>
                 </div>
             </div>

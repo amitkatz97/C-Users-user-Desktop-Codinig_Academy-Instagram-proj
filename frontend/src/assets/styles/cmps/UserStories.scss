@@ -3,6 +3,7 @@
     flex-direction: column;
     list-style: none;
     border-top: 1px solid $gray1;
+    max-width: 1000px;
 
 
     .user-story-links{
@@ -29,7 +30,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         // grid-template-rows: 200px;
-        gap: 5px;
+        gap: 2px;
         
         >li{
             height: 100%;
@@ -38,12 +39,14 @@
             box-sizing: border-box;
             position: relative;
             overflow: auto;
+            cursor: pointer;
            
 
             img{
                 object-fit: cover;
-                min-height: 300px;
-                max-height: 300px;
+                aspect-ratio: 1 / 1;
+                // min-height: 300px;
+                // max-height: 300px;
                 display: block;
             }
             .hovered{

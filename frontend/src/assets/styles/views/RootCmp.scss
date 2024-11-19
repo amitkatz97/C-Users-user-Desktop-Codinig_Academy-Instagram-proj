@@ -1,47 +1,41 @@
-
-
-.main-app{
+.main-app {
     display: grid;
     grid-template-columns: 1fr 4fr;
-    grid-template-areas: 
-    "aside main";
+    grid-template-areas:
+        "aside main";
+
+    @include for-narrow-layout {
+        grid-template-areas:
+        "aside main";
+    }
+
+    @include for-mobile-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+        grid-template-areas:
+            "main"
+            "aside";
+    }
+
+    @include for-normal-layout {
+        grid-template-areas:
+        "aside main";
+    }
 }
 
-.app-header{
+.app-header {
     grid-area: aside;
     // position: fixed;
     border-right: 1px solid $gray1;
     height: 100vh;
     width: 220;
+    
+    
 }
 
-.container{
+.container {
     grid-area: main;
-    padding: 15px;
-    margin-left: 45px;
+    display: flex;
+    justify-content: space-around;
     height: 100vh;
 }
-
-// @media (max-width : 900px){
-//     .main-app{
-//         display: grid;
-//         grid-template-rows: 1fr auto;
-//         min-height: 100vh;
-//         grid-template-columns:1fr;
-//         grid-template-areas: 
-//         "main"
-//         "aside";
-//     }
-//     .app-header{
-//         grid-area: aside;
-//         min-height: 100vh;
-//         // position: fixed;
-//         border-top: 1px solid $gray1;
-//         width: 100vh;
-//     }
-    
-//     .container{
-//         grid-area: main;
-//         padding: 15px;
-//     }
-// }

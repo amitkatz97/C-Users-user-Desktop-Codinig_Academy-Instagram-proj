@@ -5,6 +5,10 @@
     font-weight: 600;
     color: rgb(115, 115, 115);
 
+    // @include for-narrow-layout {
+    //     display: none;
+    // }
+
     section{
         span{
             font-size: 12px;

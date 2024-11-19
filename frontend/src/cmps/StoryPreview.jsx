@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { Link, Navigate, Outlet, useNavigate } from "react-router-dom"
-import { loadStories, addStory, removeStory, updateStory, isUserLikeCheck } from "../store/story.actions"
-import { utilService } from "../services/util.service";
-import { Accordion } from "./Accordion";
 import { CommentAdding } from "./CommentAdding";
 import { CommentIcon } from "./SVG.jsx";
 import { SaveIcon, NotificationIcon, NotificationIconRed , MessageIcon} from "./SVG.jsx"
@@ -24,7 +21,7 @@ export function StoryPreview({ story, onLike }) {
     const [isUserLike, setIsUserLike] = useState(false)
 
     useEffect(() => {
-        console.log("Story preview is rendering")
+        // console.log("Story preview is rendering")
         isUserLikeCheck1(story)
     }, [isUserLike, stories])
 
@@ -59,7 +56,7 @@ export function StoryPreview({ story, onLike }) {
             <div>
                 <div className="likes-amount"> 
                 <BasicModal header ={`${story.likedBy.length} Likes`} text ={"Likes"} content={story.likedBy.map(user =>
-                    <li style={{listStyle : 'none'}}>
+                    <li style={{listStyle : 'none'}} key={story._id}>
                         <UserMiniCard user ={user} fromHome = {false}/>
                     </li>
                 )}/>

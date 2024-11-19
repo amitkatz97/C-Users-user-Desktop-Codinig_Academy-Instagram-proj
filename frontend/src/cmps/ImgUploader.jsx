@@ -11,10 +11,10 @@ export function ImgUploader({ onUploaded = null }) {
 
   async function uploadImg(ev) {
     setIsUploading(true)
-    const { secure_url, height, width } = await uploadService.uploadImg(ev)
-    setImgData({ imgUrl: secure_url, width, height })
+    const { imgUrl, height, width } = ev
+    setImgData({ imgUrl: imgUrl, width, height })
     setIsUploading(false)
-    onUploaded && onUploaded(secure_url)
+    onUploaded(imgUrl)
   }
 
   function getUploadLabel() {

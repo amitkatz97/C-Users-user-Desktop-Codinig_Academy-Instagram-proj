@@ -1,7 +1,7 @@
 import { storyService } from '../services/story/index.js'
 import { utilService } from '../services/util.service.js'
 import { store } from './store.js'
-import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_MSG , SET_COMMENT} from './story.reducer.js'
+import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_MSG , SET_COMMENT, SET_ALL_STORIES} from './story.reducer.js'
 
 
 
@@ -31,6 +31,18 @@ export async function loadStories(user) {
         const stories = await storyService.queryOnlyFollowing(_id)
         console.log('stories from DB:', stories)
         store.dispatch(getCmdSetStories(stories))
+        return stories
+    } catch (err) {
+        console.log('Cannot load stories', err)
+        throw err
+    }
+}
+
+export async function loadAllStories() {
+    try {
+        const stories = await storyService.query()
+        console.log('All Stories from DB:', stories)
+        store.dispatch(getCmdSetAllStories(stories))
         return stories
     } catch (err) {
         console.log('Cannot load stories', err)
@@ -171,6 +183,12 @@ export function isUserLikeCheck(story, user){
 function getCmdSetStories(stories) {
     return {
         type: SET_STORIES,
+        stories
+    }
+}
+function getCmdSetAllStories(stories) {
+    return {
+        type: SET_ALL_STORIES,
         stories
     }
 }

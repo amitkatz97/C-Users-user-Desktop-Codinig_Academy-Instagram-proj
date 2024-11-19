@@ -21,16 +21,21 @@ export function UserMiniCard({user, fromHome = true}){
     },[user, currUser])
 
     useEffect(()=> {
-        setTimeout(() => {
-            setIsUserFollow(isUserFollowCheck(currUser, user)) 
-        }, 100);
-        setIsLoading(false)
+        Init()
+        // setTimeout(() => {
+        //     setIsUserFollow(isUserFollowCheck(currUser, user)) 
+        // }, 100);
+        // setIsLoading(false)
     },[user])
 
     const classKind = fromHome ? "user-card" : "user-card-2"
     const btnClass = isUserFollow? "unfollow" : "follow"
 
-
+    async function Init(){
+        const status = await isUserFollowCheck(currUser, user)
+        setIsUserFollow(status)
+        setIsLoading(false)
+    }
     function onLogout() {
         console.log("logout attempted ")
         navigate("/login")

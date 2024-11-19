@@ -53,6 +53,11 @@
         justify-content: center;
         align-items: center;
         z-index: 1002;
+
+        @include for-mobile-layout{
+            height: 50%;
+            width: 60%;
+        }
         
         
         .image-uploading{
@@ -68,14 +73,14 @@
         }
 
         .image-preview{
-            display: flex;
+            display: block;
             justify-content: center;
-            display: none;
             overflow: hidden;
             object-fit: contain;
             max-width: 100%;
             max-height:100%;
             .uploaded-img{
+                justify-content: flex-start;
                 width:100%;
                 height: 680px;
                 overflow: hidden;
@@ -183,6 +188,7 @@
         .inforamtion-area{
             grid-area: infromation;
             align-self: start;
+           
 
     
             .story-information{
@@ -191,6 +197,7 @@
                 flex-direction: column;
                 margin-top: 35px;
                 margin-left: 2px;
+                transition: 0.6s;
                
                 .story-description{
                     display: flex;

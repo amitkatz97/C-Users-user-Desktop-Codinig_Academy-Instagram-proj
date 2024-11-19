@@ -8,8 +8,9 @@ import { useState } from 'react'
 import { userService } from '../services/user/index.js'
 import { HomeIconFull } from "./SVG.jsx"
 import { HomeIcon } from "./SVG.jsx"
-import { MessageIcon, MessageIconFull, NotificationIcon, NotificationIconFull, ReelsIcon, ReelsIconFull, SearchIcon, SearchIconFull, ExploreIcon, ExploreIconFull, CreateIcon } from './SVG.jsx';
+import { MessageIcon, MessageIconFull, NotificationIcon, NotificationIconFull, ReelsIcon, ReelsIconFull, SearchIcon, SearchIconFull, ExploreIcon, ExploreIconFull, CreateIcon, LogoutMenuIcon , LogoIcon} from './SVG.jsx';
 import { logout } from "../store/user.actions.js"
+import { Padding } from '@mui/icons-material';
 
 
 
@@ -44,50 +45,50 @@ export function AppHeader() {
     return (
         <>
             <div className='app-header' id='app-header'>
-                <h1><img src="src/imgs/Logo.svg" alt="" /></h1>
+                <h1><img src="src/imgs/Logo2.png" alt="" /> <LogoIcon/></h1>
                 <div className='panel-link'>
                     <NavLink to={'/'} className="nav-link" >
-                        <span> Home <button> {isActive('/') ? <HomeIconFull /> : <HomeIcon />}</button></span>
+                        <span> <span className='link-text'> Home </span> <button> {isActive('/') ? <HomeIconFull /> : <HomeIcon />}</button></span>
                     </NavLink>
                 </div>
-                <div className='panel-link'>
+                <div className='panel-link temp'>
                     <NavLink to={'/search'} className="nav-link">
-                        <span> Search <button> {isActive('/search') ? <SearchIconFull/> : <SearchIcon />} </button> </span>
+                        <span> <span className='link-text'> Search </span> <button> {isActive('/search') ? <SearchIconFull/> : <SearchIcon />} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
                     <NavLink to={'/explore'} className="nav-link">
-                        <span>Explore <button> {isActive('/explore') ? <ExploreIconFull/> : <ExploreIcon />} </button> </span>
+                        <span> <span className='link-text'> Explore </span> <button> {isActive('/explore') ? <ExploreIconFull/> : <ExploreIcon />} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
                     <NavLink to={'/reels'} className="nav-link">
-                        <span>Reels <button> {isActive('/reels') ? <ReelsIconFull /> : <ReelsIcon/>} </button> </span>
+                        <span> <span className='link-text'> Reels </span> <button> {isActive('/reels') ? <ReelsIconFull /> : <ReelsIcon/>} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
                     <NavLink to={'/direct'} className="nav-link">
-                        <span> Messages <button> {isActive('/direct') ? <MessageIconFull /> : <MessageIcon />} </button> </span>
+                        <span> <span className='link-text'> Messages </span> <button> {isActive('/direct') ? <MessageIconFull /> : <MessageIcon />} </button> </span>
                     </NavLink>
                 </div>
-                <div className='panel-link'>
+                <div className='panel-link temp'>
                     <NavLink to={'/notification'} className="nav-link">
-                        <span> Notifications <button> {isActive('/notification') ? <NotificationIconFull/> : <NotificationIcon />} </button> </span>
+                        <span> <span className='link-text'> Notifications </span>  <button> {isActive('/notification') ? <NotificationIconFull/> : <NotificationIcon />} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
                     <NavLink to={'/'} className="nav-link" onClick={openModal}>
-                        <span> Create <button> <CreateIcon /> </button> </span>
+                        <span> <span className='link-text'> Create </span> <button> <CreateIcon /> </button> </span>
                     </NavLink>
                 </div>
                 {currentUser && <div className='panel-link'>
                    <NavLink to={currentUser._id} className="nav-link">
-                        <span> Profile <button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
+                        <span>  <span className='link-text'> Profile </span><button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
                     </NavLink>
                 </div>}
-                <div className='panel-link'>
-                    <NavLink to={"/login"} className="logout-btn" onClick={onLogout}>
-                        <span> Logout <button ></button> </span>
+                <div className='panel-link temp'>
+                    <NavLink to={"/login"} className="logout-btn nav-link" onClick={onLogout}>
+                        <span> <span className='link-text'> Logout </span> <button ><LogoutMenuIcon/></button> </span>
                     </NavLink>
 
                 </div>
