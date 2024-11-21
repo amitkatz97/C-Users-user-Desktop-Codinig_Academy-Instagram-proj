@@ -75,10 +75,10 @@ export function AppHeader() {
     return (
         <>
             <div className='app-header' id='app-header'>
-            {!isDialogOpen ?(<h1 className='Logo'> <img src="src/imgs/Logo2.png" alt="" /> <LogoIcon/></h1>):(<h1 className='Logo2'><LogoIcon/></h1>)}
+            {!isDialogOpen ?(<h1 className='Logo'> <img src="/imgs/Logo2.png" alt="" /> <LogoIcon/></h1>):(<h1 className='Logo2'><LogoIcon/></h1>)}
                 <div className='panel-link'>
-                    <NavLink to={'/'} className="nav-link" >
-                        <span> <span className='link-text'> Home </span> <button> {isActive('/') ? <HomeIconFull /> : <HomeIcon />}</button></span>
+                    <NavLink to={'/home'} className="nav-link" >
+                        <span> <span className='link-text'> Home </span> <button> {isActive('/home') ? <HomeIconFull /> : <HomeIcon />}</button></span>
                     </NavLink>
                 </div>
                 <div className='panel-link temp'>
@@ -117,7 +117,7 @@ export function AppHeader() {
                     </NavLink>
                 </div>}
                 <div className='panel-link temp'>
-                    <NavLink to={"/login"} className="logout-btn nav-link" onClick={onLogout}>
+                    <NavLink to={"/"} className="logout-btn nav-link" onClick={onLogout}>
                         <span> <span className='link-text'> Logout </span> <button ><LogoutMenuIcon/></button> </span>
                     </NavLink>
 

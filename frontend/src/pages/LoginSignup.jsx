@@ -20,11 +20,6 @@ export function LoginSignup(props) {
         document.getElementById("app-header").style.display = 'none'
     }, [])
 
-    // async function loadUsers() {
-    //     const users = await userService.getUsers()
-    //     console.log(users)
-    //     setUsers(users)
-    // }
 
     function clearState() {
         setCredentials({ username: '', password: '', fullname: ''})
@@ -50,7 +45,7 @@ export function LoginSignup(props) {
             login(credentials)
             document.getElementById("app-header").style.display = 'flex'
             clearState()
-            navigate("/")
+            navigate("/home")
         } catch (err) {
             console.log("Cant logged in , Some credentials are missing", err)
         }
@@ -62,7 +57,7 @@ export function LoginSignup(props) {
          if (!credentials.username || !credentials.password || !credentials.fullname) return
          signup(credentials)
          clearState()
-         navigate("/")
+         navigate("/home")
        } catch (err) {
             console.log("Cant sigend up:", err)
        }
@@ -85,9 +80,9 @@ export function LoginSignup(props) {
     return (
         <div className="login-page">
             {/* <LoginImg images={loginImgs} interval={3000}/> */}
-            <img src="src\imgs\LoginImg.JPG" alt="" />
+            <img src="/imgs/LoginImg.JPG" alt="" />
             <div className='all-forms'>
-                <img src="src/imgs/Logo.svg" alt="" />
+                <img src="/imgs/Logo.svg" alt="" />
             {!isSignup &&<form className="login-form" onSubmit={onLogin}>
                 <select
                     name="fullname"

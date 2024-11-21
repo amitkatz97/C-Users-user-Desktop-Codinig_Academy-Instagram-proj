@@ -22,8 +22,8 @@ export function RootCmp() {
                 <AppHeader />
                     <main className='container'>
                         <Routes>
-                            <Route path='/' element ={<HomePage/>}>
-                                <Route path='/p/:storyId' element = {<StoryDetails/>}/>
+                            <Route path='/home' element ={<HomePage/>}>
+                                <Route path='/home/:storyId' element = {<StoryDetails/>}/>
                             </Route>
                             <Route path='/:userId' element = {<ProfilePage/>}>
                                 <Route  path='/:userId/:storyId' element = {<StoryDetails/>}/>
@@ -34,7 +34,7 @@ export function RootCmp() {
                             <Route path='/explore' element= {<ExplorePage />}>
                                 <Route path='/explore/:storyId' element = {<StoryDetails/>}/>
                             </Route>
-                            <Route path='/login' element= {<LoginSignup/>}/>
+                            <Route path='/' element= {<LoginSignup/>}/>
                         </Routes>
                     </main>
             </div>

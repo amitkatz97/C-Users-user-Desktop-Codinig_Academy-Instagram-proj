@@ -11,6 +11,7 @@ export function ExplorePage(){
     const user = useSelector(userState => userState.userModule.user)
 
     const [stories, setStories]= useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(()=>{
         Init()
@@ -20,18 +21,22 @@ export function ExplorePage(){
     const navigate = useNavigate()
 
     async function Init(){
+        setIsLoading(true)
         try {
             const storiesToExplore = await storyService.queryOnlyUnfollowing(user._id)
             setStories(storiesToExplore)
         } catch (err) {
             console.log("Cant get stories to explore", err)
         }
+        finally{
+            setIsLoading(false)
+        }
     }
 
     function navigateToDetailes(adress){
         navigate(`/explore/${adress}`)
     }
-    if (!stories) return <div><Loader/></div>
+    if (isLoading) return <div><Loader/></div>
     return(
         <>
         <ul className='explore'>

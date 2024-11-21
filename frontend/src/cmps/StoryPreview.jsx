@@ -49,7 +49,7 @@ export function StoryPreview({ story, onLike }) {
                     <button onClick={() => { onLike(story) }}><NotificationIconRed /></button>) :
                     (<button onClick={() => { onLike(story) }}><NotificationIcon /></button>)
                 }
-                <button onClick={() => navigate(`/p/${story._id}`)}><CommentIcon /></button>
+                <button onClick={() => navigate(`/home/${story._id}`)}><CommentIcon /></button>
                 <button><MessageIcon /></button>
                 <button className="bookmark"><SaveIcon /></button>
             </div>
