@@ -32,29 +32,6 @@ export function StoryCreation({ isOpen, closeModal }) {
     }
 
 
-    // function displayPreview(event) {
-    //     const file = event.target.files[0];
-    //     if (!file) return
-    //     const preview = document.getElementById('preview');
-    //     const reader = new FileReader()
-
-    //     reader.onloadend = function () {
-    //         preview.src = reader.result;
-    //         document.getElementById('image-preview').style.display = 'block';
-    //         document.getElementById('upload-form').style.display = 'none'
-    //         const update = { ...newStory, imgUrl: preview.src }
-    //         setNewStory(update)
-    //     }
-
-
-    //     if (file) {
-    //         reader.readAsDataURL(file);
-    //     } else {
-    //         preview.src = '';
-    //         document.getElementById('image-preview').style.display = 'none';
-    //     }
-
-    // }
 
     async function hendleFileChange(event) {
         const file = event.target.files[0];
@@ -202,7 +179,7 @@ export function StoryCreation({ isOpen, closeModal }) {
                             <img src={newStory.by.imgUrl} /> <span>{newStory.by.fullname}</span>
                         </article>
                         <label htmlFor="descprition"></label>
-                        <input
+                        <textarea
                             className="descprition" type="text" id="descprition" name="descprition"
                             placeholder="Add Something"
                             value={inputValue}

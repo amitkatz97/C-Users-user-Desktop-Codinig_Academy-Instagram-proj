@@ -36,7 +36,8 @@ export function CommentPreview({comment, user ,addCommentLike }){
 
     if (!story) return <div>Loading</div>
     return(
-        <div className='comment'><img src={comment.by.imgUrl} alt="" /><span>{comment.by.fullname}:</span> {comment.txt} 
+        <div className='comment'>
+            <img src={comment.by.imgUrl} alt="" /><span>{comment.by.fullname}:</span> {comment.txt} 
             {isUserLike ? 
             ( <FaRegHeart size="0.8em" onClick={() => onCommentLike(comment)}/>
             ):(

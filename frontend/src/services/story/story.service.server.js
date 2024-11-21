@@ -20,6 +20,7 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
         queryOnlyUnfollowing
     }
 
+
     async function query(filterBy ={}){
         try{
             const {data : stories} = await axios.get(BASE_URL, {params: filterBy})

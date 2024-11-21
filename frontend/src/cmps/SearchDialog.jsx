@@ -62,7 +62,7 @@ export function SearchDialog({ isDialogOpen, closeDialog, dialogPosition, dialog
                             {filteredUsers.length > 0 ? (
                                 filteredUsers.map((user) => (
                                     <li key={utilService.makeId()} onClick={closeDialog}>
-                                        <UserMiniCard user={user} />
+                                        <UserMiniCard user={user} fromSearch={true} />
                                     </li>
                                 ))
                             ) : (

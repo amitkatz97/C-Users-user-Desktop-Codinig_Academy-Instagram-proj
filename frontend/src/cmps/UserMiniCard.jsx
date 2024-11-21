@@ -8,7 +8,7 @@ import Loader from '../cmps/Loader.jsx'
 
 
 
-export function UserMiniCard({user, fromHome = true}){
+export function UserMiniCard({user, fromHome = true, fromSearch = false}){
 
     const currUser = useSelector(userState => userState.userModule.user)
     const navigate = useNavigate()
@@ -53,9 +53,10 @@ export function UserMiniCard({user, fromHome = true}){
             <img src={user.imgUrl} alt=""/>
             <a onClick={() => {navigate(`/${user._id}`) }}>{user.fullname}</a>
             <p className="followed-by-row">Followed by <span>{user.followers[0].fullname} +{user.followers.length} more</span></p>
+            {fromSearch? (<div></div>):(<div>
             {currUser._id === user._id? (<button onClick={onLogout}>Switch</button>):(<button className={btnClass} onClick={onFollow}>
                 {isUserFollow? ('Following'):('Follow')} 
-                </button>)}
+                </button>)}</div>)}
         </section>
     )
 }
