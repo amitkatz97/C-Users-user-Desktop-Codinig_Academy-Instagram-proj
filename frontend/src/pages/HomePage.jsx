@@ -8,6 +8,7 @@ import { StoryPreview } from "../cmps/StoryPreview"
 import { UserList } from "../cmps/UsersList.jsx"
 import Loader from '../cmps/Loader.jsx'
 import { utilService } from "../services/util.service.js"
+import { loadUsers } from "../store/user.actions.js"
 
 
 export function HomePage() {
@@ -24,15 +25,9 @@ export function HomePage() {
         console.log("Home is rendering")
         loadStories(user)
         loadAllStories()
+        loadUsers()
     }, [user])
 
-    // useEffect(() => {
-    //         const observer = new IntersectionObserver((entries) => {
-    //         const entry = entries[0]
-    //         if (entry.isIntersecting) loadPartOfStories()
-    //         }, { rootMargin: '50px', threshold: 1 })
-    //         observer.observe(bottomDiv.current)
-    // }, [])
 
 
     function onLike(story) {

@@ -1,0 +1,78 @@
+.dialog-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 65px;
+    bottom: 0;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    transition: transform 0.3s ease-in-out, width 0.7s ease-in-out;
+
+    h2 {
+        display: flex;
+        justify-content: space-between;
+        color: black;
+        margin-top: 0;
+        margin-bottom: 50px;
+        font-weight: 600;
+        padding-left: 5px;
+
+        .btn-close {}
+    }
+
+    .input-area {
+
+
+        input {
+            background-color: rgb(239, 239, 239);
+            height: 40px;
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            padding-left: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+
+            &:focus {
+                outline: none;
+            }
+
+            
+        }
+        .clear-input{
+            position: absolute; 
+            right: 24px;
+            top:103px;
+            border-radius: 50%;
+            background-color: $gray2;
+            color: white;
+            padding: 0;
+            width: 15px;
+            height: 15px;
+         }
+    }
+
+    ul {
+        list-style: none;
+        border-top: 1px solid $gray1;
+        margin-top: 30px;
+        padding-left: 0;
+    }
+
+    li {
+        color: black;
+        padding-left: 10px;
+    }
+
+
+}

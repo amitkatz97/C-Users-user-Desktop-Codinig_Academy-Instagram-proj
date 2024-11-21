@@ -1,16 +1,14 @@
 import { useLocation, NavLink } from 'react-router-dom'
-import { Outlet, useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import { ImgUploader } from './ImgUploader.jsx'
 import { StoryCreation } from './StoryCreation.jsx'
-import { useState } from 'react'
-import { userService } from '../services/user/index.js'
+import { useState , useEffect} from 'react'
 import { HomeIconFull } from "./SVG.jsx"
 import { HomeIcon } from "./SVG.jsx"
 import { MessageIcon, MessageIconFull, NotificationIcon, NotificationIconFull, ReelsIcon, ReelsIconFull, SearchIcon, SearchIconFull, ExploreIcon, ExploreIconFull, CreateIcon, LogoutMenuIcon , LogoIcon} from './SVG.jsx';
 import { logout } from "../store/user.actions.js"
 import { Padding } from '@mui/icons-material';
+import { SearchDialog } from './SearchDialog.jsx';
+import { useParams } from 'react-router-dom'
 
 
 
@@ -26,6 +24,19 @@ export function AppHeader() {
     const [isModalOpen, setIsModalOpan] = useState(false)
     const currentUser = useSelector(userState => userState.userModule.user)
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [dialogPosition, setDialogPosition] = useState('translateX(-5%)')
+    const [dialogWidth, setDialogWidth] = useState('50px')
+
+
+    useEffect(() => {
+        if (isDialogOpen) {
+            setDialogPosition('translateX(0)')
+            setDialogWidth('400px')
+        }
+    }, [isDialogOpen]);
+
+
     const location = useLocation()
 
     const isActive = (path) => location.pathname === path;
@@ -38,22 +49,41 @@ export function AppHeader() {
         setIsModalOpan(false)
     }
 
+    function openDialog(){
+        setIsDialogOpen(!isDialogOpen)
+    }
+
+    async function closeDialog() {
+        try {
+            setDialogPosition('translateX(-5%)');
+            setDialogWidth('50px')
+        } catch (error) {
+            console.log("cant close dialog", error)
+        } finally {
+            setTimeout(() => {
+                setIsDialogOpen(false)
+            }, 720);
+        }
+
+    }
+
     function onLogout() {
         console.log("logout attempted ")
         logout()
     }
+
     return (
         <>
             <div className='app-header' id='app-header'>
-                <h1><img src="src/imgs/Logo2.png" alt="" /> <LogoIcon/></h1>
+            {!isDialogOpen ?(<h1 className='Logo'> <img src="src/imgs/Logo2.png" alt="" /> <LogoIcon/></h1>):(<h1 className='Logo2'><LogoIcon/></h1>)}
                 <div className='panel-link'>
                     <NavLink to={'/'} className="nav-link" >
                         <span> <span className='link-text'> Home </span> <button> {isActive('/') ? <HomeIconFull /> : <HomeIcon />}</button></span>
                     </NavLink>
                 </div>
                 <div className='panel-link temp'>
-                    <NavLink to={'/search'} className="nav-link">
-                        <span> <span className='link-text'> Search </span> <button> {isActive('/search') ? <SearchIconFull/> : <SearchIcon />} </button> </span>
+                    <NavLink className="nav-link" onClick={!isDialogOpen ?openDialog : closeDialog}>
+                        <span> <span className='link-text'> Search </span> <button> {isActive(isDialogOpen) ? <SearchIconFull/> : <SearchIcon />} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
@@ -93,6 +123,7 @@ export function AppHeader() {
 
                 </div>
                 <StoryCreation isOpen={isModalOpen} closeModal={closeModal} />
+                <SearchDialog isDialogOpen={isDialogOpen} closeDialog={closeDialog} dialogPosition= {dialogPosition} dialogWidth={dialogWidth}/>
             </div>
         </>
     )

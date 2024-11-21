@@ -9,8 +9,8 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { ProfileSettings } from '../cmps/SVG.jsx'
 import BasicModal from '../cmps/Modal.jsx'
 import { UserMiniCard } from "../cmps/UserMiniCard.jsx";
-import { utilService } from '../services/util.service.js'
-import { storyService } from '../services/story/index.js'
+import { utilService } from '../services/util.service.js'; 
+
 
 
 export function ProfilePage() {

@@ -22,10 +22,7 @@ export function UserMiniCard({user, fromHome = true}){
 
     useEffect(()=> {
         Init()
-        // setTimeout(() => {
-        //     setIsUserFollow(isUserFollowCheck(currUser, user)) 
-        // }, 100);
-        // setIsLoading(false)
+        console.log(user)
     },[user])
 
     const classKind = fromHome ? "user-card" : "user-card-2"
@@ -55,6 +52,7 @@ export function UserMiniCard({user, fromHome = true}){
         <section className={classKind}>
             <img src={user.imgUrl} alt=""/>
             <a onClick={() => {navigate(`/${user._id}`) }}>{user.fullname}</a>
+            <p className="followed-by-row">Followed by <span>{user.followers[0].fullname} +{user.followers.length} more</span></p>
             {currUser._id === user._id? (<button onClick={onLogout}>Switch</button>):(<button className={btnClass} onClick={onFollow}>
                 {isUserFollow? ('Following'):('Follow')} 
                 </button>)}
