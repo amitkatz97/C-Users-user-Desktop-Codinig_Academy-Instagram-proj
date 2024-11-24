@@ -29,7 +29,7 @@ console.log("remote mode")
 async function getUsers(filterBy){
     try {
         const {data : users} = await axios.get(BASE_URL)
-        console.log(users)
+        // console.log(users)
         return users
     } catch (err) {
         console.log("Can't gat users". err)

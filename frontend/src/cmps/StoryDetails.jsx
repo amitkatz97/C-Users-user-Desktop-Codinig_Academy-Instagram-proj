@@ -63,7 +63,7 @@ export function StoryDetails() {
             const { explore } = params
             navigate(`/${explore}`)
         }
-        else { navigate('/') }
+        else { navigate('/home') }
     }
 
     async function onLike() {
@@ -82,7 +82,7 @@ export function StoryDetails() {
         <div className='story-details'>
             <div className='overlay'>
                 <button className="close-btn" onClick={onClose}><IoCloseSharp size="1.5em" /></button>
-                <div className='content'>
+                <div className='story-details-content'>
                     <img className='picture' src={story.imgUrl} alt="" />
                     <article className='comments-list'>
                         <div className='header' onClick={() => { navigate(`/${story.by._id}`) }}> <img src={story.by.imgUrl} alt="" /> {story.by.fullname}</div>

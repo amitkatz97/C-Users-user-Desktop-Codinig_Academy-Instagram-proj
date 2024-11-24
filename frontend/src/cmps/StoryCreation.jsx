@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { addStory } from "../store/story.actions"
 import { storyService } from "../services/story/story.service.js";
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import EmojiList from "./EmojiList.jsx";
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Loader from "./Loader.jsx";
+import BasicPopover from '../cmps/PopOver.jsx'
 
 const CLOUD_NAME = "dhqabxfxc"
 const UPLOAD_PRESET = "instagramPosts"
@@ -78,7 +79,7 @@ export function StoryCreation({ isOpen, closeModal }) {
 
     function onContinueUploading() {
         document.getElementById("story-create-form").style.width = '80%'
-        document.getElementById("story-information").style.display = 'flex'
+        document.getElementById("inforamtion-area").style.display = 'flex'
         document.getElementById("next").style.display = 'none'
         setIsReadyToShare(true)
     }
@@ -120,8 +121,8 @@ export function StoryCreation({ isOpen, closeModal }) {
 
     function onUndo() {
         if (isReadyToShare) {
+            document.getElementById("inforamtion-area").style.display = 'none'
             document.getElementById("story-create-form").style.width = '50%'
-            document.getElementById("story-information").style.display = 'none'
             document.getElementById("next").style.display = 'flex'
             setInputValue("")
             setIsReadyToShare(false)
@@ -142,26 +143,6 @@ export function StoryCreation({ isOpen, closeModal }) {
         <div className="story-create-overlay">
             <button onClick={onClose} className="close-btn">X</button>
             <section className="story-create-form" id="story-create-form">
-                {isLoading ? (<div><Loader /></div>) : (
-                    <div className="image-uploading">
-                        {/* <h3>Create New Post!</h3> */}
-                        {!imageUrl ? (
-                            <form id='upload-form' action="/upload" method="post" encType="multipart/form-data">
-                                <h2>
-                                    <img src="src/imgs/Upload.svg" alt="" />
-                                    Drag photos and videos here
-                                </h2>
-                                <label htmlFor="photo" className="upload-button"> Select from computer</label>
-                                <input type="file" id='photo' name='photo' accept=".jpg, .jpeg, .png" onChange={() => hendleFileChange(event)} />
-                                {/* <button type="submit"> Upload </button> */}
-                            </form>) : (
-
-                            <div id="image-preview" className="image-preview">
-                                <img id='preview' className='uploaded-img' src={imageUrl} alt="Uploaded Image" />
-                            </div>
-                        )}
-                    </div>
-                )}
                 <div className="btns-area">
                     {(isReadyToShare) ? (<h3>Add Description to the post</h3>) :
                         (<h3>Create New Post</h3>)}
@@ -173,23 +154,51 @@ export function StoryCreation({ isOpen, closeModal }) {
                     {(isReadyToShare) ? (
                         <button onClick={onSave} className="next-btn">Share</button>) : (<div> </div>)}
                 </div>
-                <section className="inforamtion-area" id="inforamtion-area">
-                    <article id="story-information" className="story-information">
-                        <article className="story-description">
-                            <img src={newStory.by.imgUrl} /> <span>{newStory.by.fullname}</span>
-                        </article>
-                        <label htmlFor="descprition"></label>
-                        <textarea
-                            className="descprition" type="text" id="descprition" name="descprition"
-                            placeholder="Add Something"
-                            value={inputValue}
-                            onChange={handelChange}
-                        />
-                        <button onClick={toggleDropdown}><InsertEmoticonIcon /></button>
-                        <EmojiList isEmojiOpen={isEmojiOpen} onSelect={handleSelect} />
+                <div className="create-form-content">
+                    {isLoading ? (<div><Loader /></div>) : (
+                        <div className="image-uploading">
+                            {/* <h3>Create New Post!</h3> */}
+                            {!imageUrl ? (
+                                <form id='upload-form' action="/upload" method="post" encType="multipart/form-data">
+                                    <h2>
+                                        <img src="src/imgs/Upload.svg" alt="" />
+                                        Drag photos and videos here
+                                    </h2>
+                                    <label htmlFor="photo" className="upload-button"> Select from computer</label>
+                                    <input type="file" id='photo' name='photo' accept=".jpg, .jpeg, .png" onChange={() => hendleFileChange(event)} />
+                                    {/* <button type="submit"> Upload </button> */}
+                                </form>) : (
 
-                    </article>
-                </section>
+                                <div id="image-preview" className="image-preview">
+                                    <img id='preview' className='uploaded-img' src={imageUrl} alt="Uploaded Image" />
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    <section className="inforamtion-area" id="inforamtion-area">
+                        <article id="story-information" className="story-information">
+                            <article className="story-description">
+                                <img src={newStory.by.imgUrl} /> <span>{newStory.by.fullname}</span>
+                            </article>
+                            <label htmlFor="descprition"></label>
+                            <textarea
+                                className="descprition" type="text" id="descprition" name="descprition"
+                                placeholder="Add Something"
+                                value={inputValue}
+                                onChange={handelChange}
+                            />
+                            <button onClick={toggleDropdown}>
+                                <BasicPopover header={<InsertEmoticonIcon size={"1.1em"} className="emoji-icon" />}
+                                    content={<EmojiList handleSelect={handleSelect} />} >
+                                </BasicPopover>
+                            </button>
+                            {/* <EmojiList isEmojiOpen={isEmojiOpen} onSelect={handleSelect} /> */}
+
+                        </article>
+                    </section>
+                </div>
+
             </section>
 
 

@@ -22,7 +22,7 @@ async function query(filterBy = {}) {
         const sort = _buildSort(filterBy)
 
         const collection = await dbService.getCollection("story_ex")
-        var storyCursor = await collection.find(criteria, { sort })
+        var storyCursor = await collection.find(criteria).sort({"_id": -1})
 
         const stories = await storyCursor.toArray()
         return stories
@@ -50,9 +50,9 @@ async function queryByFollowing(userId, explore = false) {
 
         const storiesCollection = await dbService.getCollection("story_ex")
         if (explore){
-            var storyCursor = await storiesCollection.find({ 'by._id': { $nin: followingIds } }).sort({"by._id": -1})
+            var storyCursor = await storiesCollection.find({ 'by._id': { $nin: followingIds } }).sort({"_id": -1})
         }else {
-            var storyCursor = await storiesCollection.find({ 'by._id': { $in: followingIds } }).sort({"by._id": -1})
+            var storyCursor = await storiesCollection.find({ 'by._id': { $in: followingIds } }).sort({"_id": -1})
         }
         const results = await storyCursor.toArray()
 

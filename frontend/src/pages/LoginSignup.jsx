@@ -8,9 +8,8 @@ import {showErrorMsg} from "../services/event-bus.service.js"
 import { loadUsers } from '../store/user.actions.js'
 
 export function LoginSignup(props) {
-    const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' , ImgUrl: ''})
+    const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' , imgUrl: ''})
     const [isSignup, setIsSignup] = useState(false)
-    // const [users, setUsers] = useState([])
     const users = useSelector(userState => userState.userModule.users)
 
     const navigate = useNavigate()
@@ -35,14 +34,14 @@ export function LoginSignup(props) {
         setCredentials({ ...credentials, [field]: value })
     }
 
-    function onLogin(ev = null) {
+    async function onLogin(ev = null) {
         console.log("login")
         try {
             if (ev) ev.preventDefault()
             if (credentials.fullname === "") {
                 showErrorMsg("Enter Username")
                 return}
-            login(credentials)
+            await login(credentials)
             document.getElementById("app-header").style.display = 'flex'
             clearState()
             navigate("/home")
@@ -51,11 +50,12 @@ export function LoginSignup(props) {
         }
     }
 
-    function onSignup(ev = null) {
+    async function onSignup(ev = null) {
        try {
          if (ev) ev.preventDefault()
          if (!credentials.username || !credentials.password || !credentials.fullname) return
-         signup(credentials)
+         await signup(credentials)
+         document.getElementById("app-header").style.display = 'flex'
          clearState()
          navigate("/home")
        } catch (err) {
@@ -68,21 +68,16 @@ export function LoginSignup(props) {
     }
 
     function onUploaded(imgUrl) {
-        setCredentials({ ...credentials, imgUrl })
+        setCredentials({ ...credentials, imgUrl: imgUrl })
     }
 
-    const loginImgs =[
-        'src\imgs\LoginImg.JPG',
-        "src\imgs\LoginImg2.JPG",
-
-    ]
 
     return (
         <div className="login-page">
             {/* <LoginImg images={loginImgs} interval={3000}/> */}
-            <img src="/imgs/LoginImg.JPG" alt="" />
+            <img className='main-picture' src="/imgs/LoginImg.JPG" alt="" />
             <div className='all-forms'>
-                <img src="/imgs/Logo.svg" alt="" />
+                <img src="/imgs/Logo2.png" alt="" />
             {!isSignup &&<form className="login-form" onSubmit={onLogin}>
                 <select
                     name="fullname"

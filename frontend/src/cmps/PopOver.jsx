@@ -36,7 +36,7 @@ export default function BasicPopover({header, content , handleSelect}) {
           horizontal: 'left',
         }}
       >
-        <Typography sx={{ p: 2 }} handleSelect={handleSelect}>{content}</Typography>
+        <Typography handleSelect={handleSelect}>{content}</Typography>
       </Popover>
     </div>
   );

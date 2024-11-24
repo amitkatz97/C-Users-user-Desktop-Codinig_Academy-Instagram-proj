@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import { Typography, Popover } from '@mui/material';
 
 const EmojiList = ({handleSelect}) => {
-  console.log(handleSelect);
-
-
 
   const emojis = [
     '😊', '😂', '😍', '😎',
@@ -15,7 +12,6 @@ const EmojiList = ({handleSelect}) => {
     '😳', '😇', '🤤', '😈',
     '🤡', '🤠', '😵', '😯', '🤗'
   ];
-
 
 
   return (
@@ -33,10 +29,5 @@ const EmojiList = ({handleSelect}) => {
   );
 };
 
-// Define PropTypes for validation
-// EmojiList.propTypes = {
-//   isOpen: PropTypes.bool.isRequired,
-//   onSelect: PropTypes.func.isRequired,
-// };
 
 export default EmojiList;

@@ -18,7 +18,8 @@ export function UserList({ user }) {
 
     async function getUnfollowUsers(){
         const users = await userService.getUsersByFollowing(user._id)
-        console.log(users.length)
+        console.log(users)
+        // console.log(users.length)
         const randomUsers = shuffleArray([...users]).slice(0, 6)
         setUnfollowUserList(randomUsers)
     }

@@ -8,7 +8,7 @@ import Loader from '../cmps/Loader.jsx'
 
 
 
-export function UserMiniCard({user, fromHome = true, fromSearch = false}){
+export function UserMiniCard({user, fromHome = true, fromSearch = false, isMiniUser = false}){
 
     const currUser = useSelector(userState => userState.userModule.user)
     const navigate = useNavigate()
@@ -22,7 +22,6 @@ export function UserMiniCard({user, fromHome = true, fromSearch = false}){
 
     useEffect(()=> {
         Init()
-        console.log(user)
     },[user])
 
     const classKind = fromHome ? "user-card" : "user-card-2"
@@ -47,13 +46,14 @@ export function UserMiniCard({user, fromHome = true, fromSearch = false}){
 
 
     if (!user) return <span><Loader/></span>
+    if (!currUser)  return <span><Loader/></span>
     if (isLodaing) return <span><Loader/></span>
     return(
         <section className={classKind}>
             <img src={user.imgUrl} alt=""/>
             <a onClick={() => {navigate(`/${user._id}`) }}>{user.fullname}</a>
-            <p className="followed-by-row">Followed by <span>{user.followers[0].fullname} +{user.followers.length} more</span></p>
-            {fromSearch? (<div></div>):(<div>
+            {isMiniUser? (<div className="followed-by-row">{user.fullname}</div>):(<p className="followed-by-row">Followed by <span>{user.followers[0]?.fullname} +{user.followers?.length} more</span></p>)}
+            {fromSearch? (<div></div>):(<div className="follow-btn">
             {currUser._id === user._id? (<button onClick={onLogout}>Switch</button>):(<button className={btnClass} onClick={onFollow}>
                 {isUserFollow? ('Following'):('Follow')} 
                 </button>)}</div>)}

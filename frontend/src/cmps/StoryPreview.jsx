@@ -57,7 +57,7 @@ export function StoryPreview({ story, onLike }) {
                 <div className="likes-amount"> 
                 <BasicModal header ={`${story.likedBy.length} Likes`} text ={"Likes"} content={story.likedBy.map(user =>
                     <li style={{listStyle : 'none'}} key={story._id}>
-                        <UserMiniCard user ={user} fromHome = {false}/>
+                        <UserMiniCard user ={user} fromHome = {false} isMiniUser = {true}/>
                     </li>
                 )}/>
                 </div>

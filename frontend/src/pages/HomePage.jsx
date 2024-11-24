@@ -22,6 +22,7 @@ export function HomePage() {
     const nextIdx = useRef(0)
 
     useEffect(() => {
+        console.log("user:", user)
         console.log("Home is rendering")
         loadStories(user)
         loadAllStories()

@@ -56,6 +56,10 @@
         }
     }
 
+    .follow-btn{
+        grid-area: btn;
+    }
+
     button{
         grid-area: btn;
         color:rgb(0, 149, 246);

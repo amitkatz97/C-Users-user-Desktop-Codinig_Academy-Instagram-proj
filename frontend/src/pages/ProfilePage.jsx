@@ -30,15 +30,12 @@ export function ProfilePage() {
 
     useEffect(() => {
         Init()
-    }, [params , isFollow])
-
-
-
+    }, [params, isFollow])
 
     async function Init() {
         const currntUser = await loadUser(params.userId)
         await getUserStories(currntUser)
-        const status = await isUserFollowCheck(user, watchedUser)
+        const status = await isUserFollowCheck(user, currntUser)
         console.log(status)
         setIsFollow(status)
         setIsLoading(false)
@@ -95,13 +92,13 @@ export function ProfilePage() {
                             {userStories ? (<div>{userStories.length}<span> posts</span></div>) : (<div>0</div>)}
                             <div><BasicModal header={` followers`} number={watchedUser.followers.length} text={"Followers"} content={watchedUser.followers.map(user =>
                                 <li style={{ listStyle: 'none' }} key={utilService.makeId()}>
-                                    <UserMiniCard user={user} fromHome={false} />
+                                    <UserMiniCard user={user} fromHome={false} isMiniUser = {true}/>
                                 </li>
                             )} />
                             </div>
                             <div><BasicModal header={` following`} number={watchedUser.following.length} text={"Following"} content={watchedUser.following.map(user =>
                                 <li style={{ listStyle: 'none' }} key={utilService.makeId()}>
-                                    <UserMiniCard user={user} fromHome={false} />
+                                    <UserMiniCard user={user} fromHome={false} isMiniUser = {true}/>
                                 </li>
                             )} />
                             </div>

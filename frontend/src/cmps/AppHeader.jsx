@@ -62,7 +62,7 @@ export function AppHeader() {
         } finally {
             setTimeout(() => {
                 setIsDialogOpen(false)
-            }, 720);
+            }, 420);
         }
 
     }
@@ -107,7 +107,7 @@ export function AppHeader() {
                     </NavLink>
                 </div>
                 <div className='panel-link'>
-                    <NavLink to={'/'} className="nav-link" onClick={openModal}>
+                    <NavLink className="nav-link" onClick={openModal}>
                         <span> <span className='link-text'> Create </span> <button> <CreateIcon /> </button> </span>
                     </NavLink>
                 </div>
