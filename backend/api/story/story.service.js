@@ -115,6 +115,8 @@ async function update(story) {
         const collection = await dbService.getCollection("story_ex")
 
         await collection.updateOne(criteria, { $set: storyToUpdate })
+        // console.log("story to update from the service:" ,story)
+        return story
     } catch (err) {
         loggerService.error("Cannot update story with id", story._id)
         throw err

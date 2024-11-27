@@ -6,8 +6,11 @@ const axios = Axios.create({
 })
 
 const BASE_URL = (process.env.NODE_ENV !== 'development') ?
-    '/api/user' :
-    '//localhost:3031/api/user'
+    '/api' :
+    '//localhost:3031/api'
+    
+const USER_URL= `${BASE_URL}/user`
+const AUTH_URL = `${BASE_URL}/auth`
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -28,7 +31,7 @@ console.log("remote mode")
 
 async function getUsers(filterBy){
     try {
-        const {data : users} = await axios.get(BASE_URL)
+        const {data : users} = await axios.get(USER_URL)
         // console.log(users)
         return users
     } catch (err) {
@@ -38,7 +41,7 @@ async function getUsers(filterBy){
 
 async function getUsersByFollowing(userId){
     try {
-        const {data : users} = await axios.get(BASE_URL + "/follow/" + userId)
+        const {data : users} = await axios.get(USER_URL + "/follow/" + userId)
         return users
     } catch (err) {
         console.log("Can't gat users by Foloowing". err)
@@ -47,7 +50,7 @@ async function getUsersByFollowing(userId){
 
 async function getById(userId){
     try {
-        const {data : user} = await axios.get(BASE_URL + "/" + userId)
+        const {data : user} = await axios.get(USER_URL + "/" + userId)
         return user
     } catch (err) {
         console.log("doesnt find user with ID:", userId)
@@ -66,11 +69,12 @@ function getLoggedinUser() {
 
 async function login(userCred) {
    try {
-     const {data : users} = await axios.get(BASE_URL)
-     const user = await users.find(user => user.fullname === userCred.fullname)
+     const {data : user} = await axios.post(AUTH_URL+ '/login', userCred)
+    //  const user = await users.find(user => user.fullname === userCred.fullname)
      // const user = await httpService.post('auth/login', userCred)
      console.log(userCred)
-     if (user) return saveLocalUser(user)
+    if (user) saveLocalUser(user)
+    return user
    } catch (err) {
         console.log("cant logged in", err)
    }
@@ -83,14 +87,14 @@ async function logout() {
 
 async function signup(userCred) {
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-    const user = await axios.post(BASE_URL, userCred)
+    const user = await axios.post(AUTH_URL, userCred)
     // const user = await httpService.post('auth/signup', userCred)
     return saveLocalUser(user)
 }
 
 async function update(user){
     try {
-        const {data :savedUser} = await axios.put(BASE_URL, user)
+        const {data :savedUser} = await axios.put(USER_URL, user)
         return savedUser
     } catch (err) {
         console.log("Cant update user," ,err)

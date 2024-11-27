@@ -107,7 +107,6 @@ export async function addFollow(user, profile){
 
 export async function isUserFollowCheck(user, profile){
     const {following} = user 
-    // console.log("CurrUser following on" , following)
     let indexToRemove= await following.findIndex(userFollower => userFollower._id === profile._id)
     if (indexToRemove > -1 ) 
         { return true }

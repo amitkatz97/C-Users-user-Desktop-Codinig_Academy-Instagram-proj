@@ -161,7 +161,7 @@ export function StoryCreation({ isOpen, closeModal }) {
                             {!imageUrl ? (
                                 <form id='upload-form' action="/upload" method="post" encType="multipart/form-data">
                                     <h2>
-                                        <img src="src/imgs/Upload.svg" alt="" />
+                                        <img src="/imgs/Upload.svg" alt="" />
                                         Drag photos and videos here
                                     </h2>
                                     <label htmlFor="photo" className="upload-button"> Select from computer</label>

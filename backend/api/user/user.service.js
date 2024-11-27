@@ -12,7 +12,8 @@ export const UserService = {
     // remove,
     update,
     add,
-    queryByFollowing
+    queryByFollowing,
+    getByFullname
 }
 
 async function query(filterBy ={}){
@@ -123,4 +124,18 @@ function _buildCriteria(filterBy){
 function _buildSort({sortBy}){
     if (!sortBy) return {}
     return { [sortBy.by]: sortBy.dir}
+}
+
+async function getByFullname(fullname){
+    try {
+        const criteria = {fullname: fullname}
+        const collection = await dbService.getCollection('user')
+
+        const user = await collection.findOne(criteria)
+        // if(!user) throw `Couldnt find user with Id ${userId}`
+        return user
+    } catch (err) {
+        loggerService.error(`Couldnt find user with username ${username}`, err)
+        throw err
+    }
 }

@@ -1,0 +1,38 @@
+.notification-dialog {
+    position: fixed;
+    top: 0;
+    left: 65px;
+    bottom: 0;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    transition: transform 0.15s ease-in-out, width 0.4s ease-in-out;
+
+    h2 {
+        display: flex;
+        justify-content: space-between;
+        color: black;
+        margin-top: 0;
+        margin-bottom: 50px;
+        // font-weight: 1000;
+        padding-left: 15px;
+
+        .btn-close {}
+    }
+
+    ul {
+        list-style: none;
+        border-top: 1px solid $gray1;
+        margin-top: 30px;
+        padding-left: 0;
+    }
+
+    li {
+        color: black;
+        // padding-left: 10px;
+    }
+
+
+}

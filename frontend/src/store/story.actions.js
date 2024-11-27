@@ -89,7 +89,8 @@ export async function addStory(story) {
 export async function updateStory(story, comment) {
     try {
         const savedStory = await storyService.update(story)
-        console.log('Updated Story:', savedStory)
+        // console.log('Updated Story:', savedStory)
+        // console.log("story:" ,story)
         store.dispatch(getCmdUpdateStory(savedStory))
         store.dispatch(getCmdSetComment(comment))
         return savedStory
@@ -210,7 +211,7 @@ function getCmdAddStory(story) {
         story
     }
 }
-function getCmdUpdateStory(story) {
+export function getCmdUpdateStory(story) {
     return {
         type: UPDATE_STORY,
         story

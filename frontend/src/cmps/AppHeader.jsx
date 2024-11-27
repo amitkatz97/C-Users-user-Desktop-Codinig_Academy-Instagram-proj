@@ -1,14 +1,18 @@
 import { useLocation, NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { StoryCreation } from './StoryCreation.jsx'
-import { useState , useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { HomeIconFull } from "./SVG.jsx"
 import { HomeIcon } from "./SVG.jsx"
-import { MessageIcon, MessageIconFull, NotificationIcon, NotificationIconFull, ReelsIcon, ReelsIconFull, SearchIcon, SearchIconFull, ExploreIcon, ExploreIconFull, CreateIcon, LogoutMenuIcon , LogoIcon} from './SVG.jsx';
+import { MessageIcon, MessageIconFull, NotificationIcon, NotificationIconFull, ReelsIcon, ReelsIconFull, SearchIcon, SearchIconFull, ExploreIcon, ExploreIconFull, CreateIcon, LogoutMenuIcon, LogoIcon } from './SVG.jsx';
 import { logout } from "../store/user.actions.js"
 import { Padding } from '@mui/icons-material';
 import { SearchDialog } from './SearchDialog.jsx';
 import { useParams } from 'react-router-dom'
+import { NotificationDialog } from './NoficationDialog.jsx'
+import { socketService, SOCKET_EVENT_STORY_LIKED } from '../services/socket.service.js'
+import { utilService } from '../services/util.service.js'
+import { showSuccessMsg } from '../services/event-bus.service.js'
 
 
 
@@ -17,17 +21,35 @@ import { useParams } from 'react-router-dom'
 
 
 
-
+const notification = [{ id: 1, by: "Amit", story: "Done" }, { id: 2, by: "Yuval", story: "Complete" }]
 
 export function AppHeader() {
 
     const [isModalOpen, setIsModalOpan] = useState(false)
     const currentUser = useSelector(userState => userState.userModule.user)
 
+    //Search Dialog States
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [dialogPosition, setDialogPosition] = useState('translateX(-5%)')
     const [dialogWidth, setDialogWidth] = useState('50px')
 
+    //Notification Dialog States
+    const [noticationList, setNotificationList] = useState([])
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+    const [notificationPosition, setNotificationPosition] = useState('translateX(-5%)')
+    const [notificationWidth, setNotificationWidth] = useState('50px')
+
+    useEffect(() => {
+        let newNotification = []
+        socketService.on(SOCKET_EVENT_STORY_LIKED, (story) => {
+            newNotification.push(story)
+            setNotificationList(newNotification)
+            // console.log("notification list:",noticationList)
+            return () => {
+                socketService.off(SOCKET_EVENT_STORY_LIKED)
+            }
+        })
+    }, [])
 
     useEffect(() => {
         if (isDialogOpen) {
@@ -35,6 +57,15 @@ export function AppHeader() {
             setDialogWidth('400px')
         }
     }, [isDialogOpen]);
+
+    useEffect(() => {
+        if (isNotificationOpen) {
+            // setNotificationList(notification)
+            console.log("notification list:",noticationList)
+            setNotificationPosition('translateX(0)')
+            setNotificationWidth('400px')
+        }
+    }, [isNotificationOpen]);
 
 
     const location = useLocation()
@@ -49,8 +80,13 @@ export function AppHeader() {
         setIsModalOpan(false)
     }
 
-    function openDialog(){
+    function openDialog() {
         setIsDialogOpen(!isDialogOpen)
+    }
+
+    function openNotification() {
+        setNotificationList(null)
+        setIsNotificationOpen(!isNotificationOpen)
     }
 
     async function closeDialog() {
@@ -66,6 +102,19 @@ export function AppHeader() {
         }
 
     }
+    async function closeNotification() {
+        try {
+            setNotificationPosition('translateX(-5%)');
+            setNotificationWidth('50px')
+        } catch (error) {
+            console.log("cant close dialog", error)
+        } finally {
+            setTimeout(() => {
+                setIsNotificationOpen(false)
+            }, 420);
+        }
+
+    }
 
     function onLogout() {
         console.log("logout attempted ")
@@ -75,25 +124,25 @@ export function AppHeader() {
     return (
         <>
             <div className='app-header' id='app-header'>
-            {!isDialogOpen ?(<h1 className='Logo'> <img src="/imgs/Logo2.png" alt="" /> <LogoIcon/></h1>):(<h1 className='Logo2'><LogoIcon/></h1>)}
+                {!isDialogOpen && !isNotificationOpen ? (<h1 className='Logo'> <img src="/imgs/Logo2.png" alt="" /> <LogoIcon /></h1>) : (<h1 className='Logo2'><LogoIcon /></h1>)}
                 <div className='panel-link'>
                     <NavLink to={'/home'} className="nav-link" >
                         <span> <span className='link-text'> Home </span> <button> {isActive('/home') ? <HomeIconFull /> : <HomeIcon />}</button></span>
                     </NavLink>
                 </div>
                 <div className='panel-link temp'>
-                    <NavLink className="nav-link" onClick={!isDialogOpen ?openDialog : closeDialog}>
-                        <span> <span className='link-text'> Search </span> <button> {isActive(isDialogOpen) ? <SearchIconFull/> : <SearchIcon />} </button> </span>
+                    <NavLink className="nav-link" onClick={!isDialogOpen ? openDialog : closeDialog}>
+                        <span> <span className='link-text'> Search </span> <button> {isDialogOpen ? <SearchIconFull /> : <SearchIcon />} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
                     <NavLink to={'/explore'} className="nav-link">
-                        <span> <span className='link-text'> Explore </span> <button> {isActive('/explore') ? <ExploreIconFull/> : <ExploreIcon />} </button> </span>
+                        <span> <span className='link-text'> Explore </span> <button> {isActive('/explore') ? <ExploreIconFull /> : <ExploreIcon />} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
                     <NavLink to={'/reels'} className="nav-link">
-                        <span> <span className='link-text'> Reels </span> <button> {isActive('/reels') ? <ReelsIconFull /> : <ReelsIcon/>} </button> </span>
+                        <span> <span className='link-text'> Reels </span> <button> {isActive('/reels') ? <ReelsIconFull /> : <ReelsIcon />} </button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
@@ -102,8 +151,9 @@ export function AppHeader() {
                     </NavLink>
                 </div>
                 <div className='panel-link temp'>
-                    <NavLink to={'/notification'} className="nav-link">
-                        <span> <span className='link-text'> Notifications </span>  <button> {isActive('/notification') ? <NotificationIconFull/> : <NotificationIcon />} </button> </span>
+                    <NavLink className="nav-link" onClick={!isNotificationOpen ? openNotification : closeNotification}>
+                        <span> <span className='link-text'> Notifications </span>  <button className='notification-btn'> {isNotificationOpen ? <NotificationIconFull /> : <NotificationIcon />} 
+                        {noticationList?.length > 0 ? (<span className='notification-num'></span>):(<span></span>) }</button> </span>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
@@ -112,18 +162,19 @@ export function AppHeader() {
                     </NavLink>
                 </div>
                 {currentUser && <div className='panel-link'>
-                   <NavLink to={currentUser._id} className="nav-link">
+                    <NavLink to={currentUser._id} className="nav-link">
                         <span>  <span className='link-text'> Profile </span><button> <img src={currentUser.imgUrl} alt="" /> </button> </span>
                     </NavLink>
                 </div>}
                 <div className='panel-link temp'>
                     <NavLink to={"/"} className="logout-btn nav-link" onClick={onLogout}>
-                        <span> <span className='link-text'> Logout </span> <button ><LogoutMenuIcon/></button> </span>
+                        <span> <span className='link-text'> Logout </span> <button ><LogoutMenuIcon /></button> </span>
                     </NavLink>
 
                 </div>
                 <StoryCreation isOpen={isModalOpen} closeModal={closeModal} />
-                <SearchDialog isDialogOpen={isDialogOpen} closeDialog={closeDialog} dialogPosition= {dialogPosition} dialogWidth={dialogWidth}/>
+                <SearchDialog isDialogOpen={isDialogOpen} closeDialog={closeDialog} dialogPosition={dialogPosition} dialogWidth={dialogWidth} />
+                <NotificationDialog currentUser={currentUser} isNotificationOpen={isNotificationOpen} notificationPosition={notificationPosition} notificationWidth={notificationWidth} closeNotification={closeNotification} />
             </div>
         </>
     )

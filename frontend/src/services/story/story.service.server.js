@@ -1,4 +1,5 @@
 import { userService } from "../user/index.js";
+import { socketService, SOCKET_EVENT_STORY_UPDATED } from "../socket.service.js"
 import  Axios  from "axios";
 
 const axios = Axios.create({
@@ -80,8 +81,11 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
 
     async function update(story){
         try {
+            // socketService.emit(SOCKET_EVENT_STORY_UPDATED, story)
+            // console.log("story from service:", story)
             const {data: savedStory} = await axios.put(BASE_URL, story)
-            return savedStory
+            console.log("story from service:", savedStory)
+            return story
         } catch (err) {
             console.log("Cant update story:", err)
         }

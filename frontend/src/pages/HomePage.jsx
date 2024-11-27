@@ -1,4 +1,4 @@
-import { storyReducer } from "../store/story.reducer"
+
 import { loadStories, addStory, removeStory, updateStory, addLike, loadAllStories } from "../store/story.actions"
 import { store } from "../store/store"
 import { useEffect, useState , useRef} from "react"
@@ -9,6 +9,8 @@ import { UserList } from "../cmps/UsersList.jsx"
 import Loader from '../cmps/Loader.jsx'
 import { utilService } from "../services/util.service.js"
 import { loadUsers } from "../store/user.actions.js"
+import { socketService, SOCKET_EVENT_USER_UPDATED , SOCKET_EVENT_STORY_UPDATED} from '../services/socket.service'
+import { getCmdUpdateStory } from "../store/story.actions.js"
 
 
 export function HomePage() {
@@ -27,6 +29,15 @@ export function HomePage() {
         loadStories(user)
         loadAllStories()
         loadUsers()
+
+        socketService.on(SOCKET_EVENT_STORY_UPDATED, async (story) =>{
+            console.log("GOT from socket," ,story)
+            store.dispatch(getCmdUpdateStory(story))
+        })
+            
+        return () =>{
+            socketService.off(SOCKET_EVENT_STORY_UPDATED)
+        }
     }, [user])
 
 

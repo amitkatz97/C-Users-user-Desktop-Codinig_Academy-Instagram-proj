@@ -1,6 +1,10 @@
 import { ObjectId } from "mongodb";
 import { loggerService } from "../../services/logger.service.js";
 import { StoryService } from "./story.service.js";
+import { socketService } from '../../services/socket.service.js';
+import { authService } from '../auth/auth.service.js'
+import { Socket } from "socket.io";
+
 
 
 export async function getStories(req, res){
@@ -17,9 +21,7 @@ export async function getStories(req, res){
 export async function getStoriesByFollowing(req, res){
     const {userId } = req.params
     let explore = false
-    console.log("req:",req.path)
     if (req.path.includes("unfollow")){explore = true}
-
     try {
         const stories = await StoryService.queryByFollowing(userId, explore)
         res.send(stories)
@@ -67,12 +69,19 @@ export async function addStory(req, res){
     }
 }
 
-export async function updateStory(req, res){
-    const {comments, likedBy, _id } = req.body
-    const storyToUpdate = {comments, likedBy, _id}
+export async function updateStory (req, res){
+    // const {comments, likedBy, _id} = req.body
+    var { loginToken } = req.cookies
+    const { body:story } = req
 
     try {
-        const updateStory = await StoryService.update(storyToUpdate)
+        const loggedinUser = authService.validateToken(loginToken)
+        console.log(loggedinUser)
+        const updateStory = await StoryService.update(story)
+        const dataToDeliverd ={updateStory: updateStory, loggedinUser :loggedinUser}
+        // socketService.broadcast({type: 'story-updated', data: updateStory, userId: loggedinUser._id})
+
+        socketService.emitToUser({type :'story-get-like', data: dataToDeliverd , userId: story.by._id})
         res.send(updateStory)
     } catch (err) {
         console.log(`err:`, err)

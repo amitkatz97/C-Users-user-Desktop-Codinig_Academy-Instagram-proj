@@ -14,6 +14,7 @@ import { UserMiniCard } from "./UserMiniCard.jsx";
 
 
 
+
 export function StoryPreview({ story, onLike }) {
     const user = useSelector(userState => userState.userModule.user)
     const stories = useSelector(storeState => storeState.storyModule.stories)
@@ -21,8 +22,8 @@ export function StoryPreview({ story, onLike }) {
     const [isUserLike, setIsUserLike] = useState(false)
 
     useEffect(() => {
-        // console.log("Story preview is rendering")
         isUserLikeCheck1(story)
+
     }, [isUserLike, stories])
 
     function isUserLikeCheck1(story) {

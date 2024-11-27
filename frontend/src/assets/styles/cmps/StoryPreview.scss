@@ -38,6 +38,7 @@
 
     .action-panel{
         display: flex;
+
         button{
             margin: none;
             padding: 0px;
@@ -48,12 +49,14 @@
         }
 
         .bookmark{
+            margin-right: 0;
             justify-self: end;
             margin-left: 348px;
         }
     }
 
     .story-description{
+        padding-left: 4px;
         span{
             font-weight: 600;
         }
@@ -65,11 +68,13 @@
         }
     }
     .likes-amount{
+        padding-left: 4px;
         font-weight: 600;
         cursor: pointer;
     }
     .comment-panel {
         padding: 0;
+        
         a{
         color: rgb(115, 115, 115);
     }
