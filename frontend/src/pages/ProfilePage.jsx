@@ -10,6 +10,8 @@ import { ProfileSettings } from '../cmps/SVG.jsx'
 import BasicModal from '../cmps/Modal.jsx'
 import { UserMiniCard } from "../cmps/UserMiniCard.jsx";
 import { utilService } from '../services/util.service.js'; 
+import {  loadAllStories } from "../store/story.actions"
+
 
 
 
@@ -33,10 +35,11 @@ export function ProfilePage() {
     }, [params, isFollow])
 
     async function Init() {
+        await loadAllStories()
         const currntUser = await loadUser(params.userId)
-        await getUserStories(currntUser)
+        const userStoriesList =  await getUserStories(currntUser)
+        setUserStories(userStoriesList)
         const status = await isUserFollowCheck(user, currntUser)
-        console.log(status)
         setIsFollow(status)
         setIsLoading(false)
     }
@@ -44,7 +47,6 @@ export function ProfilePage() {
 
     async function getUserStories(user) {
         const userStoriesList = await allStories.filter(story => story.by._id === user._id)
-        setUserStories(userStoriesList)
         return userStoriesList
     }
 
@@ -61,6 +63,7 @@ export function ProfilePage() {
 
     if (isLoading) return <div><Loader /></div>
     if (!watchedUser) return <div><Loader /></div>
+    if (!userStories > 0) return <div><Loader /></div>
     return (
         <>
             <div className='user-profile'>
@@ -89,7 +92,7 @@ export function ProfilePage() {
 
                         </div>
                         <div className='follow'>
-                            {userStories ? (<div>{userStories.length}<span> posts</span></div>) : (<div>0</div>)}
+                            {userStories ? (<div>{userStories.length}<span> posts</span></div>) : (<div>0 <span> posts</span></div>)}
                             <div><BasicModal header={` followers`} number={watchedUser.followers.length} text={"Followers"} content={watchedUser.followers.map(user =>
                                 <li style={{ listStyle: 'none' }} key={utilService.makeId()}>
                                     <UserMiniCard user={user} fromHome={false} isMiniUser = {true}/>

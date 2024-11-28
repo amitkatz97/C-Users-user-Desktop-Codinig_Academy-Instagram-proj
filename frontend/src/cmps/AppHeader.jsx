@@ -13,6 +13,7 @@ import { NotificationDialog } from './NoficationDialog.jsx'
 import { socketService, SOCKET_EVENT_STORY_LIKED } from '../services/socket.service.js'
 import { utilService } from '../services/util.service.js'
 import { showSuccessMsg } from '../services/event-bus.service.js'
+import SnackBar from './Snackbar.jsx'
 
 
 
@@ -39,12 +40,18 @@ export function AppHeader() {
     const [notificationPosition, setNotificationPosition] = useState('translateX(-5%)')
     const [notificationWidth, setNotificationWidth] = useState('50px')
 
+    //Snackbar States
+    const [showSnackBar, setShowSnackBar] = useState(false);
+
+
+
     useEffect(() => {
         let newNotification = []
         socketService.on(SOCKET_EVENT_STORY_LIKED, (story) => {
             newNotification.push(story)
             setNotificationList(newNotification)
             // console.log("notification list:",noticationList)
+            setShowSnackBar(true)
             return () => {
                 socketService.off(SOCKET_EVENT_STORY_LIKED)
             }
@@ -61,9 +68,10 @@ export function AppHeader() {
     useEffect(() => {
         if (isNotificationOpen) {
             // setNotificationList(notification)
-            console.log("notification list:",noticationList)
+            // console.log("notification list:",noticationList)
             setNotificationPosition('translateX(0)')
             setNotificationWidth('400px')
+            showSuccessMsg("Hey!")
         }
     }, [isNotificationOpen]);
 
@@ -116,6 +124,10 @@ export function AppHeader() {
 
     }
 
+    function closeSnackbar(){
+        setShowSnackBar(false)
+    }
+
     function onLogout() {
         console.log("logout attempted ")
         logout()
@@ -154,6 +166,7 @@ export function AppHeader() {
                     <NavLink className="nav-link" onClick={!isNotificationOpen ? openNotification : closeNotification}>
                         <span> <span className='link-text'> Notifications </span>  <button className='notification-btn'> {isNotificationOpen ? <NotificationIconFull /> : <NotificationIcon />} 
                         {noticationList?.length > 0 ? (<span className='notification-num'></span>):(<span></span>) }</button> </span>
+                        <SnackBar message={noticationList?.length} show={showSnackBar} onClose={closeSnackbar}/>
                     </NavLink>
                 </div>
                 <div className='panel-link'>
@@ -175,6 +188,7 @@ export function AppHeader() {
                 <StoryCreation isOpen={isModalOpen} closeModal={closeModal} />
                 <SearchDialog isDialogOpen={isDialogOpen} closeDialog={closeDialog} dialogPosition={dialogPosition} dialogWidth={dialogWidth} />
                 <NotificationDialog currentUser={currentUser} isNotificationOpen={isNotificationOpen} notificationPosition={notificationPosition} notificationWidth={notificationWidth} closeNotification={closeNotification} />
+                {/* <SnackBar message={noticationList?.length} show={showSnackBar} onClose={closeSnackbar}/> */}
             </div>
         </>
     )

@@ -39,7 +39,7 @@ export function NotificationDialog({ isNotificationOpen, closeNotification, noti
                     {noticationList.length > 0 ? (
                         <ul>
                             {noticationList.map((note) => (
-                                <li key={utilService.makeId()}>
+                                <li key={utilService.makeId()} onClick={closeNotification}>
                                     <NotificationCard by={note.by} story={note.story} />
                                 </li>
 

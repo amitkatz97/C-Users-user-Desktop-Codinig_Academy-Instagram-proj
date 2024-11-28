@@ -184,15 +184,18 @@ export function StoryCreation({ isOpen, closeModal }) {
                             <label htmlFor="descprition"></label>
                             <textarea
                                 className="descprition" type="text" id="descprition" name="descprition"
-                                placeholder="Add Something"
+                                placeholder=""
                                 value={inputValue}
                                 onChange={handelChange}
                             />
+                            <div className ="div-for-emoji-button">
                             <button onClick={toggleDropdown}>
                                 <BasicPopover header={<InsertEmoticonIcon size={"1.1em"} className="emoji-icon" />}
                                     content={<EmojiList handleSelect={handleSelect} />} >
                                 </BasicPopover>
                             </button>
+                            <span className= "charcrets-length">{inputValue.length}/2200</span>
+                            </div>
                             {/* <EmojiList isEmojiOpen={isEmojiOpen} onSelect={handleSelect} /> */}
 
                         </article>

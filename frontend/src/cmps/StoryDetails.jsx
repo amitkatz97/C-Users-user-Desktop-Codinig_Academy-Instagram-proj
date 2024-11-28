@@ -11,7 +11,8 @@ import { TbMessageCircle } from "react-icons/tb";
 import { TbSend } from "react-icons/tb";
 import { CommentPreview } from './CommentPreview.jsx';
 import { NotificationIconRed, MessageIcon, MessageIconFull, NotificationIcon, NotificationIconFull, ReelsIcon, ReelsIconFull, SearchIcon, SearchIconFull, ExploreIcon, ExploreIconFull, CreateIcon, CommentIcon } from './SVG.jsx';
-
+import BasicModal from "../cmps/Modal.jsx"
+import { UserMiniCard } from "./UserMiniCard.jsx";
 
 
 import Loader from './Loader.jsx';
@@ -105,8 +106,15 @@ export function StoryDetails() {
                             <button><CommentIcon /></button>
                             <button><MessageIcon /></button>
                         </div>
+                        <div className="likes-amount">
+                            <BasicModal header={`${story.likedBy.length} Likes`} text={"Likes"} content={story.likedBy.map(user =>
+                                <li style={{ listStyle: 'none' }} key={story._id}>
+                                    <UserMiniCard user={user} fromHome={false} isMiniUser={true} />
+                                </li>
+                            )} />
+                        </div>
                         <div>
-                            <CommentAdding story={story} user={user} font_size={'24px'} reverse={true} />
+                            <CommentAdding story={story} user={user} font_size={'24px'} reverse={true} fromDetailes ={true}/>
                         </div>
                     </article>
                 </div>

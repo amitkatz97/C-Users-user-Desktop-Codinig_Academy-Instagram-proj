@@ -76,7 +76,6 @@ export async function updateStory (req, res){
 
     try {
         const loggedinUser = authService.validateToken(loginToken)
-        console.log(loggedinUser)
         const updateStory = await StoryService.update(story)
         const dataToDeliverd ={updateStory: updateStory, loggedinUser :loggedinUser}
         // socketService.broadcast({type: 'story-updated', data: updateStory, userId: loggedinUser._id})

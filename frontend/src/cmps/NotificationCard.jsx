@@ -6,7 +6,7 @@ import { Link, Navigate, Outlet, useNavigate } from "react-router-dom"
 export function NotificationCard({by ,story}){
 
     useEffect(()=>{
-        console.log("by:", by, "story:", story)
+        // console.log("by:", by, "story:", story)
     },[])
     const navigate = useNavigate()
 

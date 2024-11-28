@@ -46,17 +46,6 @@ export function setupSocketAPI(http) {
             delete socket.userId
         })
 
-        // socket.on('story-updated', async story =>{
-        //     let loggedinUser = socket.userId
-        //     console.log("loggedinUser:",loggedinUser)
-        //     try {
-        //         const updatedStory = await updateStory(story)
-        //         broadcast({type: 'story-updated', data: updatedStory, userId: loggedinUser})
-        //     } catch (err) {
-        //         logger.error('failed to save message', err)
-        //         socket.emit("Cant update story," ,err)
-        //     }
-        // })
 
     })
 }

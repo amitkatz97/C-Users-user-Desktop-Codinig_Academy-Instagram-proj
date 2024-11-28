@@ -1,5 +1,5 @@
 
-import { loadStories, addStory, removeStory, updateStory, addLike, loadAllStories } from "../store/story.actions"
+import { loadStories, addLike, loadAllStories } from "../store/story.actions"
 import { store } from "../store/store"
 import { useEffect, useState , useRef} from "react"
 import { useSelector } from "react-redux"
@@ -17,19 +17,13 @@ export function HomePage() {
     const stories = useSelector(storeState => storeState.storyModule.stories)
     const user = useSelector(userState => userState.userModule.user)
     const users = useSelector(userState => userState.userModule.users)
+    const story = useSelector(storeState => storeState.storyModule.story)
 
-    const [isLoading, setIsLoading] = useState(false)
-    const [storiesToDisplay, setStoriesToDisplay] = useState([])
-    const bottomDiv = useRef()
-    const nextIdx = useRef(0)
+    
 
     useEffect(() => {
-        console.log("user:", user)
-        console.log("Home is rendering")
-        loadStories(user)
-        loadAllStories()
-        loadUsers()
-
+        Init()
+        
         socketService.on(SOCKET_EVENT_STORY_UPDATED, async (story) =>{
             console.log("GOT from socket," ,story)
             store.dispatch(getCmdUpdateStory(story))
@@ -38,8 +32,15 @@ export function HomePage() {
         return () =>{
             socketService.off(SOCKET_EVENT_STORY_UPDATED)
         }
-    }, [user])
+    }, [story])
 
+    async function Init(){
+        console.log("user:", user)
+        console.log("Home is rendering")
+        await loadStories(user)
+        await loadAllStories()
+        await loadUsers()
+    }
 
 
     function onLike(story) {

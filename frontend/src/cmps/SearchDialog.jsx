@@ -66,7 +66,7 @@ export function SearchDialog({ isDialogOpen, closeDialog, dialogPosition, dialog
                                     </li>
                                 ))
                             ) : (
-                                <li>No users found</li>
+                                <li className='no-users'>No users found</li>
                             )}
                         </ul>
                     </p>

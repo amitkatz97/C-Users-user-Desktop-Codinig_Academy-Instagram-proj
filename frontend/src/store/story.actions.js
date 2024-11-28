@@ -75,9 +75,11 @@ export async function removeStory(storyId) {
 
 export async function addStory(story) {
     store.dispatch(getCmdAddStory(story))
+    store.dispatch(getCmdSetStory(story))
     try {
         const savedStory = await storyService.save(story)
         console.log('Added Story', savedStory)
+        console.log(story)
         return savedStory
     } catch (err) {
         console.log('Cannot add Story', err)

@@ -6,7 +6,7 @@ import BasicPopover from '../cmps/PopOver.jsx'
 import EmojiList from "./EmojiList"
 
 
-export function CommentAdding({ story, user, font_size = "1.1em", reverse }) {
+export function CommentAdding({ story, user, font_size = "1.1em", reverse , fromDetailes}) {
     const [inputValue, setInputValue] = useState("")
     const [isEmojiOpen, setEmojiOpen] = useState(false)
     const commentInputRef = useRef()
@@ -48,7 +48,7 @@ export function CommentAdding({ story, user, font_size = "1.1em", reverse }) {
             ) : (<div> </div>)
             }
             <button className="emoji-btn" onClick={toggleDropdown}>
-            <BasicPopover header={<HiOutlineEmojiHappy size={font_size} className="emoji-icon" />} 
+            <BasicPopover header={<HiOutlineEmojiHappy size={font_size} className="emoji-icon" fromDetailes={fromDetailes}/>} 
               content= {<EmojiList handleSelect={handleSelect}/>} >
             </BasicPopover>
             </button>

@@ -1,9 +1,9 @@
 import { userService } from '../services/user/index.js'
-// import { socketService } from '../services/socket.service'
 import { store } from '../store/store'
 
 import { showErrorMsg } from '../services/event-bus.service'
 import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER, UPDATE_USER } from './user.reducer'
+import { socketService } from '../services/socket.service'
 
 export async function loadUsers() {
     try {
@@ -12,7 +12,7 @@ export async function loadUsers() {
     } catch (err) {
         console.log('UserActions: err in loadUsers', err)
     } finally {
-        
+
     }
 }
 
@@ -26,13 +26,15 @@ export async function removeUser(userId) {
 }
 
 export async function login(credentials) {
+    console.log("loggin function is activated");
     try {
         const user = await userService.login(credentials)
         store.dispatch({
             type: SET_USER,
             user
         })
-        // socketService.login(user)
+        socketService.login(user._id)
+        console.log("user from actions", user)
         return user
     } catch (err) {
         console.log('Cannot login', err)
@@ -47,7 +49,7 @@ export async function signup(credentials) {
             type: SET_USER,
             user
         })
-        // socketService.login(user)
+        socketService.login(user)
         return user
     } catch (err) {
         console.log('Cannot signup', err)
@@ -62,41 +64,41 @@ export async function logout() {
             type: SET_USER,
             user: null
         })
-        // socketService.logout()
+        socketService.logout()
     } catch (err) {
         console.log('Cannot logout', err)
         throw err
     }
 }
 
-export async function addFollow(user, profile){
+export async function addFollow(user, profile) {
     console.log("user:", user, "profile:", profile)
     let status
-    const {followers} = profile 
-    const {following} = user
+    const { followers } = profile
+    const { following } = user
 
     // Buliding two mini users
     const myMiniUser = {
         _id: user._id,
-        fullname :user.fullname,
+        fullname: user.fullname,
         imgUrl: user.imgUrl,
     }
     const profileMiniUser = {
         _id: profile._id,
-        fullname :profile.fullname,
+        fullname: profile.fullname,
         imgUrl: profile.imgUrl,
     }
 
 
     let followStatus = followers.filter(userFollower => userFollower._id === user._id)
-    if (followStatus.length === 0){
+    if (followStatus.length === 0) {
         followers.push(myMiniUser)
         following.push(profileMiniUser)
         status = true
     } else {
-        let indexToRemove= followers.findIndex(userFollower => userFollower._id === user._id)
+        let indexToRemove = followers.findIndex(userFollower => userFollower._id === user._id)
         followers.splice(indexToRemove, 1)
-        let userIndexToRemove= following.findIndex(userFollower => userFollower._id === profile._id)
+        let userIndexToRemove = following.findIndex(userFollower => userFollower._id === profile._id)
         following.splice(userIndexToRemove, 1)
         status = false
     }
@@ -105,11 +107,10 @@ export async function addFollow(user, profile){
     return status
 }
 
-export async function isUserFollowCheck(user, profile){
-    const {following} = user 
-    let indexToRemove= await following.findIndex(userFollower => userFollower._id === profile._id)
-    if (indexToRemove > -1 ) 
-        { return true }
+export async function isUserFollowCheck(user, profile) {
+    const { following } = user
+    let indexToRemove = await following.findIndex(userFollower => userFollower._id === profile._id)
+    if (indexToRemove > -1) { return true }
     else return false
 }
 
@@ -125,7 +126,7 @@ export async function loadUser(userId) {
     }
 }
 
-export async function updateUser(user){
+export async function updateUser(user) {
     try {
         const savedUser = await userService.update(user)
         store.dispatch({ type: UPDATE_USER, user })

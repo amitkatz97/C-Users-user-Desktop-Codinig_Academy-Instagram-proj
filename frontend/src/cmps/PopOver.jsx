@@ -3,7 +3,7 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-export default function BasicPopover({header, content , handleSelect}) {
+export default function BasicPopover({header, content , handleSelect, fromDetailes =false}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -15,6 +15,13 @@ export default function BasicPopover({header, content , handleSelect}) {
   };
 
   const open = Boolean(anchorEl);
+  const anchorOrigin = fromDetailes? {
+    vertical: 'top',
+    horizontal: 'left',
+  } : {
+    vertical: 'top',
+    horizontal: 'right',
+  }
   const id = open ? 'simple-popover' : undefined;
 
   return (
@@ -27,10 +34,7 @@ export default function BasicPopover({header, content , handleSelect}) {
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorOrigin={anchorOrigin}
         transformOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
