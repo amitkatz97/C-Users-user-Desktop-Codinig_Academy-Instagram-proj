@@ -88,7 +88,7 @@ async function logout() {
 
 async function signup(userCred) {
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-    const user = await axios.post(AUTH_URL, userCred)
+    const user = await axios.post(AUTH_URL+'/signup', userCred)
     // const user = await httpService.post('auth/signup', userCred)
     return saveLocalUser(user)
 }

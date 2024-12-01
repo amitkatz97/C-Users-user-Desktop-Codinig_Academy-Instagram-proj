@@ -1,12 +1,15 @@
 .app-header {
-    width: 244px;
+    
     padding: 10px;
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position:fixed;
     font-size: 16px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     z-index: 1000;
+    border-right: 1px solid $gray1;
+    height: 100vh;
+    width: 20%;
 
     @include for-narrow-layout {
         transition: 0.2s;
@@ -15,7 +18,7 @@
 
     @include for-normal-layout {
         transition: 0.2s;
-        width: 244px;
+        width: 20%;
     }
 
     @include for-mobile-layout {
@@ -102,6 +105,20 @@
             }
         }
 
+        &.mobile{
+            @include for-mobile-layout {
+                // display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                
+                :hover{
+                    background-color:white;
+                }
+                
+            }
+        }
+
         :hover {
             background-color: $gray1;
             transition: 0.2s;
@@ -123,6 +140,12 @@
 
             @include for-mobile-layout {
                 justify-content: center;
+            }
+
+            &.mobile{
+                @include for-mobile-layout {
+                    justify-content: end;
+                }
             }
         }
 

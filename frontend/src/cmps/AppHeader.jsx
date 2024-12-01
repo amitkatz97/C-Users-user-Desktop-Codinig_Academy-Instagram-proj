@@ -67,8 +67,7 @@ export function AppHeader() {
 
     useEffect(() => {
         if (isNotificationOpen) {
-            // setNotificationList(notification)
-            // console.log("notification list:",noticationList)
+          
             setNotificationPosition('translateX(0)')
             setNotificationWidth('400px')
             showSuccessMsg("Hey!")
@@ -162,11 +161,11 @@ export function AppHeader() {
                         <span> <span className='link-text'> Messages </span> <button> {isActive('/direct') ? <MessageIconFull /> : <MessageIcon />} </button> </span>
                     </NavLink>
                 </div>
-                <div className='panel-link temp'>
-                    <NavLink className="nav-link" onClick={!isNotificationOpen ? openNotification : closeNotification}>
+                <div className='panel-link mobile'>
+                    <NavLink className="nav-link mobile" onClick={!isNotificationOpen ? openNotification : closeNotification}>
                         <span> <span className='link-text'> Notifications </span>  <button className='notification-btn'> {isNotificationOpen ? <NotificationIconFull /> : <NotificationIcon />} 
                         {noticationList?.length > 0 ? (<span className='notification-num'></span>):(<span></span>) }</button> </span>
-                        <SnackBar message={noticationList?.length} show={showSnackBar} onClose={closeSnackbar}/>
+                        
                     </NavLink>
                 </div>
                 <div className='panel-link'>
@@ -188,6 +187,7 @@ export function AppHeader() {
                 <StoryCreation isOpen={isModalOpen} closeModal={closeModal} />
                 <SearchDialog isDialogOpen={isDialogOpen} closeDialog={closeDialog} dialogPosition={dialogPosition} dialogWidth={dialogWidth} />
                 <NotificationDialog currentUser={currentUser} isNotificationOpen={isNotificationOpen} notificationPosition={notificationPosition} notificationWidth={notificationWidth} closeNotification={closeNotification} />
+                <SnackBar message={noticationList?.length} show={showSnackBar} onClose={closeSnackbar}/>
                 {/* <SnackBar message={noticationList?.length} show={showSnackBar} onClose={closeSnackbar}/> */}
             </div>
         </>

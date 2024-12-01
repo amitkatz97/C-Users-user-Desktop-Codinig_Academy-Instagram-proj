@@ -50,8 +50,8 @@
         display: flex;
 
         @include for-mobile-layout{
-            height: 60%;
-            width: 60%;
+            height: 65%;
+            width: 70%;
             flex-direction: column;
         }
 

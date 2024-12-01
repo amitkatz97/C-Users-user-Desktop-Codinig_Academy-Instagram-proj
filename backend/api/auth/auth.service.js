@@ -28,17 +28,18 @@ async function login(fullname){
     return miniUser
 }
 
-async function signup({fullname}){
+async function signup(crecredentials){
+    const {fullname, username, imgUrl} = crecredentials
     const saltRounds = 10
 
     loggerService.debug(`auth.service - signup with fullname: ${fullname}`)
     if (!fullname) throw 'Missing required signup information'
     
-    // const userExist = await userService.getById(_id)
-    // if (userExist) throw 'Username already taken'
+    const userExist = await UserService.getByFullname(fullname)
+    if (userExist) throw 'Username already taken'
     
     // const hash = await bcrypt.hash(password, saltRounds)
-    return UserService.save({ username, password: hash, fullname })
+    return UserService.add({  fullname, username, imgUrl})
 }
 
 function getLoginToken(user) {

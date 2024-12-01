@@ -7,6 +7,7 @@ import { MessagePage } from "./pages/MessagePage"
 import { ConverstaionPage}  from "./pages/ConverstaionPage"
 import { ExplorePage } from "./pages/ExplorePage"
 import { StoryDetails } from './cmps/StoryDetails'
+import { UpperMobileBar } from './pages/UpperMobileBar'
 
 
 
@@ -37,6 +38,7 @@ export function RootCmp() {
                             <Route path='/' element= {<LoginSignup/>}/>
                         </Routes>
                     </main>
+                <div className='upper-mobile-bar'><UpperMobileBar/></div>
             </div>
         </Router>
     )

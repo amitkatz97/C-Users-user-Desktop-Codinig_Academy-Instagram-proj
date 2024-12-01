@@ -6,6 +6,7 @@ import {useNavigate, Outlet} from "react-router-dom"
 import { login , signup } from "../store/user.actions.js"
 import {showErrorMsg} from "../services/event-bus.service.js"
 import { loadUsers } from '../store/user.actions.js'
+import { Upload } from '@mui/icons-material'
 
 
 export function LoginSignup(props) {
@@ -68,8 +69,10 @@ export function LoginSignup(props) {
         setIsSignup(!isSignup)
     }
 
-    function onUploaded(imgUrl) {
-        setCredentials({ ...credentials, imgUrl: imgUrl })
+    function onUploaded(file) {
+        console.log(file.name)
+        setCredentials({ ...credentials, imgUrl:file.name })
+        console.log("credentials after Upload", credentials)
     }
 
 

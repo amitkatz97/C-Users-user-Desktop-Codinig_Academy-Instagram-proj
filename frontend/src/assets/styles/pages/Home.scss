@@ -2,7 +2,10 @@
 .home-page{
     display: flex;
     
-
+    @include for-mobile-layout {
+        margin-top: 25px;
+        padding: 0;
+    }
 
 
 .stories-list{

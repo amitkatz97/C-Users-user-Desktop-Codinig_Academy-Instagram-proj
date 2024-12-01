@@ -2,20 +2,59 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 100vh;
     margin: 0;
+    position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .loader {
-    border: 4px solid #f3f3f3; /* Light grey */
-    border-top: 4px solid #333; /* Dark grey */
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #FAA;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
     animation: spin 1s linear infinite;
+
+    .img-wrraper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        img {
+            padding: 10px;
+            width: 100%;
+            height: 100%;
+            animation: reverse-spin 2s linear infinite;
+        }
+    }
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
+@keyframes reverse-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg); /* Counterclockwise rotation */
+    }
+  }
+
+

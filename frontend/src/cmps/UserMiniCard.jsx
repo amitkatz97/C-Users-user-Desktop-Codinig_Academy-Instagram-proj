@@ -25,7 +25,7 @@ export function UserMiniCard({user, fromHome = true, fromSearch = false, isMiniU
     },[user])
 
     const classKind = fromHome ? "user-card" : "user-card-2"
-    const btnClass = isUserFollow? "unfollow" : "follow"
+    const btnClass = isUserFollow? "unfollow-mini-card" : "follow-mini-card"
 
     async function Init(){
         const status = await isUserFollowCheck(currUser, user)

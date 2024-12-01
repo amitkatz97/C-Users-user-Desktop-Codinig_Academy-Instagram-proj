@@ -102,10 +102,11 @@ async function update(user){
 
 async function add(user){
     try {
+        const userTosave = {...user, following:[], followers:[]}
         const collection = await dbService.getCollection("user")
-        await collection.insertOne(user)
+        const savedUser = await collection.insertOne(userTosave)
 
-        return user
+        return savedUser
     } catch (err) {
         loggerService.error("Couldn't add user " ,err)
         throw err

@@ -1,6 +1,8 @@
 .main-app {
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 4fr;
+    grid-template-rows: 100vh;
     grid-template-areas:
         "aside main";
 
@@ -11,8 +13,9 @@
 
     @include for-mobile-layout {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr auto;
+        grid-template-rows: auto 1fr auto;
         grid-template-areas:
+            "mobile"
             "main"
             "aside";
     }
@@ -26,10 +29,6 @@
 .app-header {
     grid-area: aside;
     // position: fixed;
-    border-right: 1px solid $gray1;
-    height: 100vh;
-    width: 220;
-    
     
 }
 
@@ -38,4 +37,21 @@
     display: flex;
     justify-content: space-around;
     height: 100vh;
+
+    @include for-mobile-layout {
+       margin-top: 40px;
+      
+    }
+}
+
+.upper-mobile-bar{
+    grid-area: mobile;
+    display: none;
+    @include for-mobile-layout {
+        display: flex;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: white;
+    }
 }

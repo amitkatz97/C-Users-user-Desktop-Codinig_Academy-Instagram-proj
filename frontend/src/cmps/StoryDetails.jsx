@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Navigate, useParams, useSearchParams, useNavigate } from 'react-router-dom'
+import { Navigate, useParams, useSearchParams, useNavigate ,useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStory, addLike, isUserLikeCheck, addCommentLike } from '../store/story.actions'
 import { updateStory } from '../store/story.actions.js';
@@ -32,6 +32,7 @@ export function StoryDetails() {
 
 
     const params = useParams()
+    const location = useLocation()
     const navigate = useNavigate()
 
 
@@ -53,16 +54,15 @@ export function StoryDetails() {
 
     function onClose() {
         let paramsKeys = Object.keys(params)
-        console.log(params)
+        let locationComponenet = location.pathname
         let lastKey = paramsKeys[paramsKeys.length - 1]
         delete params[lastKey]
-        if (paramsKeys.includes('userId')) {
+        if (locationComponenet.includes('explore')) {
+            navigate(`/explore`)
+        }
+        else if (paramsKeys.includes('userId')) {
             const { userId } = params
             navigate(`/${userId}`)
-        }
-        else if (paramsKeys.includes('explore')) {
-            const { explore } = params
-            navigate(`/${explore}`)
         }
         else { navigate('/home') }
     }

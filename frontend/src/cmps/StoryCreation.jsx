@@ -6,11 +6,14 @@ import EmojiList from "./EmojiList.jsx";
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Loader from "./Loader.jsx";
 import BasicPopover from '../cmps/PopOver.jsx'
+import { useSelector } from "react-redux"
 
 const CLOUD_NAME = "dhqabxfxc"
 const UPLOAD_PRESET = "instagramPosts"
 
 export function StoryCreation({ isOpen, closeModal }) {
+
+    const user = useSelector(userState => userState.userModule.user)
 
 
     const [newStory, setNewStory] = useState({})
@@ -29,6 +32,7 @@ export function StoryCreation({ isOpen, closeModal }) {
     async function Init() {
         const story = await storyService.getEmptyStory()
         setNewStory(story)
+        console.log("new story",newStory)
         setIsLoading(false)
     }
 
@@ -175,11 +179,11 @@ export function StoryCreation({ isOpen, closeModal }) {
                             )}
                         </div>
                     )}
-
+                    
                     <section className="inforamtion-area" id="inforamtion-area">
                         <article id="story-information" className="story-information">
                             <article className="story-description">
-                                <img src={newStory.by.imgUrl} /> <span>{newStory.by.fullname}</span>
+                               <img src={user.imgUrl} /> <span>{user.fullname}</span>
                             </article>
                             <label htmlFor="descprition"></label>
                             <textarea
@@ -200,6 +204,7 @@ export function StoryCreation({ isOpen, closeModal }) {
 
                         </article>
                     </section>
+                    
                 </div>
 
             </section>

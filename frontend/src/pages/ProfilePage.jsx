@@ -69,7 +69,7 @@ export function ProfilePage() {
             <div className='user-profile'>
                 <section className='user-info'>
                     <img src={watchedUser.imgUrl} alt="No picture" />
-                    <section className='user-data'>
+                    {/* <section className='user-data'> */}
                         <div className='actions'>
                             {user._id === watchedUser._id ? (
                                 <>
@@ -92,21 +92,21 @@ export function ProfilePage() {
 
                         </div>
                         <div className='follow'>
-                            {userStories ? (<div>{userStories.length}<span> posts</span></div>) : (<div>0 <span> posts</span></div>)}
-                            <div><BasicModal header={` followers`} number={watchedUser.followers.length} text={"Followers"} content={watchedUser.followers.map(user =>
+                            {userStories ? (<div className='follow-profile-list'><div>{userStories.length}<span> posts</span></div></div>) : (<div  className='follow-profile-list'><div> 0 <span> posts</span></div></div>)}
+                            <div className='follow-profile-list'><BasicModal header={` followers`} number={watchedUser.followers.length} text={"Followers"} content={watchedUser.followers.map(user =>
                                 <li style={{ listStyle: 'none' }} key={utilService.makeId()}>
                                     <UserMiniCard user={user} fromHome={false} isMiniUser = {true}/>
                                 </li>
                             )} />
                             </div>
-                            <div><BasicModal header={` following`} number={watchedUser.following.length} text={"Following"} content={watchedUser.following.map(user =>
+                            <div className='follow-profile-list'><BasicModal header={` following`} number={watchedUser.following.length} text={"Following"} content={watchedUser.following.map(user =>
                                 <li style={{ listStyle: 'none' }} key={utilService.makeId()}>
                                     <UserMiniCard user={user} fromHome={false} isMiniUser = {true}/>
                                 </li>
                             )} />
                             </div>
                         </div>
-                    </section>
+                    {/* </section> */}
                 </section>
                 <section className='user-posts'>
                     <section className='user-story-links'>

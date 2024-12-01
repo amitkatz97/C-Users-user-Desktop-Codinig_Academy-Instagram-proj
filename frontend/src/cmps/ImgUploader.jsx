@@ -10,11 +10,30 @@ export function ImgUploader({ onUploaded = null }) {
   const [isUploading, setIsUploading] = useState(false)
 
   async function uploadImg(ev) {
-    setIsUploading(true)
-    const { imgUrl, height, width } = ev
-    setImgData({ imgUrl: imgUrl, width, height })
-    setIsUploading(false)
-    onUploaded(imgUrl)
+
+    const fileInput = ev.target;
+    const file = fileInput.files[0]
+
+    try {
+      setIsUploading(true)
+      console.log(file)
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgElement = document.createElement('img');
+        imgElement.src = e.target.result;
+        document.body.appendChild(imgElement); // For demonstration
+      };
+      reader.readAsDataURL(file)
+      setImgData({ imgUrl:file })
+      await onUploaded(file)
+
+    } catch (err) {
+      console.log("cant uplaod img", err);
+    } 
+      finally {
+      setIsUploading(false)
+    }
+
   }
 
   function getUploadLabel() {

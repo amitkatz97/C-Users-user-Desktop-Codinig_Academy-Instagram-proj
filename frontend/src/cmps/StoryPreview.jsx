@@ -67,7 +67,7 @@ export function StoryPreview({ story, onLike }) {
                     : {story.txt}
 
                     <section className="comment-panel">
-                        <Link to={`/p/${story._id}`}>View all {story.comments.length} comments</Link>
+                        <Link to={`/home/${story._id}`}>View all {story.comments.length} comments</Link>
                         <CommentAdding story={story} user={user} />
                     </section>
                 </div>

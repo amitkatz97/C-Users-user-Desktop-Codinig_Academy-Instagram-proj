@@ -1,0 +1,37 @@
+.upper-mobile-bar{
+    height: 45px;
+    flex-direction: row;
+    align-items: center;
+
+    .upper-bar-content{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+       
+       
+        .Logo{
+            margin: 0;
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin-left: 10px;
+            
+            svg{
+                display: block;
+            }
+        }
+
+        .search{
+            
+        }
+
+        .notification{
+            margin-left: 30px;
+            svg{
+                display: flex;
+            }
+        }
+    }
+}
