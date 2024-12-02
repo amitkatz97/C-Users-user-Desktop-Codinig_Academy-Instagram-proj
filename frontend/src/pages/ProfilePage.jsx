@@ -83,7 +83,7 @@ export function ProfilePage() {
                                     <h1>{watchedUser.fullname}</h1>
                                     {isFollow ? (
                                         <button onClick={onFollow}>Following</button>
-                                    ) : (<button className='follow' onClick={onFollow}>Follow</button>)
+                                    ) : (<button className='follow-indicator' onClick={onFollow}>Follow</button>)
                                     }
                                     <button>Message</button>
                                 </>
@@ -111,7 +111,7 @@ export function ProfilePage() {
                 <section className='user-posts'>
                     <section className='user-story-links'>
                         <NavLink> Posts</NavLink>
-                        <NavLink> <BookmarkBorderIcon fontSize='small' /> Saved</NavLink>
+                        <NavLink> Saved</NavLink>
                     </section>
                     <section className='user-story-posts'>
                         {userStories.map(story =>

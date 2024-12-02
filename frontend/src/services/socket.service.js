@@ -10,6 +10,9 @@ export const SOCKET_EMIT_USER_WATCH = 'user-watch'
 export const SOCKET_EVENT_USER_UPDATED = 'user-updated'
 export const SOCKET_EVENT_STORY_UPDATED = 'story-updated'
 export const SOCKET_EVENT_STORY_LIKED = "story-get-like"
+export const SOCKET_EVENT_STORY_COMMENT = "story-get-comment"
+export const SOCKET_EVENT_USER_FOLLOW = "user-get-follow"
+
 
 // export const SOCKET_EVENT_REVIEW_ADDED = 'review-added'
 // export const SOCKET_EVENT_REVIEW_REMOVED = 'review-removed'

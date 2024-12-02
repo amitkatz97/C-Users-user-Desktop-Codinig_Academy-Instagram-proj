@@ -10,7 +10,7 @@ import { Padding } from '@mui/icons-material';
 import { SearchDialog } from './SearchDialog.jsx';
 import { useParams } from 'react-router-dom'
 import { NotificationDialog } from './NoficationDialog.jsx'
-import { socketService, SOCKET_EVENT_STORY_LIKED } from '../services/socket.service.js'
+import { socketService, SOCKET_EVENT_STORY_LIKED , SOCKET_EVENT_USER_FOLLOW,SOCKET_EVENT_STORY_COMMENT} from '../services/socket.service.js'
 import { utilService } from '../services/util.service.js'
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import SnackBar from './Snackbar.jsx'
@@ -50,12 +50,28 @@ export function AppHeader() {
         socketService.on(SOCKET_EVENT_STORY_LIKED, (story) => {
             newNotification.push(story)
             setNotificationList(newNotification)
-            // console.log("notification list:",noticationList)
             setShowSnackBar(true)
             return () => {
                 socketService.off(SOCKET_EVENT_STORY_LIKED)
             }
         })
+        socketService.on(SOCKET_EVENT_USER_FOLLOW, (user)=> {
+            newNotification.push(user)
+            setNotificationList(newNotification)
+            setShowSnackBar(true)
+            return () => {
+                socketService.off(SOCKET_EVENT_USER_FOLLOW)
+            }
+        })
+        socketService.on(SOCKET_EVENT_STORY_COMMENT, (story)=> {
+            newNotification.push(story)
+            setNotificationList(newNotification)
+            setShowSnackBar(true)
+            return () => {
+                socketService.off(SOCKET_EVENT_STORY_COMMENT)
+            }
+        })
+
     }, [])
 
     useEffect(() => {

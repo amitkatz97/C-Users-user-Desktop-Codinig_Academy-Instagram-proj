@@ -36,21 +36,21 @@
         justify-content: space-between;
         color: black;
         margin-top: 0;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
         // font-weight: 600;
-        padding-left: 38px;
+        padding-left: 10px;
 
         .btn-close {}
     }
 
     .no-notification{
-        padding-left: 35px;
+        padding-left: 10px;
     }
 
 
     .input-area {
         width: 90%;
-        padding-left: 10px;
+        padding-left: 5px;
 
         input {
             background-color: rgb(239, 239, 239);
@@ -58,8 +58,8 @@
             width: 100%;
             border-radius: 10px;
             border: none;
-            padding-left: 13px;
-            margin-left: 20px;
+            padding-left: 10px;
+            // margin-left: 20px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
 
@@ -71,8 +71,8 @@
         }
         .clear-input{
             position: absolute; 
-            right: 24px;
-            top:103px;
+            right: 45px;
+            top:92px;
             border-radius: 50%;
             background-color: $gray2;
             color: white;
@@ -95,7 +95,7 @@
     }
 
     .no-users{
-        padding-left: 35px;
+        padding-left: 10px;
     }
 
 

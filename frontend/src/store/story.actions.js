@@ -29,7 +29,7 @@ export async function loadStories(user) {
     const {_id} = user
     try {
         const stories = await storyService.queryOnlyFollowing(_id)
-        console.log('stories from DB:', stories)
+        // console.log('stories from DB:', stories)
         store.dispatch(getCmdSetStories(stories))
         return stories
     } catch (err) {
@@ -41,7 +41,7 @@ export async function loadStories(user) {
 export async function loadAllStories() {
     try {
         const stories = await storyService.query()
-        console.log('All Stories from DB:', stories)
+        // console.log('All Stories from DB:', stories)
         store.dispatch(getCmdSetAllStories(stories))
         return stories
     } catch (err) {
@@ -53,7 +53,7 @@ export async function loadAllStories() {
 export async function loadStory(storyId) {
     try {
         const story = await storyService.getById(storyId)
-        console.log('Story from DB:', story)
+        // console.log('Story from DB:', story)
         store.dispatch(getCmdSetStory(story))
         return story
     } catch (err) {
@@ -233,14 +233,4 @@ function getCmdSetComment(comment) {
     }
 }
 
-// unitTestActions()
-async function unitTestActions() {
-    await loadCars()
-    await addCar(carService.getEmptyCar())
-    await updateCar({
-        _id: 'm1oC7',
-        title: 'Car-Good',
-    })
-    await removeCar('m1oC7')
-    // TODO unit test addCarMsg
-}
+

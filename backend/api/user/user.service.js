@@ -71,7 +71,7 @@ async function getById(userId){
 }
 
 async function update(user){
-    console.log("user:",user)
+    // console.log("user:",user)
     const {following , followers} = user
     const updateFollowing = following.map(Object =>({
                 _id: typeof Object._id === 'string' ? ObjectId.createFromHexString(Object._id) : Object._id,

@@ -4,6 +4,8 @@ import { StoryService } from "./story.service.js";
 import { socketService } from '../../services/socket.service.js';
 import { authService } from '../auth/auth.service.js'
 import { Socket } from "socket.io";
+import _ from 'lodash'
+
 
 
 
@@ -75,12 +77,52 @@ export async function updateStory (req, res){
     const { body:story } = req
 
     try {
+        const currentStory = await StoryService.getById(story._id)
+        
+        console.log("current story:", currentStory)
         const loggedinUser = authService.validateToken(loginToken)
         const updateStory = await StoryService.update(story)
+        console.log("updated story:", updateStory)
         const dataToDeliverd ={updateStory: updateStory, loggedinUser :loggedinUser}
         // socketService.broadcast({type: 'story-updated', data: updateStory, userId: loggedinUser._id})
+        const changedFields = []
 
-        socketService.emitToUser({type :'story-get-like', data: dataToDeliverd , userId: story.by._id})
+        for (const key in story) {
+            if (story.hasOwnProperty(key)) {
+              const oldValue = currentStory[key];
+              const newValue = story[key];
+      
+              // If the field is an object, do deep comparison
+              if (_.isObject(oldValue) && !Array.isArray(oldValue)) {
+                if (!_.isEqual(oldValue, newValue)) {
+                  changedFields.push(key); // Track this field as changed
+                }
+              }
+              // If it's an array, we could compare the array lengths or deeply
+              // compare the contents if necessary
+              else if (Array.isArray(oldValue)) {
+                if (!_.isEqual(oldValue, newValue)) {
+                  changedFields.push(key); // Track this field as changed
+                }
+              }
+              // If it's a simple value, compare directly
+              else if (oldValue !== newValue) {
+                changedFields.push(key); // Track this field as changed
+              }
+            }
+          }
+        console.log("Change in fields:", changedFields)
+
+          if (changedFields.includes('comments')){
+            console.log("comments is change")
+            socketService.emitToUser({type :'story-get-comment', data: dataToDeliverd , userId: story.by._id})
+          }
+
+          if (changedFields.includes('likedBy')){
+            console.log("likedBy is change")
+            socketService.emitToUser({type :'story-get-like', data: dataToDeliverd , userId: story.by._id})
+          }
+        
         res.send(updateStory)
     } catch (err) {
         console.log(`err:`, err)

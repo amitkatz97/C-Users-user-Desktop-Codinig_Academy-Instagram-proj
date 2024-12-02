@@ -117,7 +117,7 @@ export async function isUserFollowCheck(user, profile) {
 export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId)
-        console.log('user from DB:', user)
+        // console.log('user from DB:', user)
         store.dispatch(getCmdSetUser(user))
         return user
     } catch (err) {
