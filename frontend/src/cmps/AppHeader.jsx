@@ -152,7 +152,7 @@ export function AppHeader() {
     return (
         <>
             <div className='app-header' id='app-header'>
-                {!isDialogOpen && !isNotificationOpen ? (<h1 className='Logo'> <img src="src/imgs/Logo2.png" alt="" /> <LogoIcon /></h1>) : (<h1 className='Logo2'><LogoIcon /></h1>)}
+                {!isDialogOpen && !isNotificationOpen ? (<h1 className='Logo'> <img src="/imgs/Logo2.png" alt="" /> <LogoIcon /></h1>) : (<h1 className='Logo2'><LogoIcon /></h1>)}
                 <div className='panel-link'>
                     <NavLink to={'/home'} className="nav-link" >
                         <span> <span className='link-text'> Home </span> <button> {isActive('/home') ? <HomeIconFull /> : <HomeIcon />}</button></span>
