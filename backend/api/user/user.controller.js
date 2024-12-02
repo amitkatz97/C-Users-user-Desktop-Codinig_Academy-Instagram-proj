@@ -64,7 +64,7 @@ export async function updateUser(req, res){
         if (currentUser.followers.length < userToSave.followers.length){
             const lastFollower = Object.values(userToSave.followers).pop()
             // console.log("lastfollower:",lastFollower)
-            socketService.emitToUser({type :'user-get-follow', data: lastFollower , userId: loggedinUser._id})
+            socketService.emitToUser({type :'user-get-follow', data: lastFollower , userId: userToSave._id})
         }
         res.send(savedUser)
         loggerService.info(" User updated succffuly")
