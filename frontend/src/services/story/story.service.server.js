@@ -81,11 +81,8 @@ const BASE_URL = (process.env.NODE_ENV !== 'development') ?
 
     async function update(story){
         try {
-            // socketService.emit(SOCKET_EVENT_STORY_UPDATED, story)
-            // console.log("story from service:", story)
             const {data: savedStory} = await axios.put(BASE_URL, story)
-            console.log("story from service:", savedStory)
-            return story
+            return savedStory
         } catch (err) {
             console.log("Cant update story:", err)
         }

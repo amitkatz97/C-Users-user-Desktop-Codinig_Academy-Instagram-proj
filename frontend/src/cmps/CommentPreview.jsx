@@ -7,17 +7,20 @@ import { FaRegHeart } from "react-icons/fa";
 
 export function CommentPreview({comment, user ,addCommentLike }){
 
-    const story = useSelector(storyState => storyState.storyModule.story)
+    // const story = useSelector(storyState => storyState.storyModule.story)
 
     const [isUserLike, setIsUserLike] = useState(false)
 
     useEffect(() =>{
+        console.log("comment:", comment)
         isLikeComment(comment)
-    },[isUserLike, story])
+    },[])
 
+    
 
 
     async function isLikeComment(comment){
+        
         const {likedBy} = comment
         let indexToRemove= likedBy.findIndex(userLike => userLike._id === user._id)
         if (indexToRemove < 0 ) 
@@ -34,7 +37,7 @@ export function CommentPreview({comment, user ,addCommentLike }){
 
 
 
-    if (!story) return <div>Loading</div>
+    if (!comment) return <div>Loading</div>
     return(
         <div className='comment'>
             <img src={comment.by.imgUrl} alt="" /><span>{comment.by.fullname}:</span> {comment.txt} 

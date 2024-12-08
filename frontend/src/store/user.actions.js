@@ -90,7 +90,7 @@ export async function addFollow(user, profile) {
     }
 
 
-    let followStatus = followers.filter(userFollower => userFollower._id === user._id)
+    const followStatus = followers.filter(userFollower => userFollower._id === user._id)
     if (followStatus.length === 0) {
         followers.push(myMiniUser)
         following.push(profileMiniUser)

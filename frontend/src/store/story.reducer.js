@@ -17,6 +17,7 @@ const initialState = {
 export function storyReducer(state = initialState, action) {
     var newState = state
     var stories
+    var story 
     switch (action.type) {
         case SET_STORIES:
             newState = { ...state, stories: action.stories }
@@ -36,8 +37,8 @@ export function storyReducer(state = initialState, action) {
             newState = { ...state, stories: [...state.stories, action.story] }
             break
         case UPDATE_STORY:
-            stories = state.stories.map(story => (story._id === action.story._id) ? action.story : story)
-            newState = { ...state, stories }
+            story = state.stories.find(story => story._id === action.story._id)
+            newState = { ...state, story: action.story }
             break
         case ADD_STORY_MSG:
             newState = { ...state, story: { ...state.story, msgs: [...state.story.msgs || [], action.msg] } }

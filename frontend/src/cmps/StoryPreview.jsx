@@ -15,25 +15,35 @@ import { UserMiniCard } from "./UserMiniCard.jsx";
 
 
 
-export function StoryPreview({ story, onLike }) {
+
+export function StoryPreview({ story , onLike}) {
     const user = useSelector(userState => userState.userModule.user)
-    const stories = useSelector(storeState => storeState.storyModule.stories)
+    const storeStory = useSelector(storeState => storeState.storyModule.story)
     const navigate = useNavigate()
-    const [isUserLike, setIsUserLike] = useState(false)
+    const [isUserLike, setIsUserLike] = useState()
 
     useEffect(() => {
-        isUserLikeCheck1(story)
+        isUserLikeCheck1()
+        console.log("story preview is rendering", story.by)
+    }, [])
 
-    }, [isUserLike, stories])
-
-    function isUserLikeCheck1(story) {
+    function isUserLikeCheck1() {
+        // console.log("is user like check is active")
         const { likedBy } = story
         let indexToRemove = likedBy.findIndex(userLike => userLike._id === user._id)
         if (indexToRemove < 0) { setIsUserLike(false) }
         else setIsUserLike(true)
     }
+     async function onLikeClicked(story){
+        setIsUserLike(!isUserLike)
+        onLike(story)
+     }
+    
+ 
 
-    if (!stories) return <div><Loader/></div>
+    
+
+    if (!story) return <div><Loader/></div>
     return (
         <div className="story-preview">
 
@@ -47,8 +57,8 @@ export function StoryPreview({ story, onLike }) {
             <div className="action-panel">
                 {/* {like(story)} */}
                 {isUserLike ? (
-                    <button onClick={() => { onLike(story) }}><NotificationIconRed /></button>) :
-                    (<button onClick={() => { onLike(story) }}><NotificationIcon /></button>)
+                    <button onClick={() => { onLikeClicked(story) }}><NotificationIconRed /></button>) :
+                    (<button onClick={() => { onLikeClicked(story) }}><NotificationIcon /></button>)
                 }
                 <button onClick={() => navigate(`/home/${story._id}`)}><CommentIcon /></button>
                 <button><MessageIcon /></button>

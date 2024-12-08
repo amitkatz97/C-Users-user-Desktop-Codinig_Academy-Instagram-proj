@@ -161,7 +161,7 @@
         }
 
         .logout-btn {
-            margin-top: 290px;
+            margin-top: 330px;
             display: flex;
             flex-direction: row-reverse;
             align-items: center;
@@ -175,6 +175,7 @@
 
         .logout-btn span {
             display: flex;
+            width: 100%;
             flex-direction: row-reverse;
             align-items: center;
             justify-content: start;
@@ -186,6 +187,7 @@
 
         .nav-link span {
             display: flex;
+            // width: 100%;
             flex-direction: row-reverse;
             align-items: center;
 

@@ -24,7 +24,7 @@ export function StoryDetails() {
 
     const story = useSelector(storyState => storyState.storyModule.story)
     const user = useSelector(userState => userState.userModule.user)
-    const stories = useSelector(storeState => storeState.storyModule.stories)
+    // const stories = useSelector(storeState => storeState.storyModule.stories)
 
     const [isUserLike, setIsUserLike] = useState()
     const [isLoading, setIsLoading] = useState(true)

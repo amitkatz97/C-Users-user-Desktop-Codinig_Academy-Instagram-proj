@@ -17,7 +17,7 @@ export function HomePage() {
     const stories = useSelector(storeState => storeState.storyModule.stories)
     const user = useSelector(userState => userState.userModule.user)
     const users = useSelector(userState => userState.userModule.users)
-    const story = useSelector(storeState => storeState.storyModule.story)
+    // const story = useSelector(storeState => storeState.storyModule.story)
 
     
 
@@ -32,7 +32,7 @@ export function HomePage() {
         return () =>{
             socketService.off(SOCKET_EVENT_STORY_UPDATED)
         }
-    }, [story])
+    }, [])
 
     async function Init(){
         console.log("user:", user)

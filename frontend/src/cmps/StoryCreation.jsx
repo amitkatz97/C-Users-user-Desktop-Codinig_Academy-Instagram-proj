@@ -83,6 +83,7 @@ export function StoryCreation({ isOpen, closeModal }) {
 
     function onContinueUploading() {
         document.getElementById("story-create-form").style.width = '80%'
+        document.getElementById("story-create-form").style.maxWidth = '900px'
         document.getElementById("inforamtion-area").style.display = 'flex'
         document.getElementById("next").style.display = 'none'
         setIsReadyToShare(true)
@@ -126,6 +127,7 @@ export function StoryCreation({ isOpen, closeModal }) {
     function onUndo() {
         if (isReadyToShare) {
             document.getElementById("inforamtion-area").style.display = 'none'
+            document.getElementById("story-create-form").style.maxWidth = '700px'
             document.getElementById("story-create-form").style.width = '50%'
             document.getElementById("next").style.display = 'flex'
             setInputValue("")

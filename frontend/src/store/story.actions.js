@@ -51,6 +51,7 @@ export async function loadAllStories() {
 }
 
 export async function loadStory(storyId) {
+    console.log("load story is activated")
     try {
         const story = await storyService.getById(storyId)
         // console.log('Story from DB:', story)
@@ -92,7 +93,6 @@ export async function updateStory(story, comment) {
     try {
         const savedStory = await storyService.update(story)
         // console.log('Updated Story:', savedStory)
-        // console.log("story:" ,story)
         store.dispatch(getCmdUpdateStory(savedStory))
         store.dispatch(getCmdSetComment(comment))
         return savedStory
@@ -101,6 +101,8 @@ export async function updateStory(story, comment) {
         throw err
     }
 }
+
+// export async function updateComment
 
 export async function addCarMsg(storyId, txt) {
     try {
@@ -136,8 +138,6 @@ export async function addLike(story, user){
 
 export async function addCommentLike( story ,comment, user){
     const {likedBy} = comment
-    console.log (comment)
-    console.log (likedBy)
     
     let isUserLikeComment
         let likeStatus = likedBy.filter(userLike => userLike._id === user._id)

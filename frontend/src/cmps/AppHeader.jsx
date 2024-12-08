@@ -108,7 +108,7 @@ export function AppHeader() {
     }
 
     function openNotification() {
-        setNotificationList(null)
+        setNotificationList([])
         setIsNotificationOpen(!isNotificationOpen)
     }
 
@@ -141,7 +141,6 @@ export function AppHeader() {
 
     function closeSnackbar(){
         setShowSnackBar(false)
-        setNotificationList([null])
     }
 
     function onLogout() {
