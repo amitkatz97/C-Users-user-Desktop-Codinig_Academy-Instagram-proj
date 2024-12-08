@@ -72,7 +72,7 @@ It may take a minute or two for the live server to start back up, as it is hoste
 - Full responsive app (Including Mobile)
 - Smart queries for getting only rellevant stories
 - Using cloudinary service to upload high quality photos
-- 
+  
 
 
 
