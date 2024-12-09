@@ -23,7 +23,6 @@ export function HomePage() {
 
     useEffect(() => {
         Init()
-        
         socketService.on(SOCKET_EVENT_STORY_UPDATED, async (story) =>{
             console.log("GOT from socket," ,story)
             store.dispatch(getCmdUpdateStory(story))

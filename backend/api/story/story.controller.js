@@ -74,11 +74,13 @@ export async function addStory(req, res){
 export async function updateStory (req, res){
     // const {comments, likedBy, _id} = req.body
     var { loginToken } = req.cookies
+    console.log("req.loggedInUser:", req.loggedinUser)
     const { body : story } = req
 
     try {
         const currentStory = await StoryService.getById(story._id)
         const loggedinUser = authService.validateToken(loginToken)
+        console.log("loggedinUser", loggedinUser);
         const updateStory = await StoryService.update(story)
         const dataToDeliverd ={updateStory: updateStory, loggedinUser :loggedinUser}
         // socketService.broadcast({type: 'story-updated', data: updateStory, userId: loggedinUser._id})

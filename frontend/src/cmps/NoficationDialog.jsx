@@ -18,6 +18,7 @@ export function NotificationDialog({ isNotificationOpen, closeNotification, noti
     useEffect(() => {
         socketService.on(SOCKET_EVENT_STORY_LIKED, (story) => {
             const { loggedinUser, updateStory } = story
+            console.log("logged in user from socket:", loggedinUser)
             const newNotification = { id: utilService.makeId(), by: loggedinUser, story: updateStory, likedBy : true}
             setLikedList([...likedList, newNotification])
             return () => {
@@ -27,6 +28,7 @@ export function NotificationDialog({ isNotificationOpen, closeNotification, noti
 
         socketService.on(SOCKET_EVENT_STORY_COMMENT, (story)=> {
             const { loggedinUser, updateStory } = story
+            console.log("logged in user from socket:", loggedinUser)
             const newNotification = { id: utilService.makeId(), by: loggedinUser, story: updateStory ,likedBy: false}
             setLikedList([...likedList, newNotification])
             return () => {

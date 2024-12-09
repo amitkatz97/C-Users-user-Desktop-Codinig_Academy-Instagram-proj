@@ -79,6 +79,7 @@ export async function addStory(story) {
     store.dispatch(getCmdSetStory(story))
     try {
         const savedStory = await storyService.save(story)
+        await loadStories(savedStory.by)
         console.log('Added Story', savedStory)
         console.log(story)
         return savedStory

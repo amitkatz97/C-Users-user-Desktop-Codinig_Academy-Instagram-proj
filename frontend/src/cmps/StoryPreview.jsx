@@ -24,7 +24,7 @@ export function StoryPreview({ story , onLike}) {
 
     useEffect(() => {
         isUserLikeCheck1()
-        console.log("story preview is rendering", story.by)
+        console.log("story preview is rendering")
     }, [])
 
     function isUserLikeCheck1() {

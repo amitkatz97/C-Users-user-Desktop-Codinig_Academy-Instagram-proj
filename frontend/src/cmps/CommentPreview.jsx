@@ -12,7 +12,6 @@ export function CommentPreview({comment, user ,addCommentLike }){
     const [isUserLike, setIsUserLike] = useState(false)
 
     useEffect(() =>{
-        console.log("comment:", comment)
         isLikeComment(comment)
     },[])
 
